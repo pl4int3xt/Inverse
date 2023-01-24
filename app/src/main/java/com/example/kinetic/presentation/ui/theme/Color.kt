@@ -1,4 +1,4 @@
-package com.example.kinetic.ui.theme
+package com.example.kinetic.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
