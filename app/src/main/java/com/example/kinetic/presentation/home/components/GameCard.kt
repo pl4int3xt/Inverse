@@ -36,27 +36,19 @@ fun GameCard(
     Column(
         modifier = Modifier
             .clickable { onclick() }
-            .padding(10.dp)
+            .padding(5.dp)
             .width(100.dp)
-            .height(350.dp)
-            .clip(shape = RoundedCornerShape(20.dp)),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+            .height(300.dp)
     ){
         Box(
             modifier = Modifier
-                .fillMaxWidth()
                 .width(100.dp)
-                .height(250.dp)
-                .background(
-                    color = Color.LightGray,
-                    shape = RoundedCornerShape(20.dp)
-                )
+                .height(200.dp)
                 .clip(shape = RoundedCornerShape(20.dp)),
             contentAlignment = Alignment.BottomCenter
         ){
             AsyncImage(
-                contentScale = ContentScale.FillBounds,
+                contentScale = ContentScale.Crop,
                 model = image, contentDescription = "category image")
             Row(
                 modifier = Modifier.fillMaxWidth(),
