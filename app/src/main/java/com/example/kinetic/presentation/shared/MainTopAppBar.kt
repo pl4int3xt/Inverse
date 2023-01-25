@@ -42,7 +42,7 @@ fun MainTopAppBar(
                 Button(
                     modifier = Modifier.size(50.dp)
                         .graphicsLayer {
-                             alpha = 0.4f
+                             alpha = 0.0f
                         }
                     ,
                     shape = CircleShape,

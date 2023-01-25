@@ -86,8 +86,7 @@ fun HomeScreen(
                 onClickAction = {},
                 actions = Icons.Default.Search
             )
-        },
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
+        }
     ) {
         Box(
             modifier = Modifier
