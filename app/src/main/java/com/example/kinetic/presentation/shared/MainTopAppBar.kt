@@ -15,13 +15,14 @@ import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainTopAppBar(
-    scrollBehavior: TopAppBarScrollBehavior,
+    scrollBehavior: TopAppBarScrollBehavior? = null,
     title: String? = "",
     navigationIcon: ImageVector? = null,
     actions: ImageVector? = null,
@@ -39,7 +40,11 @@ fun MainTopAppBar(
         navigationIcon = {
             if (navigationIcon != null) {
                 Button(
-                    modifier = Modifier.size(50.dp),
+                    modifier = Modifier.size(50.dp)
+                        .graphicsLayer {
+                             alpha = 0.4f
+                        }
+                    ,
                     shape = CircleShape,
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color.White,

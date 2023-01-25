@@ -4,6 +4,10 @@ import android.annotation.SuppressLint
 import android.graphics.Paint.Align
 import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.rememberScrollableState
+import androidx.compose.foundation.gestures.scrollable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,6 +19,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomSheetScaffold
 import androidx.compose.material.ExperimentalMaterialApi
@@ -91,7 +96,6 @@ fun GameDetailsScreen(
     Scaffold(
         topBar = {
             MainTopAppBar(
-                scrollBehavior = scrollBehavior,
                 title = "",
                 navigationIcon = Icons.Default.ArrowBack,
                 onClickNavigation = { viewModel.onEvent(GamesDetailsScreenEvents.OnCancelClicked) }) {
@@ -105,55 +109,59 @@ fun GameDetailsScreen(
                 .pullRefresh(pullRefreshState)
                 .fillMaxHeight(1f)
         ) {
-            LazyColumn(){
-                item {
-                    Column(
-                        modifier = Modifier.fillMaxSize()
-                    ) {
-                        AsyncImage(
-                            modifier = Modifier.fillMaxHeight(0.6f),
-                            contentScale = ContentScale.FillBounds,
-                            model = state.gameDetails?.backgroundImage, contentDescription = "image")
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight(0.4f)
-                        ) {
-                            state.gameDetails?.let { it1 ->
-                                Text(
-                                    text = it1.name,
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 20.sp
-                                )
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .horizontalScroll(rememberScrollState())
+            ) {
+                AsyncImage(
+                    modifier = Modifier
+                        .fillMaxHeight(0.6f)
+                        .background(
+                            color = Color.Transparent,
+                            shape = RoundedCornerShape(bottomEnd = 20.dp, bottomStart = 20.dp)
+                        )
+                    ,
+                    contentScale = ContentScale.Crop,
+                    model = state.gameDetails?.backgroundImage, contentDescription = "image")
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(0.4f)
+                ) {
+                    state.gameDetails?.let { it1 ->
+                        Text(
+                            text = it1.name,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 30.sp
+                        )
+                    }
+                    Row() {
+                        state.gameDetails?.esrbRating?.let { Text(text = it) }
+                        state.gameDetails?.metacritic?.let { Text(text = it.toString()) }
+                    }
+                    LazyRow(){
+                        state.gameDetails?.platforms?.let {
+                            items(it.size){ i ->
+                                state.gameDetails.platforms[i]?.let { Text(text = it) }
                             }
-                            Row() {
-                                state.gameDetails?.esrbRating?.let { Text(text = it) }
-                                state.gameDetails?.metacritic?.let { Text(text = it.toString()) }
-                            }
-                            LazyRow(){
-                                state.gameDetails?.platforms?.let {
-                                    items(it.size){ i ->
-                                        state.gameDetails.platforms[i]?.let { Text(text = it) }
-                                    }
-                                }
-                            }
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                state.gameDetails?.publisher?.let { Text(text = it) }
-                                AsyncImage(model = state.gameDetails?.publisherImage, contentDescription = "publisher image")
-                            }
-                            LazyRow(){
-                                state.gameDetails?.genres?.let {
-                                    items(it.size){ i ->
-                                        state.gameDetails.genres[i]?.let { Text(text = it) }
-                                    }
-                                }
-                            }
-                            state.gameDetails?.let { Text(text = it.description) }
-                            state.gameDetails?.let { Text(text = it.pcRequirements) }
                         }
                     }
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        state.gameDetails?.publisher?.let { Text(text = it) }
+                        AsyncImage(model = state.gameDetails?.publisherImage, contentDescription = "publisher image")
+                    }
+                    LazyRow(){
+                        state.gameDetails?.genres?.let {
+                            items(it.size){ i ->
+                                state.gameDetails.genres[i]?.let { Text(text = it) }
+                            }
+                        }
+                    }
+                    state.gameDetails?.let { Text(text = it.description) }
+                    state.gameDetails?.let { Text(text = it.pcRequirements) }
                 }
             }
             PullRefreshIndicator(

@@ -82,7 +82,6 @@ fun HomeScreen(
     Scaffold(
         topBar = {
             MainTopAppBar(
-                scrollBehavior = scrollBehavior,
                 onClickNavigation = { /*TODO*/ },
                 onClickAction = {},
                 actions = Icons.Default.Search
@@ -99,9 +98,7 @@ fun HomeScreen(
             Column(
                 modifier = Modifier.fillMaxSize()
             ) {
-                LazyColumn(
-                    modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
-                ){
+                LazyColumn(){
                     item {
                         Column(
                             modifier = Modifier.height(100.dp)
@@ -119,7 +116,6 @@ fun HomeScreen(
                     }
                 }
                 LazyVerticalGrid(
-                    modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
                     columns = GridCells.Fixed(2),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ){
