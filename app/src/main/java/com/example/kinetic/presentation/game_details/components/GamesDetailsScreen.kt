@@ -115,13 +115,16 @@ fun GameDetailsScreen(
                     Column(
                         modifier = Modifier.fillMaxSize()
                     ) {
-                        AsyncImage(
+                        Column(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .fillMaxHeight(0.6f)
-                            ,
-                            contentScale = ContentScale.Crop,
-                            model = state.gameDetails?.backgroundImage, contentDescription = "image")
+                        ) {
+                            AsyncImage(
+                                contentScale = ContentScale.Crop,
+                                model = state.gameDetails?.backgroundImage, contentDescription = "image"
+                            )
+                        }
                         Column(
                             modifier = Modifier
                                 .padding(10.dp)
@@ -135,8 +138,7 @@ fun GameDetailsScreen(
                                     fontSize = 30.sp
                                 )
                             }
-                            Divider()
-                            Row() {
+                            Row {
                                 state.gameDetails?.esrbRating?.let {
                                     when(it){
                                         "Mature" -> {
@@ -153,6 +155,7 @@ fun GameDetailsScreen(
                                         }
                                     }
                                 }
+                                Spacer(modifier = Modifier.weight(1f))
                                 Column() {
                                     Text(text = "Metacritic")
                                     state.gameDetails?.metacritic?.let {
@@ -163,7 +166,6 @@ fun GameDetailsScreen(
                                     }
                                 }
                             }
-                            Divider()
                             Column() {
                                 Text(
                                     text = "Game Platforms",
@@ -175,31 +177,11 @@ fun GameDetailsScreen(
                                     state.gameDetails?.platforms?.let {
                                         items(it.size){ i ->
                                             state.gameDetails.platforms[i]?.let {
-                                                when(it){
-                                                    "playstation" -> {
-                                                        SinglePlatform(icon = R.mipmap.playstation)
-                                                    }
-                                                    "xbox" -> {
-                                                        SinglePlatform(icon = R.mipmap.xbox)
-                                                    }
-                                                    "pc" -> {
-                                                        SinglePlatform(icon = R.mipmap.windows)
-                                                    }
-                                                    "android" -> {
-                                                        SinglePlatform(icon = R.mipmap.android)
-                                                    }
-                                                    "ios" -> {
-                                                        SinglePlatform(icon = R.mipmap.apple)
-                                                    }
-                                                    else -> {
-                                                        SinglePlatform(name = it)
-                                                    }
-                                                }
+                                                SinglePlatform(name = it)
                                             }
                                         }
                                     }
                                 }
-                                Divider()
                             }
                             Column() {
                                 Text(
@@ -216,23 +198,17 @@ fun GameDetailsScreen(
                                             fontSize = 20.sp
                                         )
                                     }
-                                    Spacer(modifier = Modifier.weight(1f))
-                                    AsyncImage(
-                                        modifier = Modifier.clip(shape = CircleShape)
-                                            .size(50.dp)
-                                        ,
-                                        model = state.gameDetails?.publisherImage,
-                                        contentDescription = "publisher image")
                                 }
-                                Divider()
                             }
                             Column() {
                                 Text(
-                                    text = "Game Details",
+                                    text = "Tags",
                                     fontSize = 25.sp,
                                     fontWeight = FontWeight.Bold
                                 )
-                                LazyRow(){
+                                LazyRow(
+                                    modifier = Modifier.padding(10.dp)
+                                ){
                                     state.gameDetails?.genres?.let {
                                         items(it.size){ i ->
                                             state.gameDetails.genres[i]?.let { name ->
@@ -241,7 +217,6 @@ fun GameDetailsScreen(
                                         }
                                     }
                                 }
-                                Divider()
                             }
                             Column() {
                                 Text(
@@ -256,7 +231,6 @@ fun GameDetailsScreen(
                                         fontSize = 20.sp
                                     )
                                 }
-                                Divider()
                                 Text(
                                     text = "PC minimum requirements",
                                     fontSize = 25.sp,
