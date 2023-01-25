@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
@@ -121,6 +122,7 @@ fun GameDetailsScreen(
                                 .fillMaxHeight(0.6f)
                         ) {
                             AsyncImage(
+                                modifier = Modifier.fillMaxSize(),
                                 contentScale = ContentScale.Crop,
                                 model = state.gameDetails?.backgroundImage, contentDescription = "image"
                             )
@@ -138,6 +140,7 @@ fun GameDetailsScreen(
                                     fontSize = 30.sp
                                 )
                             }
+                            Spacer(modifier = Modifier.height(5.dp))
                             Row {
                                 state.gameDetails?.esrbRating?.let {
                                     when(it){
@@ -166,6 +169,7 @@ fun GameDetailsScreen(
                                     }
                                 }
                             }
+                            Spacer(modifier = Modifier.height(5.dp))
                             Column() {
                                 Text(
                                     text = "Game Platforms",
@@ -178,11 +182,13 @@ fun GameDetailsScreen(
                                         items(it.size){ i ->
                                             state.gameDetails.platforms[i]?.let {
                                                 SinglePlatform(name = it)
+                                                Spacer(modifier = Modifier.width(5.dp))
                                             }
                                         }
                                     }
                                 }
                             }
+                            Spacer(modifier = Modifier.height(5.dp))
                             Column() {
                                 Text(
                                     text = "Game Publisher",
@@ -200,6 +206,7 @@ fun GameDetailsScreen(
                                     }
                                 }
                             }
+                            Spacer(modifier = Modifier.height(5.dp))
                             Column() {
                                 Text(
                                     text = "Tags",
@@ -213,11 +220,13 @@ fun GameDetailsScreen(
                                         items(it.size){ i ->
                                             state.gameDetails.genres[i]?.let { name ->
                                                 SingleGenre(name = name)
+                                                Spacer(modifier = Modifier.width(5.dp))
                                             }
                                         }
                                     }
                                 }
                             }
+                            Spacer(modifier = Modifier.height(5.dp))
                             Column() {
                                 Text(
                                     text = "Game Details",
@@ -226,7 +235,6 @@ fun GameDetailsScreen(
                                 )
                                 state.gameDetails?.let {
                                     Text(
-                                        modifier = Modifier.padding(10.dp),
                                         text = it.description,
                                         fontSize = 20.sp
                                     )
@@ -239,7 +247,6 @@ fun GameDetailsScreen(
                                 state.gameDetails?.let {
                                     Text(
                                         fontSize = 20.sp,
-                                        modifier = Modifier.padding(10.dp),
                                         text = it.pcRequirements) }
                             }
                         }
