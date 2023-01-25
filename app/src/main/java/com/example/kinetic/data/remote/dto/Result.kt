@@ -42,6 +42,5 @@ fun Result.toGameModel(): GameModel{
         name = name,
         image = background_image,
         rating = rating,
-        esrb_rating = esrb_rating.name
     )
 }

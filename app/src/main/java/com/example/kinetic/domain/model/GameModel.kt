@@ -5,5 +5,4 @@ data class GameModel(
     val name: String,
     val image: String,
     val rating: Double,
-    val esrb_rating: String
 )
