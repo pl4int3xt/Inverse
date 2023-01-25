@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -21,6 +22,7 @@ import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material.rememberBottomSheetScaffoldState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
@@ -81,8 +83,7 @@ fun GameDetailsScreen(
         contentColor = MaterialTheme.colorScheme.primary
     )
 
-    BottomSheetScaffold(
-        scaffoldState = rememberBottomSheetScaffoldState(),
+    Scaffold(
         topBar = {
             MainTopAppBar(
                 scrollBehavior = scrollBehavior,
@@ -92,46 +93,6 @@ fun GameDetailsScreen(
             }
         },
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        sheetContent = {
-            Column(
-                modifier = Modifier
-                    .padding(5.dp)
-                    .fillMaxWidth()
-                    .clip(shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
-            ) {
-                state.gameDetails?.let { it1 ->
-                    Text(
-                        text = it1.name,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp
-                    )
-                }
-                Row() {
-                    state.gameDetails?.esrbRating?.let { Text(text = it) }
-                    state.gameDetails?.metacritic?.let { Text(text = it.toString()) }
-                }
-                LazyRow(){
-                    state.gameDetails?.platforms?.let {
-                        items(it.size){ i ->
-                            state.gameDetails.platforms[i]?.let { Text(text = it) }
-                        }
-                    }
-                }
-                Row() {
-                    state.gameDetails?.publisher?.let { Text(text = it) }
-                    AsyncImage(model = state.gameDetails?.publisherImage, contentDescription = "publisher image")
-                }
-                LazyRow(){
-                    state.gameDetails?.genres?.let {
-                        items(it.size){ i ->
-                            state.gameDetails.genres[i]?.let { Text(text = it) }
-                        }
-                    }
-                }
-                state.gameDetails?.let { Text(text = it.description) }
-                state.gameDetails?.let { Text(text = it.pcRequirements) }
-            }
-        }
     ) {
         Box(
             modifier = Modifier
@@ -143,13 +104,54 @@ fun GameDetailsScreen(
                 item {
                     Box (
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .fillMaxHeight(0.4f),
-                        contentAlignment = Alignment.Center
+                            .fillMaxSize(),
+                        contentAlignment = Alignment.TopCenter
                     ){
                         AsyncImage(
+                            modifier = Modifier.fillMaxHeight(0.4f)
+                                .fillMaxWidth()
+                            ,
                             contentScale = ContentScale.FillBounds,
                             model = state.gameDetails?.backgroundImage, contentDescription = "image")
+                        Column(
+                            modifier = Modifier
+                                .padding(5.dp)
+                                .fillMaxWidth()
+                                .fillMaxHeight(0.7f)
+                                .clip(shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+                        ) {
+                            state.gameDetails?.let { it1 ->
+                                Text(
+                                    text = it1.name,
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 20.sp
+                                )
+                            }
+                            Row() {
+                                state.gameDetails?.esrbRating?.let { Text(text = it) }
+                                state.gameDetails?.metacritic?.let { Text(text = it.toString()) }
+                            }
+                            LazyRow(){
+                                state.gameDetails?.platforms?.let {
+                                    items(it.size){ i ->
+                                        state.gameDetails.platforms[i]?.let { Text(text = it) }
+                                    }
+                                }
+                            }
+                            Row() {
+                                state.gameDetails?.publisher?.let { Text(text = it) }
+                                AsyncImage(model = state.gameDetails?.publisherImage, contentDescription = "publisher image")
+                            }
+                            LazyRow(){
+                                state.gameDetails?.genres?.let {
+                                    items(it.size){ i ->
+                                        state.gameDetails.genres[i]?.let { Text(text = it) }
+                                    }
+                                }
+                            }
+                            state.gameDetails?.let { Text(text = it.description) }
+                            state.gameDetails?.let { Text(text = it.pcRequirements) }
+                        }
                     }
                 }
             }

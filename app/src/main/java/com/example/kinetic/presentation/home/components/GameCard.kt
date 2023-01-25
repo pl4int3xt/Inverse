@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -12,6 +14,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GameCard(
     rating: Double,
@@ -32,19 +38,22 @@ fun GameCard(
     image: String,
     onclick: () -> Unit
 ) {
-    Column(
+    Card(
+        onClick = { onclick()},
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 10.dp,
+            pressedElevation = 0.dp
+        ),
         modifier = Modifier
-            .clickable { onclick() }
-            .padding(5.dp)
+            .padding(8.dp)
             .width(100.dp)
-            .height(270.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .height(200.dp),
+        shape = RoundedCornerShape(20.dp)
     ){
         Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(200.dp)
-                .clip(shape = RoundedCornerShape(20.dp)),
+                .fillMaxSize()
+            ,
             contentAlignment = Alignment.BottomCenter
         ){
             AsyncImage(
@@ -55,19 +64,25 @@ fun GameCard(
                 horizontalArrangement = Arrangement.Start
             ) {
                 Icon(
+                    modifier = Modifier.padding(5.dp),
                     tint = Color.Yellow,
                     imageVector = Icons.Default.Star, contentDescription = "rating")
                 Text(
+                    modifier = Modifier.padding(5.dp),
                     color = Color.White,
                     text = rating.toString(),
                     fontWeight = FontWeight.Bold,
                     fontSize = 15.sp
                 )
+                Spacer(modifier = Modifier.width(5.dp))
+                Text(
+                    modifier = Modifier.padding(5.dp),
+                    color = Color.White,
+                    text = name,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 15.sp
+                )
             }
         }
-        Text(
-            modifier = Modifier.padding(5.dp),
-            text = name,
-        )
     }
 }

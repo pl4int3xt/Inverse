@@ -99,7 +99,9 @@ fun HomeScreen(
             Column(
                 modifier = Modifier.fillMaxSize()
             ) {
-                LazyColumn(){
+                LazyColumn(
+                    modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
+                ){
                     item {
                         Column(
                             modifier = Modifier.height(100.dp)
@@ -112,11 +114,12 @@ fun HomeScreen(
                             modifier = Modifier.padding(5.dp),
                             text = "Republic of\nGamers",
                             fontWeight = FontWeight.Bold,
-                            fontSize = 30.sp
+                            fontSize = 35.sp
                         )
                     }
                 }
                 LazyVerticalGrid(
+
                     columns = GridCells.Fixed(2),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ){
