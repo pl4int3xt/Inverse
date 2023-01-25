@@ -2,6 +2,7 @@ package com.example.kinetic.presentation.home.components
 
 import android.annotation.SuppressLint
 import android.widget.Toast
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -124,7 +125,10 @@ fun HomeScreen(
                         )
                     }
                 }
-                LazyVerticalGrid(columns = GridCells.Fixed(2)){
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ){
                     items(state.games.size){ i ->
                         GameCard(
                             name = state.games[i].name,
