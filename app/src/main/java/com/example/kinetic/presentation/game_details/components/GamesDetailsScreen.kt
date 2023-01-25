@@ -127,6 +127,7 @@ fun GameDetailsScreen(
                             }
                             Column(
                                 modifier = Modifier.height(10.dp)
+                                    .align(Alignment.BottomCenter)
                                     .background(color = Color.White,
                                         shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
                             ) {
@@ -138,7 +139,6 @@ fun GameDetailsScreen(
                                 .fillMaxWidth()
                                 .fillMaxHeight(0.5f)
                         ) {
-                            Spacer(modifier = Modifier.height(100.dp))
                             state.gameDetails?.let { it1 ->
                                 Text(
                                     text = it1.name,

@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -70,7 +71,7 @@ fun GameCard(
                     tint = Color.Yellow,
                     imageVector = Icons.Default.Star, contentDescription = "rating")
                 Text(
-                    modifier = Modifier.padding(5.dp),
+                    modifier = Modifier.padding(2.dp),
                     color = Color.White,
                     text = rating.toString(),
                     fontWeight = FontWeight.Bold,
@@ -78,13 +79,14 @@ fun GameCard(
                 )
             }
             Column(
-                modifier = Modifier
-                    .padding(5.dp)
-                    .align(alignment = Alignment.TopStart)
-                    .blur(10.dp)
-                    .background(color = Color.White)
+                modifier = Modifier.graphicsLayer {
+                alpha = 0.5F }
+                    .align(Alignment.TopStart)
+                    .background(Color.Black)
             ) {
                 Text(
+                    modifier = Modifier
+                        .padding(5.dp),
                     color = Color.White,
                     text = name,
                     fontWeight = FontWeight.Bold,
