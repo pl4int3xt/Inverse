@@ -41,9 +41,7 @@ fun MainTopAppBar(
             if (navigationIcon != null) {
                 Button(
                     modifier = Modifier.size(50.dp)
-                        .graphicsLayer {
-                             alpha = 0.0f
-                        }
+                        .graphicsLayer {}
                     ,
                     shape = CircleShape,
                     colors = ButtonDefaults.buttonColors(

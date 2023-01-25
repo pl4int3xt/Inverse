@@ -3,7 +3,9 @@ package com.example.kinetic.presentation.game_details.components
 import android.annotation.SuppressLint
 import android.graphics.Paint.Align
 import android.widget.Toast
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,8 +15,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomSheetScaffold
 import androidx.compose.material.ExperimentalMaterialApi
@@ -24,6 +28,7 @@ import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material.rememberBottomSheetScaffoldState
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -39,11 +44,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import com.example.kinetic.R
 import com.example.kinetic.presentation.game_details.GamesDetailsScreenEvents
 import com.example.kinetic.presentation.game_details.GamesDetailsScreenViewModel
 import com.example.kinetic.presentation.shared.MainTopAppBar
@@ -109,15 +116,17 @@ fun GameDetailsScreen(
                         modifier = Modifier.fillMaxSize()
                     ) {
                         AsyncImage(
-                            modifier = Modifier.fillMaxWidth()
-                                .fillMaxHeight(6f)
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .fillMaxHeight(0.6f)
                             ,
                             contentScale = ContentScale.Crop,
                             model = state.gameDetails?.backgroundImage, contentDescription = "image")
                         Column(
                             modifier = Modifier
+                                .padding(10.dp)
                                 .fillMaxWidth()
-                                .fillMaxHeight(0.5f)
+                                .fillMaxHeight(0.4f)
                         ) {
                             state.gameDetails?.let { it1 ->
                                 Text(
@@ -126,32 +135,139 @@ fun GameDetailsScreen(
                                     fontSize = 30.sp
                                 )
                             }
+                            Divider()
                             Row() {
-                                state.gameDetails?.esrbRating?.let { Text(text = it) }
-                                state.gameDetails?.metacritic?.let { Text(text = it.toString()) }
-                            }
-                            LazyRow(){
-                                state.gameDetails?.platforms?.let {
-                                    items(it.size){ i ->
-                                        state.gameDetails.platforms[i]?.let { Text(text = it) }
+                                state.gameDetails?.esrbRating?.let {
+                                    when(it){
+                                        "Mature" -> {
+                                            EsrbRating(image = R.drawable.mature, description = "mature")
+                                        }
+                                        "Teen" -> {
+                                            EsrbRating(image = R.drawable.teen, description = "mature")
+                                        }
+                                        "Everyone" -> {
+                                            EsrbRating(image = R.drawable.everyone, description = "mature")
+                                        }
+                                        else -> {
+                                            EsrbRating(name = it)
+                                        }
+                                    }
+                                }
+                                Column() {
+                                    Text(text = "Metacritic")
+                                    state.gameDetails?.metacritic?.let {
+                                        Text(
+                                            text = it.toString(),
+                                            fontSize = 30.sp
+                                        )
                                     }
                                 }
                             }
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                state.gameDetails?.publisher?.let { Text(text = it) }
-                                AsyncImage(model = state.gameDetails?.publisherImage, contentDescription = "publisher image")
-                            }
-                            LazyRow(){
-                                state.gameDetails?.genres?.let {
-                                    items(it.size){ i ->
-                                        state.gameDetails.genres[i]?.let { Text(text = it) }
+                            Divider()
+                            Column() {
+                                Text(
+                                    text = "Game Platforms",
+                                    fontSize = 25.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                                LazyRow(
+                                ){
+                                    state.gameDetails?.platforms?.let {
+                                        items(it.size){ i ->
+                                            state.gameDetails.platforms[i]?.let {
+                                                when(it){
+                                                    "playstation" -> {
+                                                        SinglePlatform(icon = R.mipmap.playstation)
+                                                    }
+                                                    "xbox" -> {
+                                                        SinglePlatform(icon = R.mipmap.xbox)
+                                                    }
+                                                    "pc" -> {
+                                                        SinglePlatform(icon = R.mipmap.windows)
+                                                    }
+                                                    "android" -> {
+                                                        SinglePlatform(icon = R.mipmap.android)
+                                                    }
+                                                    "ios" -> {
+                                                        SinglePlatform(icon = R.mipmap.apple)
+                                                    }
+                                                    else -> {
+                                                        SinglePlatform(name = it)
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
                                 }
+                                Divider()
                             }
-                            state.gameDetails?.let { Text(text = it.description) }
-                            state.gameDetails?.let { Text(text = it.pcRequirements) }
+                            Column() {
+                                Text(
+                                    text = "Game Publisher",
+                                    fontSize = 25.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                                Row(
+                                    horizontalArrangement = Arrangement.SpaceBetween
+                                ) {
+                                    state.gameDetails?.publisher?.let {
+                                        Text(
+                                            text = it,
+                                            fontSize = 20.sp
+                                        )
+                                    }
+                                    Spacer(modifier = Modifier.weight(1f))
+                                    AsyncImage(
+                                        modifier = Modifier.clip(shape = CircleShape)
+                                            .size(50.dp)
+                                        ,
+                                        model = state.gameDetails?.publisherImage,
+                                        contentDescription = "publisher image")
+                                }
+                                Divider()
+                            }
+                            Column() {
+                                Text(
+                                    text = "Game Details",
+                                    fontSize = 25.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                                LazyRow(){
+                                    state.gameDetails?.genres?.let {
+                                        items(it.size){ i ->
+                                            state.gameDetails.genres[i]?.let { name ->
+                                                SingleGenre(name = name)
+                                            }
+                                        }
+                                    }
+                                }
+                                Divider()
+                            }
+                            Column() {
+                                Text(
+                                    text = "Game Details",
+                                    fontSize = 25.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                                state.gameDetails?.let {
+                                    Text(
+                                        modifier = Modifier.padding(10.dp),
+                                        text = it.description,
+                                        fontSize = 20.sp
+                                    )
+                                }
+                                Divider()
+                                Text(
+                                    text = "PC minimum requirements",
+                                    fontSize = 25.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                                state.gameDetails?.let {
+                                    Text(
+                                        fontSize = 20.sp,
+                                        modifier = Modifier.padding(10.dp),
+                                        text = it.pcRequirements) }
+                            }
                         }
                     }
                 }
