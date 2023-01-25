@@ -9,7 +9,7 @@ data class GamesDto(
     val filters: Filters,
     val next: String? = "",
     val nofollow: Boolean? = false,
-    val nofollow_collections: List<String>,
+    val nofollow_collections: List<String>? = emptyList(),
     val noindex: Boolean? = false,
     val previous: String? = "",
     val results: List<Result>,

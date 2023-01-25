@@ -4,5 +4,5 @@ data class GameModel(
     val id: Int,
     val name: String,
     val image: String,
-    val rating: Double,
+    val rating: Double
 )

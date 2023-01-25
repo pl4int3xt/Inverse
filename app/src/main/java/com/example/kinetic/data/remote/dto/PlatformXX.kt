@@ -4,12 +4,12 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class PlatformXX(
-    val games_count: Int,
-    val id: Int,
-    val image: String,
-    val image_background: String,
-    val name: String,
-    val slug: String,
-    val year_end: Int,
-    val year_start: Int
+    val games_count: Int? = 0,
+    val id: Int? = 0,
+    val image: String? = "",
+    val image_background: String? = "",
+    val name: String? = "",
+    val slug: String? = "",
+    val year_end: Int? = 0,
+    val year_start: Int? = 0,
 )

@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Store(
-    val id: Int,
+    val id: Int? = 0,
     val store: StoreX
 )
