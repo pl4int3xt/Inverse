@@ -119,23 +119,16 @@ fun HomeScreen(
                         fontSize = 25.sp
                     )
                 }
-                item {
-                    LazyVerticalGrid(
-                        columns = GridCells.Fixed(2),
-                        modifier = Modifier.padding(10.dp)
-                    ){
-                        items(state.games.size){ i ->
-                            GameCard(
-                                name = state.games[i].name,
-                                image = state.games[i].image,
-                                rating = state.games[i].rating,
-                                onclick = {
-                                    navHostController.navigate(
-                                        Screens.GameDetailsScreen.route + "/${state.games[i].id}")
-                                }
-                            )
+                items(state.games.size){ i ->
+                    GameCard(
+                        name = state.games[i].name,
+                        image = state.games[i].image,
+                        rating = state.games[i].rating,
+                        onclick = {
+                            navHostController.navigate(
+                                Screens.GameDetailsScreen.route + "/${state.games[i].id}")
                         }
-                    }
+                    )
                 }
             }
             PullRefreshIndicator(

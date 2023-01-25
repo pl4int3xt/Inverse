@@ -11,7 +11,7 @@ data class GamesDto(
     val nofollow: Boolean,
     val nofollow_collections: List<String>,
     val noindex: Boolean,
-    val previous: String,
+    val previous: String? = "",
     val results: List<Result>,
     val seo_description: String,
     val seo_h1: String,
