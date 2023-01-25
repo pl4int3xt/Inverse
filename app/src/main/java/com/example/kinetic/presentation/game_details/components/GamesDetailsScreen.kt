@@ -124,7 +124,8 @@ fun GameDetailsScreen(
                             AsyncImage(
                                 modifier = Modifier.fillMaxSize(),
                                 contentScale = ContentScale.Crop,
-                                model = state.gameDetails?.backgroundImage, contentDescription = "image"
+                                model = state.gameDetails?.backgroundImage,
+                                contentDescription = "image"
                             )
                         }
                         Column(
