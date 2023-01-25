@@ -107,31 +107,36 @@ fun GameDetailsScreen(
         ) {
             LazyColumn(){
                 item {
-                    Box (
-                        modifier = Modifier
-                            .fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ){
-                        Column(
+                    Column(
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        Box(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .align(alignment = Alignment.TopCenter)
-                                .fillMaxHeight(0.5f)
+                                .fillMaxHeight(0.5f),
+                            contentAlignment = Alignment.BottomCenter
                         ) {
-                            AsyncImage(
-                                contentScale = ContentScale.FillBounds,
-                                model = state.gameDetails?.backgroundImage, contentDescription = "image")
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .fillMaxHeight()
+                            ) {
+                                AsyncImage(
+                                    contentScale = ContentScale.FillBounds,
+                                    model = state.gameDetails?.backgroundImage, contentDescription = "image")
+                            }
+                            Column(
+                                modifier = Modifier.height(10.dp)
+                                    .background(color = Color.White,
+                                        shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+                            ) {
+
+                            }
                         }
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .background(
-                                    color = Color.White,
-                                    shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
-                                )
                                 .fillMaxHeight(0.5f)
-                                .clip(shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
-                                .align(alignment = Alignment.BottomCenter)
                         ) {
                             Spacer(modifier = Modifier.height(100.dp))
                             state.gameDetails?.let { it1 ->

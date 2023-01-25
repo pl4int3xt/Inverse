@@ -1,5 +1,6 @@
 package com.example.kinetic.presentation.home.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -22,6 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -64,7 +66,7 @@ fun GameCard(
                 horizontalArrangement = Arrangement.Start
             ) {
                 Icon(
-                    modifier = Modifier.padding(5.dp),
+                    modifier = Modifier.padding(2.dp),
                     tint = Color.Yellow,
                     imageVector = Icons.Default.Star, contentDescription = "rating")
                 Text(
@@ -75,15 +77,20 @@ fun GameCard(
                     fontSize = 15.sp
                 )
             }
-            Text(
-                modifier = Modifier.padding(5.dp)
+            Column(
+                modifier = Modifier
+                    .padding(5.dp)
                     .align(alignment = Alignment.TopStart)
-                ,
-                color = Color.White,
-                text = name,
-                fontWeight = FontWeight.Bold,
-                fontSize = 15.sp
-            )
+                    .blur(10.dp)
+                    .background(color = Color.White)
+            ) {
+                Text(
+                    color = Color.White,
+                    text = name,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 15.sp
+                )
+            }
         }
     }
 }
