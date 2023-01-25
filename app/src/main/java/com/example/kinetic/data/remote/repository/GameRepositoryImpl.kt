@@ -23,7 +23,7 @@ class GameRepositoryImpl @Inject constructor(
 
     override suspend fun getGamesDetails(gameId: String): GamesDetailsDto {
         return httpClient.get(path = gameId.toString()) {
-            url(Constants.GET_GAME_DETAILS)
+            url("https://api.rawg.io/api/games/$gameId")
             parameter("key", "ddcd58c5aaef4a71981eff6c99e548f4")
         }
     }

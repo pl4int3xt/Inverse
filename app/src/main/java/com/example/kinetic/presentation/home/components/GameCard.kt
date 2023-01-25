@@ -37,7 +37,7 @@ fun GameCard(
             .clickable { onclick() }
             .padding(5.dp)
             .width(100.dp)
-            .height(250.dp),
+            .height(270.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ){
         Box(
