@@ -18,7 +18,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-    @OptIn(ExperimentalSerializationApi::class)
     @Singleton
     @Provides
     fun provideGameRepository(): GameRepository {

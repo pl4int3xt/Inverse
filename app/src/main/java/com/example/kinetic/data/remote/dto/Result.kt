@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Result(
     val added: Int ? = 0,
-    val added_by_status: AddedByStatus,
+    val added_by_status: AddedByStatus? = AddedByStatus(),
     val background_image: String? = "",
     val clip: String? = "",
     val dominant_color: String? = "",

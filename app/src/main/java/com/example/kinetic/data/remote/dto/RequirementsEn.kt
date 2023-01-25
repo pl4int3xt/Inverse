@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class RequirementsEn(
     val minimum: String? = "",
-    val recommended: String? = "",
+    val recommended: String? = ""
 )
