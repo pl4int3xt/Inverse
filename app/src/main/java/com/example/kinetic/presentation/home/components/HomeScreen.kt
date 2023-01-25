@@ -119,7 +119,6 @@ fun HomeScreen(
                     }
                 }
                 LazyVerticalGrid(
-
                     columns = GridCells.Fixed(2),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ){

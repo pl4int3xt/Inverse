@@ -107,12 +107,15 @@ fun GameDetailsScreen(
                             .fillMaxSize(),
                         contentAlignment = Alignment.TopCenter
                     ){
-                        AsyncImage(
-                            modifier = Modifier.fillMaxHeight(0.4f)
+                        Column(
+                            modifier = Modifier
                                 .fillMaxWidth()
-                            ,
-                            contentScale = ContentScale.FillBounds,
-                            model = state.gameDetails?.backgroundImage, contentDescription = "image")
+                                .fillMaxHeight(0.4f)
+                        ) {
+                            AsyncImage(
+                                contentScale = ContentScale.FillBounds,
+                                model = state.gameDetails?.backgroundImage, contentDescription = "image")
+                        }
                         Column(
                             modifier = Modifier
                                 .padding(5.dp)
