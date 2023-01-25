@@ -111,8 +111,10 @@ fun GameDetailsScreen(
                     state.gameDetails?.metacritic?.let { Text(text = it.toString()) }
                 }
                 LazyRow(){
-                    items(state.gameDetails!!.platforms.size){ i ->
-                        state.gameDetails.platforms[i]?.let { Text(text = it) }
+                    state.gameDetails?.platforms?.let {
+                        items(it.size){ i ->
+                            state.gameDetails.platforms[i]?.let { Text(text = it) }
+                        }
                     }
                 }
                 Row() {
@@ -120,8 +122,10 @@ fun GameDetailsScreen(
                     AsyncImage(model = state.gameDetails?.publisherImage, contentDescription = "publisher image")
                 }
                 LazyRow(){
-                    items(state.gameDetails!!.platforms.size){ i ->
-                        state.gameDetails.genres[i]?.let { Text(text = it) }
+                    state.gameDetails?.platforms?.let {
+                        items(it.size){ i ->
+                            state.gameDetails.genres[i]?.let { Text(text = it) }
+                        }
                     }
                 }
                 state.gameDetails?.let { Text(text = it.description) }
