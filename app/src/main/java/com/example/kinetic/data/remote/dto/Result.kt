@@ -1,5 +1,6 @@
 package com.example.kinetic.data.remote.dto
 
+import com.example.kinetic.domain.model.GameModel
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -34,3 +35,13 @@ data class Result(
     val updated: String,
     val user_game: String
 )
+
+fun Result.toGameModel(): GameModel{
+    return GameModel(
+        id = id,
+        name = name,
+        image = background_image,
+        rating = rating,
+        esrb_rating = esrb_rating
+    )
+}

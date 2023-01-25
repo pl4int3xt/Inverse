@@ -1,5 +1,6 @@
 package com.example.kinetic.data.remote.dto
 
+import com.example.kinetic.domain.model.GameDetailsModel
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -59,3 +60,21 @@ data class GamesDetailsDto(
     val website: String,
     val youtube_count: Int
 )
+
+fun GamesDetailsDto.toGameDetailsModel(): GameDetailsModel{
+    return GameDetailsModel(
+        name = name,
+        metacritic = metacritic,
+        backgroundImage = background_image,
+        backgroundImageAdditional = background_image_additional,
+        rating = rating,
+        ratings = ratings.first().title,
+        platforms = platforms.map { it.platform.slug },
+        pcRequirements = platforms.first { it.platform.name == "PC" }.requirements.minimum,
+        genres = genres.map { it.slug },
+        publisher = publishers.first().name,
+        publisherImage = publishers.first().image_background,
+        esrbRating = esrb_rating.name,
+        description = description_raw,
+    )
+}

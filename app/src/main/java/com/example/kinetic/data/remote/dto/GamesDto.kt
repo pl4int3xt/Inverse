@@ -1,5 +1,6 @@
 package com.example.kinetic.data.remote.dto
 
+import com.example.kinetic.domain.model.GameModel
 import kotlinx.serialization.Serializable
 
 @Serializable
