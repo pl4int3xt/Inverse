@@ -1,5 +1,8 @@
 package com.example.kinetic.data.remote.dto
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Reactions(
     val `1`: Int,
     val `10`: Int,

@@ -1,5 +1,8 @@
 package com.example.kinetic.data.remote.dto
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class GamesDetailsDto(
     val achievements_count: Int,
     val added: Int,
@@ -8,7 +11,7 @@ data class GamesDetailsDto(
     val alternative_names: List<String>,
     val background_image: String,
     val background_image_additional: String,
-    val clip: Any,
+    val clip: String,
     val creators_count: Int,
     val description: String,
     val description_raw: String,
@@ -52,7 +55,7 @@ data class GamesDetailsDto(
     val tba: Boolean,
     val twitch_count: Int,
     val updated: String,
-    val user_game: Any,
+    val user_game: String,
     val website: String,
     val youtube_count: Int
 )

@@ -1,5 +1,8 @@
 package com.example.kinetic.data.remote.dto
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class GamesDto(
     val count: Int,
     val description: String,
@@ -8,7 +11,7 @@ data class GamesDto(
     val nofollow: Boolean,
     val nofollow_collections: List<String>,
     val noindex: Boolean,
-    val previous: Any,
+    val previous: String,
     val results: List<Result>,
     val seo_description: String,
     val seo_h1: String,

@@ -1,5 +1,8 @@
 package com.example.kinetic.data.remote.dto
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class AddedByStatusX(
     val beaten: Int,
     val dropped: Int,

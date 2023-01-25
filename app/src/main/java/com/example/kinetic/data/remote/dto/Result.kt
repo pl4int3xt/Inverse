@@ -1,10 +1,13 @@
 package com.example.kinetic.data.remote.dto
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Result(
     val added: Int,
     val added_by_status: AddedByStatus,
     val background_image: String,
-    val clip: Any,
+    val clip: String,
     val dominant_color: String,
     val esrb_rating: EsrbRating,
     val genres: List<Genre>,
@@ -29,5 +32,5 @@ data class Result(
     val tags: List<Tag>,
     val tba: Boolean,
     val updated: String,
-    val user_game: Any
+    val user_game: String
 )

@@ -1,5 +1,8 @@
 package com.example.kinetic.data.remote.dto
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Tag(
     val games_count: Int,
     val id: Int,
