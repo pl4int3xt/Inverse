@@ -132,6 +132,7 @@ fun HomeScreen(
                                     Screens.GameDetailsScreen.route + "/${state.games[i].id}")
                             }
                         )
+                        Spacer(modifier = Modifier.weight(1f))
                     }
                 }
             }

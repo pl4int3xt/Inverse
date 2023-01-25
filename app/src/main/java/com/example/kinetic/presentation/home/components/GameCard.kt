@@ -46,7 +46,7 @@ fun GameCard(
         ),
         modifier = Modifier
             .padding(8.dp)
-            .width(100.dp)
+            .fillMaxWidth(0.5f)
             .height(200.dp),
         shape = RoundedCornerShape(20.dp)
     ){
@@ -74,15 +74,14 @@ fun GameCard(
                     fontWeight = FontWeight.Bold,
                     fontSize = 15.sp
                 )
-                Spacer(modifier = Modifier.width(5.dp))
-                Text(
-                    modifier = Modifier.padding(5.dp),
-                    color = Color.White,
-                    text = name,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 15.sp
-                )
             }
+            Text(
+                modifier = Modifier.padding(5.dp),
+                color = Color.White,
+                text = name,
+                fontWeight = FontWeight.Bold,
+                fontSize = 15.sp
+            )
         }
     }
 }
