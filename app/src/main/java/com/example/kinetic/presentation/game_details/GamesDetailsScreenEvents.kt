@@ -1,4 +1,5 @@
 package com.example.kinetic.presentation.game_details
 
-class GamesDetailsScreenEvents {
+sealed class GamesDetailsScreenEvents {
+    object OnCancelClicked: GamesDetailsScreenEvents()
 }
