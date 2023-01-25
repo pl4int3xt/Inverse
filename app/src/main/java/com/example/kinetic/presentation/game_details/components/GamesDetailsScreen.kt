@@ -96,7 +96,6 @@ fun GameDetailsScreen(
                 onClickNavigation = { viewModel.onEvent(GamesDetailsScreenEvents.OnCancelClicked) }) {
             }
         },
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
     ) {
         Box(
             modifier = Modifier
@@ -109,23 +108,12 @@ fun GameDetailsScreen(
                     Column(
                         modifier = Modifier.fillMaxSize()
                     ) {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxHeight(0.6f)
-                                .background(
-                                    color = Color.Transparent,
-                                    shape = RoundedCornerShape(
-                                        bottomStart = 20.dp,
-                                        bottomEnd = 20.dp
-                                    )
-                                )
-                        ) {
-                            AsyncImage(
-                                modifier = Modifier.fillMaxSize()
-                                ,
-                                contentScale = ContentScale.Crop,
-                                model = state.gameDetails?.backgroundImage, contentDescription = "image")
-                        }
+                        AsyncImage(
+                            modifier = Modifier.fillMaxWidth()
+                                .fillMaxHeight(6f)
+                            ,
+                            contentScale = ContentScale.Crop,
+                            model = state.gameDetails?.backgroundImage, contentDescription = "image")
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -135,7 +123,7 @@ fun GameDetailsScreen(
                                 Text(
                                     text = it1.name,
                                     fontWeight = FontWeight.Bold,
-                                    fontSize = 20.sp
+                                    fontSize = 30.sp
                                 )
                             }
                             Row() {
