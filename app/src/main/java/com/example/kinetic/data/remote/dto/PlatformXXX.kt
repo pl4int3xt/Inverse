@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class PlatformXXX(
-    val name: String,
-    val platform: Int,
-    val slug: String
+    val name: String? = "",
+    val platform: Int? = 0,
+    val slug: String? = "",
 )

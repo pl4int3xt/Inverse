@@ -10,7 +10,7 @@ data class Result(
     val background_image: String? = "",
     val clip: String? = "",
     val dominant_color: String? = "",
-    val esrb_rating: EsrbRating,
+    val esrb_rating: EsrbRating? = EsrbRating(),
     val genres: List<Genre>? = emptyList(),
     val id: Int,
     val metacritic: Int? = 0,

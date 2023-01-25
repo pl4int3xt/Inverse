@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class StoreXX(
-    val id: Int,
-    val store: StoreXXX,
-    val url: String
+    val id: Int? = 0,
+    val store: StoreXXX? = StoreXXX(),
+    val url: String? = "",
 )

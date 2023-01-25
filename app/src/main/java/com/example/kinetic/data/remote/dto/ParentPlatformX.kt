@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ParentPlatformX(
-    val platform: PlatformXXXX
+    val platform: PlatformXXXX? = PlatformXXXX(),
 )
