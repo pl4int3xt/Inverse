@@ -8,7 +8,6 @@ import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import io.ktor.client.request.url
-import io.ktor.http.parseQueryStringTo
 import javax.inject.Inject
 
 class GameRepositoryImpl @Inject constructor(
@@ -23,7 +22,7 @@ class GameRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getGamesDetails(gameId: String): GamesDetailsDto {
-        return httpClient.get(path = gameId) {
+        return httpClient.get(path = gameId.toString()) {
             url(Constants.GET_GAME_DETAILS)
             parameter("key", "ddcd58c5aaef4a71981eff6c99e548f4")
         }
