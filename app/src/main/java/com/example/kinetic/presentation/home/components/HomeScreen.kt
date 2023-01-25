@@ -115,15 +115,6 @@ fun HomeScreen(
                             fontSize = 30.sp
                         )
                     }
-                    item {
-                        Spacer(modifier = Modifier.height(10.dp))
-                        Text(
-                            modifier = Modifier.padding(5.dp),
-                            text = "Games",
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 25.sp
-                        )
-                    }
                 }
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(2),

@@ -122,7 +122,7 @@ fun GameDetailsScreen(
                     AsyncImage(model = state.gameDetails?.publisherImage, contentDescription = "publisher image")
                 }
                 LazyRow(){
-                    state.gameDetails?.platforms?.let {
+                    state.gameDetails?.genres?.let {
                         items(it.size){ i ->
                             state.gameDetails.genres[i]?.let { Text(text = it) }
                         }
