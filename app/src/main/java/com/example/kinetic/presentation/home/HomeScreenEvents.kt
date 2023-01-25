@@ -1,4 +1,5 @@
 package com.example.kinetic.presentation.home
 
-class HomeScreenEvents {
+sealed class HomeScreenEvents {
+    object OnSearchClicked: HomeScreenEvents()
 }

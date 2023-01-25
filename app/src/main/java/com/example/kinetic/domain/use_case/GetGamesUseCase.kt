@@ -1,9 +1,7 @@
 package com.example.kinetic.domain.use_case
 
 import com.example.kinetic.constants.Resource
-import com.example.kinetic.data.remote.dto.toGameDetailsModel
 import com.example.kinetic.data.remote.dto.toGameModel
-import com.example.kinetic.domain.model.GameDetailsModel
 import com.example.kinetic.domain.model.GameModel
 import com.example.kinetic.domain.repository.GameRepository
 import io.ktor.client.features.ClientRequestException
