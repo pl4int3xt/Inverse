@@ -76,7 +76,9 @@ fun GameCard(
                 )
             }
             Text(
-                modifier = Modifier.padding(5.dp),
+                modifier = Modifier.padding(5.dp)
+                    .align(alignment = Alignment.TopStart)
+                ,
                 color = Color.White,
                 text = name,
                 fontWeight = FontWeight.Bold,

@@ -119,6 +119,7 @@ fun HomeScreen(
                     }
                 }
                 LazyVerticalGrid(
+                    modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
                     columns = GridCells.Fixed(2),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ){

@@ -1,7 +1,9 @@
 package com.example.kinetic.presentation.game_details.components
 
 import android.annotation.SuppressLint
+import android.graphics.Paint.Align
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -31,6 +33,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -105,11 +108,12 @@ fun GameDetailsScreen(
                     Box (
                         modifier = Modifier
                             .fillMaxSize(),
-                        contentAlignment = Alignment.TopCenter
+                        contentAlignment = Alignment.Center
                     ){
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth()
+                                .align(alignment = Alignment.TopCenter)
                                 .fillMaxHeight(0.4f)
                         ) {
                             AsyncImage(
@@ -120,8 +124,12 @@ fun GameDetailsScreen(
                             modifier = Modifier
                                 .padding(5.dp)
                                 .fillMaxWidth()
+                                .background(color = Color.White,
+                                    shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
+                                )
                                 .fillMaxHeight(0.7f)
                                 .clip(shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+                                .align(alignment = Alignment.BottomCenter)
                         ) {
                             state.gameDetails?.let { it1 ->
                                 Text(
@@ -141,7 +149,9 @@ fun GameDetailsScreen(
                                     }
                                 }
                             }
-                            Row() {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
                                 state.gameDetails?.publisher?.let { Text(text = it) }
                                 AsyncImage(model = state.gameDetails?.publisherImage, contentDescription = "publisher image")
                             }
