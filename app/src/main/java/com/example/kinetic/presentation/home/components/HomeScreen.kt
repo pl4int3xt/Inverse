@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -94,41 +95,47 @@ fun HomeScreen(
                 .pullRefresh(pullRefreshState)
                 .fillMaxHeight(1f)
         ) {
-            LazyColumn(){
-                item {
-                    Column(
-                        modifier = Modifier.height(100.dp)
-                    ) {
+            Column(
+                modifier = Modifier.fillMaxSize()
+            ) {
+                LazyColumn(){
+                    item {
+                        Column(
+                            modifier = Modifier.height(100.dp)
+                        ) {
 
+                        }
+                    }
+                    item {
+                        Text(
+                            modifier = Modifier.padding(5.dp),
+                            text = "Republic of\nGamers",
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 30.sp
+                        )
+                    }
+                    item {
+                        Spacer(modifier = Modifier.height(10.dp))
+                        Text(
+                            modifier = Modifier.padding(5.dp),
+                            text = "Games",
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 25.sp
+                        )
                     }
                 }
-                item {
-                    Text(
-                        modifier = Modifier.padding(5.dp),
-                        text = "Republic of\nGamers",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 30.sp
-                    )
-                }
-                item {
-                    Spacer(modifier = Modifier.height(10.dp))
-                    Text(
-                        modifier = Modifier.padding(5.dp),
-                        text = "Games",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 25.sp
-                    )
-                }
-                items(state.games.size){ i ->
-                    GameCard(
-                        name = state.games[i].name,
-                        image = state.games[i].image,
-                        rating = state.games[i].rating,
-                        onclick = {
-                            navHostController.navigate(
-                                Screens.GameDetailsScreen.route + "/${state.games[i].id}")
-                        }
-                    )
+                LazyVerticalGrid(columns = GridCells.Fixed(2)){
+                    items(state.games.size){ i ->
+                        GameCard(
+                            name = state.games[i].name,
+                            image = state.games[i].image,
+                            rating = state.games[i].rating,
+                            onclick = {
+                                navHostController.navigate(
+                                    Screens.GameDetailsScreen.route + "/${state.games[i].id}")
+                            }
+                        )
+                    }
                 }
             }
             PullRefreshIndicator(

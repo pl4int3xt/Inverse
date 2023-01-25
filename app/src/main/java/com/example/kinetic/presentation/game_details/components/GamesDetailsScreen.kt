@@ -112,7 +112,7 @@ fun GameDetailsScreen(
                 }
                 LazyRow(){
                     items(state.gameDetails!!.platforms.size){ i ->
-                        Text(text = state.gameDetails.platforms[i])
+                        state.gameDetails.platforms[i]?.let { Text(text = it) }
                     }
                 }
                 Row() {
@@ -121,7 +121,7 @@ fun GameDetailsScreen(
                 }
                 LazyRow(){
                     items(state.gameDetails!!.platforms.size){ i ->
-                        Text(text = state.gameDetails.genres[i])
+                        state.gameDetails.genres[i]?.let { Text(text = it) }
                     }
                 }
                 state.gameDetails?.let { Text(text = it.description) }

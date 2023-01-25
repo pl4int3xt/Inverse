@@ -19,7 +19,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 
 @Composable
@@ -32,12 +34,8 @@ fun GameCard(
     Column(
         modifier = Modifier
             .clickable { onclick() }
-            .fillMaxWidth(5f)
+            .fillMaxWidth()
             .height(300.dp)
-            .background(
-                color = Color.LightGray,
-                shape = RoundedCornerShape(20.dp)
-            )
             .clip(shape = RoundedCornerShape(20.dp)),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -54,12 +52,19 @@ fun GameCard(
             contentAlignment = Alignment.BottomCenter
         ){
             AsyncImage(model = image, contentDescription = "category image")
-            Row() {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Start
+            ) {
                 Icon(
                     tint = Color.Yellow,
                     imageVector = Icons.Default.Star, contentDescription = "rating")
-                Text(text = rating.toString())
-
+                Text(
+                    color = Color.White,
+                    text = rating.toString(),
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 15.sp
+                )
             }
         }
         Text(
