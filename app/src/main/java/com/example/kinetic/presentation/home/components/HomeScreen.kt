@@ -120,7 +120,10 @@ fun HomeScreen(
                     )
                 }
                 item {
-                    LazyVerticalGrid(columns = GridCells.Fixed(2)){
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(2),
+                        modifier = Modifier.padding(10.dp)
+                    ){
                         items(state.games.size){ i ->
                             GameCard(
                                 name = state.games[i].name,
