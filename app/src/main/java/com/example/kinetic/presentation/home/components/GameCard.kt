@@ -83,6 +83,7 @@ fun GameCard(
                 alpha = 0.5F }
                     .align(Alignment.TopStart)
                     .background(Color.Black)
+                    .fillMaxWidth()
             ) {
                 Text(
                     modifier = Modifier
