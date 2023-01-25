@@ -110,34 +110,14 @@ fun GameDetailsScreen(
                     Column(
                         modifier = Modifier.fillMaxSize()
                     ) {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight(0.5f),
-                            contentAlignment = Alignment.BottomCenter
-                        ) {
-                            Column(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .fillMaxHeight()
-                            ) {
-                                AsyncImage(
-                                    contentScale = ContentScale.FillBounds,
-                                    model = state.gameDetails?.backgroundImage, contentDescription = "image")
-                            }
-                            Column(
-                                modifier = Modifier.height(10.dp)
-                                    .align(Alignment.BottomCenter)
-                                    .background(color = Color.White,
-                                        shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
-                            ) {
-
-                            }
-                        }
+                        AsyncImage(
+                            modifier = Modifier.fillMaxHeight(0.6f),
+                            contentScale = ContentScale.FillBounds,
+                            model = state.gameDetails?.backgroundImage, contentDescription = "image")
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .fillMaxHeight(0.5f)
+                                .fillMaxHeight(0.4f)
                         ) {
                             state.gameDetails?.let { it1 ->
                                 Text(
