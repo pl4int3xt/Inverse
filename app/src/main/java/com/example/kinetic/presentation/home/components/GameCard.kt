@@ -55,13 +55,13 @@ fun GameCard(
     ){
         Box(
             modifier = Modifier
-                .fillMaxSize()
-            ,
+                .fillMaxSize(),
             contentAlignment = Alignment.BottomCenter
         ){
             AsyncImage(
                 contentScale = ContentScale.Crop,
-                model = image, contentDescription = "category image")
+                model = image,
+                contentDescription = "category image")
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Start
@@ -80,7 +80,7 @@ fun GameCard(
             }
             Column(
                 modifier = Modifier.graphicsLayer {
-                alpha = 0.5F }
+                alpha = 0.4F }
                     .align(Alignment.TopStart)
                     .background(Color.Black)
                     .fillMaxWidth()

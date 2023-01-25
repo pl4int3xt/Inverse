@@ -119,10 +119,9 @@ fun GameDetailsScreen(
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .fillMaxHeight(0.6f)
+                                .fillMaxHeight(0.7f)
                         ) {
                             AsyncImage(
-                                modifier = Modifier.fillMaxSize(),
                                 contentScale = ContentScale.Crop,
                                 model = state.gameDetails?.backgroundImage,
                                 contentDescription = "image"
@@ -132,7 +131,7 @@ fun GameDetailsScreen(
                             modifier = Modifier
                                 .padding(10.dp)
                                 .fillMaxWidth()
-                                .fillMaxHeight(0.4f)
+                                .fillMaxHeight(0.3f)
                         ) {
                             state.gameDetails?.let { it1 ->
                                 Text(
