@@ -12,11 +12,13 @@ import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.json.serializer.KotlinxSerializer
 import io.ktor.client.features.logging.LogLevel
 import io.ktor.client.features.logging.Logging
+import kotlinx.serialization.ExperimentalSerializationApi
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+    @OptIn(ExperimentalSerializationApi::class)
     @Singleton
     @Provides
     fun provideGameRepository(): GameRepository {
