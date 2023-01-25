@@ -33,7 +33,7 @@ data class Result(
     val tags: List<Tag>,
     val tba: Boolean,
     val updated: String,
-    val user_game: String? =""
+    val user_game: String
 )
 
 fun Result.toGameModel(): GameModel{
