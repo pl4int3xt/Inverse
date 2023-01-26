@@ -6,7 +6,6 @@ data class GameDetailsModel(
     val backgroundImage: String,
     val backgroundImageAdditional: String,
     val rating: Double,
-    val ratings: String,
     val platforms: List<String?>,
     val pcRequirements: String,
     val genres: List<String?>,
