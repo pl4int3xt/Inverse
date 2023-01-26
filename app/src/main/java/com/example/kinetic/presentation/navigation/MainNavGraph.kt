@@ -28,7 +28,10 @@ fun MainNavGraph(
             )
         }
         composable(route = Screens.GameDetailsScreen.route + "/{gameId}"){
-            GameDetailsScreen(onPopBackStack = { navHostController.popBackStack() })
+            GameDetailsScreen(
+                onPopBackStack = { navHostController.popBackStack() },
+                onNavigate = { navHostController.navigate(it.route) }
+            )
         }
         composable(route = Screens.SearchScreen.route){
             SearchScreen(navHostController = navHostController,

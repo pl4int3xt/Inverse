@@ -20,6 +20,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -43,6 +44,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.kinetic.R
 import com.example.kinetic.presentation.game_details.GamesDetailsScreenEvents
 import com.example.kinetic.presentation.game_details.GamesDetailsScreenViewModel
+import com.example.kinetic.presentation.home.HomeScreenEvents
 import com.example.kinetic.presentation.shared.MainTopAppBar
 import com.example.kinetic.presentation.uievent.UiEvent
 
@@ -51,6 +53,7 @@ import com.example.kinetic.presentation.uievent.UiEvent
 @Composable
 fun GameDetailsScreen(
     onPopBackStack: () -> Unit,
+    onNavigate: (UiEvent.OnNavigate) -> Unit,
     viewModel: GamesDetailsScreenViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
@@ -67,6 +70,7 @@ fun GameDetailsScreen(
                         Toast.LENGTH_SHORT
                     ).show()
                 }
+                is UiEvent.OnNavigate -> onNavigate(event)
                 is UiEvent.PopBackStack -> onPopBackStack()
                 else -> Unit
             }
@@ -79,8 +83,10 @@ fun GameDetailsScreen(
             MainTopAppBar(
                 title = "",
                 navigationIcon = Icons.Default.ArrowBack,
-                onClickNavigation = { viewModel.onEvent(GamesDetailsScreenEvents.OnCancelClicked) }) {
-            }
+                onClickNavigation = { viewModel.onEvent(GamesDetailsScreenEvents.OnCancelClicked) },
+                onClickAction = { viewModel.onEvent(GamesDetailsScreenEvents.OnSearchClicked)},
+                actions = Icons.Default.Search
+            )
         },
     ) {
         if(state.isLoading){

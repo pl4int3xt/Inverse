@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kinetic.constants.Resource
 import com.example.kinetic.domain.use_case.GetGameDetailsUseCase
+import com.example.kinetic.presentation.screen.Screens
 import com.example.kinetic.presentation.uievent.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -58,6 +59,9 @@ class GamesDetailsScreenViewModel @Inject constructor(
         when(gamesDetailsScreenEvents){
             is GamesDetailsScreenEvents.OnCancelClicked -> {
                 sendUiEvent(UiEvent.PopBackStack)
+            }
+            is GamesDetailsScreenEvents.OnSearchClicked -> {
+                sendUiEvent(UiEvent.OnNavigate(Screens.SearchScreen.route))
             }
         }
     }

@@ -104,50 +104,45 @@ fun HomeScreen(
                 alignment = Alignment.Center
             )
         } else {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(1f)
+            Column(
+                modifier = Modifier.fillMaxSize()
             ) {
-                Column(
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    LazyColumn(){
-                        item {
-                            Column(
-                                modifier = Modifier.height(100.dp)
-                            ) {
+                LazyColumn(){
+                    item {
+                        Column(
+                            modifier = Modifier.height(100.dp)
+                        ) {
 
-                            }
-                        }
-                        item {
-                            Text(
-                                modifier = Modifier.padding(5.dp),
-                                text = "Republic of\nGamers",
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 35.sp,
-                                color = MaterialTheme.colorScheme.tertiary
-                            )
                         }
                     }
-                    LazyVerticalGrid(
-                        columns = GridCells.Fixed(2),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ){
-                        items(state.games.size){ i ->
-                            GameCard(
-                                name = state.games[i].name,
-                                image = state.games[i].image?:"",
-                                rating = state.games[i].rating,
-                                onclick = {
-                                    navHostController.navigate(
-                                        Screens.GameDetailsScreen.route + "/${state.games[i].id}")
-                                }
-                            )
-                            Spacer(modifier = Modifier.weight(1f))
-                        }
+                    item {
+                        Text(
+                            modifier = Modifier.padding(5.dp),
+                            text = "Republic of\nGamers",
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 35.sp,
+                            color = MaterialTheme.colorScheme.tertiary
+                        )
                     }
                 }
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ){
+                    items(state.games.size){ i ->
+                        GameCard(
+                            name = state.games[i].name,
+                            image = state.games[i].image?:"",
+                            rating = state.games[i].rating,
+                            onclick = {
+                                navHostController.navigate(
+                                    Screens.GameDetailsScreen.route + "/${state.games[i].id}")
+                            }
+                        )
+                        Spacer(modifier = Modifier.weight(1f))
+                    }
+                }
+                Spacer(modifier = Modifier.height(50.dp))
             }
         }
     }
