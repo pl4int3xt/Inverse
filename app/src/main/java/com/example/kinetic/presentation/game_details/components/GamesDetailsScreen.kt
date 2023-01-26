@@ -97,6 +97,7 @@ fun GameDetailsScreen(
     )
 
     Scaffold(
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             MainTopAppBar(
                 title = "",
@@ -178,8 +179,7 @@ fun GameDetailsScreen(
                                     fontSize = 25.sp,
                                     fontWeight = FontWeight.Bold
                                 )
-                                LazyRow(
-                                ){
+                                LazyRow(){
                                     state.gameDetails?.platforms?.let {
                                         items(it.size){ i ->
                                             state.gameDetails.platforms[i]?.let {
@@ -215,9 +215,7 @@ fun GameDetailsScreen(
                                     fontSize = 25.sp,
                                     fontWeight = FontWeight.Bold
                                 )
-                                LazyRow(
-                                    modifier = Modifier.padding(10.dp)
-                                ){
+                                LazyRow(){
                                     state.gameDetails?.genres?.let {
                                         items(it.size){ i ->
                                             state.gameDetails.genres[i]?.let { name ->

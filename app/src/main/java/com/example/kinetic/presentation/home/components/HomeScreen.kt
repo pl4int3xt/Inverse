@@ -82,6 +82,7 @@ fun HomeScreen(
         contentColor = MaterialTheme.colorScheme.primary
     )
     Scaffold(
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             MainTopAppBar(
                 onClickNavigation = { /*TODO*/ },
