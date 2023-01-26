@@ -119,7 +119,7 @@ fun GameDetailsScreen(
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .fillMaxHeight(0.7f)
+                                .height(300.dp)
                         ) {
                             AsyncImage(
                                 contentScale = ContentScale.Crop,
