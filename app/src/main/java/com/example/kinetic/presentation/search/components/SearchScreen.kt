@@ -86,6 +86,13 @@ fun SearchScreen(
 
                     }
                 }
+                item {
+                    Column(modifier = Modifier.fillMaxWidth()
+                        .height(50.dp)
+                    ) {
+
+                    }
+                }
                 items(state.games.size){ i ->
                     GameCard(
                         name = state.games[i].name,

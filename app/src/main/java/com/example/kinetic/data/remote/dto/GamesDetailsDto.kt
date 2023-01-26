@@ -68,7 +68,7 @@ fun GamesDetailsDto.toGameDetailsModel(): GameDetailsModel{
         backgroundImage = background_image?:"",
         backgroundImageAdditional = background_image_additional?:"",
         rating = rating?:0.0,
-        ratings = ratings?.first()?.title?:"",
+        ratings = ratings?.first()?.title ?: "",
         platforms = platforms?.map { it.platform?.slug }?: emptyList(),
         pcRequirements = platforms?.first { it.platform?.name == "PC" }?.requirements?.minimum?:"",
         genres = genres?.map { it.slug }?: emptyList(),
