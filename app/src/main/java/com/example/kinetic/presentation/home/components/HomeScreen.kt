@@ -46,7 +46,7 @@ import com.example.kinetic.presentation.uievent.UiEvent
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
 fun HomeScreen(
-    onNavigate: (uiEvent: UiEvent) -> Unit,
+    onNavigate: (UiEvent.OnNavigate) -> Unit,
     viewModel: HomeScreenViewModel = hiltViewModel(),
     navHostController: NavHostController
 ) {
@@ -84,7 +84,6 @@ fun HomeScreen(
     Scaffold(
         topBar = {
             MainTopAppBar(
-                onValueChanged = {},
                 onClickNavigation = { /*TODO*/ },
                 onClickAction = { viewModel.onEvent(HomeScreenEvents.OnSearchClicked)},
                 actions = Icons.Default.Search

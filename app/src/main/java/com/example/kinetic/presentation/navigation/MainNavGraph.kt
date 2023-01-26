@@ -20,7 +20,10 @@ fun MainNavGraph(
         startDestination = Screens.HomeScreen.route
     ){
         composable(route = Screens.HomeScreen.route){
-            HomeScreen(navHostController = navHostController)
+            HomeScreen(
+                navHostController = navHostController,
+                onNavigate = { navHostController.navigate(it.route)}
+            )
         }
         composable(route = Screens.GameDetailsScreen.route + "/{gameId}"){
             GameDetailsScreen(onPopBackStack = { navHostController.popBackStack() })

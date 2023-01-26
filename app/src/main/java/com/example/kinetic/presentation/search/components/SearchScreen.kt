@@ -24,6 +24,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.kinetic.presentation.home.components.GameCard
 import com.example.kinetic.presentation.screen.Screens
+import com.example.kinetic.presentation.screen.SearchBar
 import com.example.kinetic.presentation.search.SearchScreenEvents
 import com.example.kinetic.presentation.search.SearchScreenViewModel
 import com.example.kinetic.presentation.shared.MainTopAppBar
@@ -57,14 +58,11 @@ fun SearchScreen(
     }
     Scaffold(
         topBar = {
-            MainTopAppBar(
-                searchBar = true,
-                searchText = viewModel.searchQuery,
-                onValueChanged = { viewModel.onEvent(SearchScreenEvents.OnSearchQueryChanged(viewModel.searchQuery))},
-                navigationIcon = Icons.Default.ArrowBack,
-                onClickNavigation = { viewModel.onEvent(SearchScreenEvents.OnBackClicked) },
-                onClickAction = { viewModel.onEvent(SearchScreenEvents.OnSearchClicked) },
-                actions = Icons.Default.Search
+            SearchBar(
+                text = viewModel.searchQuery,
+                onTextChange = { viewModel.onEvent(SearchScreenEvents.OnSearchQueryChanged(it))},
+                onCloseClicked = { viewModel.onEvent(SearchScreenEvents.OnBackClicked) },
+                onSearchClicked = { viewModel.onEvent(SearchScreenEvents.OnSearchClicked)}
             )
         }
     ) {
@@ -93,7 +91,6 @@ fun SearchScreen(
                 CircularProgressIndicator(
                     modifier = Modifier
                         .align(Alignment.Center)
-                        .fillMaxSize()
                 )
             }
         }

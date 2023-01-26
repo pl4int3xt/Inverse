@@ -27,9 +27,6 @@ import androidx.compose.ui.unit.dp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainTopAppBar(
-    onValueChanged: () -> Unit,
-    searchBar: Boolean = false,
-    searchText: String? = null,
     scrollBehavior: TopAppBarScrollBehavior? = null,
     title: String? = "",
     navigationIcon: ImageVector? = null,
@@ -72,12 +69,6 @@ fun MainTopAppBar(
             }
         },
         actions = {
-            if (searchBar){
-                TextField(
-                    singleLine = true,
-                    value = searchText.toString(),
-                    onValueChange = { onValueChanged() })
-            }
             if (actions != null) {
                 Button(
                     modifier = Modifier.size(50.dp),
