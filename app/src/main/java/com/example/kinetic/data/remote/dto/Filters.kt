@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Filters(
-    val years: List<Year>
+    val years: List<Year>? = emptyList()
 )

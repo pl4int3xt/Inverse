@@ -5,8 +5,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class GamesDto(
     val count: Int,
-    val description: String,
-    val filters: Filters,
+    val description: String? = "",
+    val filters: Filters? = Filters(),
     val next: String? = "",
     val nofollow: Boolean? = false,
     val nofollow_collections: List<String>? = emptyList(),
