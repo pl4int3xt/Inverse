@@ -100,6 +100,7 @@ fun GameDetailsScreen(
         topBar = {
             MainTopAppBar(
                 title = "",
+                onValueChanged = {},
                 navigationIcon = Icons.Default.ArrowBack,
                 onClickNavigation = { viewModel.onEvent(GamesDetailsScreenEvents.OnCancelClicked) }) {
             }

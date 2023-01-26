@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.kinetic.presentation.home.HomeScreenEvents
 import com.example.kinetic.presentation.home.HomeScreenViewModel
 import com.example.kinetic.presentation.screen.Screens
 import com.example.kinetic.presentation.shared.MainTopAppBar
@@ -45,6 +46,7 @@ import com.example.kinetic.presentation.uievent.UiEvent
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
 fun HomeScreen(
+    onNavigate: (uiEvent: UiEvent) -> Unit,
     viewModel: HomeScreenViewModel = hiltViewModel(),
     navHostController: NavHostController
 ) {
@@ -53,7 +55,7 @@ fun HomeScreen(
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
     LaunchedEffect(key1 = true, context){
-        viewModel.uiEvent.collect {event ->
+        viewModel.uiEvent.collect { event ->
             when(event){
                 is UiEvent.ShowToast -> {
                     Toast.makeText(
@@ -62,6 +64,7 @@ fun HomeScreen(
                         Toast.LENGTH_SHORT
                     ).show()
                 }
+                is UiEvent.OnNavigate -> onNavigate(event)
                 else -> Unit
             }
         }
@@ -81,8 +84,9 @@ fun HomeScreen(
     Scaffold(
         topBar = {
             MainTopAppBar(
+                onValueChanged = {},
                 onClickNavigation = { /*TODO*/ },
-                onClickAction = {},
+                onClickAction = { viewModel.onEvent(HomeScreenEvents.OnSearchClicked)},
                 actions = Icons.Default.Search
             )
         }
