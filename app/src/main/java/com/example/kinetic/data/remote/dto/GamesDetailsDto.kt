@@ -69,7 +69,7 @@ fun GamesDetailsDto.toGameDetailsModel(): GameDetailsModel{
         platforms = platforms.map { it.platform.name },
         pcRequirements = platforms.firstOrNull{ it.platform.name == "PC" }?.requirements?.minimum,
         publisher = publishers.firstOrNull()?.name,
-        publisherImage = publishers.first().image_background,
+        publisherImage = publishers.firstOrNull()?.image_background,
         esrbRating = esrb_rating.name,
         description = description_raw,
         genres = genres.map { it.name }
