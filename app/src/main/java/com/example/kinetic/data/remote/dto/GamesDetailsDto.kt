@@ -72,6 +72,6 @@ fun GamesDetailsDto.toGameDetailsModel(): GameDetailsModel{
         publisherImage = publishers.firstOrNull()?.image_background,
         esrbRating = esrb_rating.name,
         description = description_raw,
-        genres = genres.map { it.name }
+        genres = genres.mapNotNull { it.name }
     )
 }
