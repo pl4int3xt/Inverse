@@ -30,6 +30,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -83,7 +84,7 @@ fun HomeScreen(
         contentColor = MaterialTheme.colorScheme.primary
     )
     Scaffold(
-        containerColor = Black,
+        containerColor = Color.Black,
         topBar = {
             MainTopAppBar(
                 onClickNavigation = { /*TODO*/ },
