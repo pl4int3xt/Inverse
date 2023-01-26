@@ -25,15 +25,17 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun SearchBar(
     text: String,
@@ -42,6 +44,8 @@ fun SearchBar(
     onCloseClicked: () -> Unit,
     onSearchClicked: (String) -> Unit
 ) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+
     TopAppBar(
         scrollBehavior = scrollBehavior,
         modifier = Modifier.padding(5.dp),
@@ -98,6 +102,7 @@ fun SearchBar(
                     keyboardActions = KeyboardActions(
                         onSearch = {
                             onSearchClicked(text)
+                            keyboardController?.hide()
                         }
                     )
                 )
