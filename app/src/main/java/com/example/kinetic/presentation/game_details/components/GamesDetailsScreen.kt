@@ -267,6 +267,7 @@ fun GameDetailsScreen(
                 }
             }
             PullRefreshIndicator(
+                modifier = Modifier.align(Alignment.TopCenter),
                 refreshing = state.isLoading,
                 state = pullRefreshState,
                 contentColor = MaterialTheme.colorScheme.primary,
