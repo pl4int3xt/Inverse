@@ -134,11 +134,13 @@ fun GameDetailsScreen(
                                 .fillMaxHeight(0.3f)
                         ) {
                             state.gameDetails?.let { it1 ->
-                                Text(
-                                    text = it1.name,
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 30.sp
-                                )
+                                it1.name?.let { it2 ->
+                                    Text(
+                                        text = it2,
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 30.sp
+                                    )
+                                }
                             }
                             Spacer(modifier = Modifier.height(5.dp))
                             Row {
@@ -234,10 +236,12 @@ fun GameDetailsScreen(
                                     fontWeight = FontWeight.Bold
                                 )
                                 state.gameDetails?.let {
-                                    Text(
-                                        text = it.description,
-                                        fontSize = 20.sp
-                                    )
+                                    it.description?.let { it1 ->
+                                        Text(
+                                            text = it1,
+                                            fontSize = 20.sp
+                                        )
+                                    }
                                 }
                                 Text(
                                     text = "PC minimum requirements",
@@ -245,9 +249,13 @@ fun GameDetailsScreen(
                                     fontWeight = FontWeight.Bold
                                 )
                                 state.gameDetails?.let {
-                                    Text(
-                                        fontSize = 20.sp,
-                                        text = it.pcRequirements) }
+                                    it.pcRequirements?.let { it1 ->
+                                        Text(
+                                            fontSize = 20.sp,
+                                            text = it1
+                                        )
+                                    }
+                                }
                             }
                         }
                     }
