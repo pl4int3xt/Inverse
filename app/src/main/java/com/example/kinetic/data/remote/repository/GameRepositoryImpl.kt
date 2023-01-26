@@ -27,4 +27,13 @@ class GameRepositoryImpl @Inject constructor(
             parameter("key", "ddcd58c5aaef4a71981eff6c99e548f4")
         }
     }
+
+    override suspend fun searchGame(searchQuery: String, page: Int): GamesDto {
+        return httpClient.get {
+            url(Constants.GET_GAMES_URL)
+            parameter("page", page)
+            parameter("search", searchQuery)
+            parameter("key", "ddcd58c5aaef4a71981eff6c99e548f4")
+        }
+    }
 }
