@@ -8,6 +8,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
+import io.ktor.client.features.json.GsonSerializer
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.json.serializer.KotlinxSerializer
 import io.ktor.client.features.logging.LogLevel
@@ -27,10 +28,10 @@ object AppModule {
                 level = LogLevel.ALL
             }
             install(JsonFeature){
-                serializer = KotlinxSerializer(Json {
-                    isLenient = true
-                    ignoreUnknownKeys = true
-                })
+                serializer = GsonSerializer() {
+                    setPrettyPrinting()
+                    disableHtmlEscaping()
+                }
             }
         })
     }

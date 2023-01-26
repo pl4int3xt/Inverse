@@ -1,10 +1,12 @@
 package com.example.kinetic.data.remote.dto
 
-import kotlinx.serialization.Serializable
-
-@Serializable
 data class PlatformXXX(
-    val name: String? = "",
-    val platform: Int? = 0,
-    val slug: String? = "",
+    val games_count: Int,
+    val id: Int,
+    val image: Any,
+    val image_background: String,
+    val name: String,
+    val slug: String,
+    val year_end: Any,
+    val year_start: Int
 )
