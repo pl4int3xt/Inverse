@@ -81,14 +81,14 @@ fun SearchScreen(
             ){
                 item {
                     Column(modifier = Modifier.fillMaxWidth()
-                        .height(50.dp)
+                        .height(100.dp)
                     ) {
 
                     }
                 }
                 item {
                     Column(modifier = Modifier.fillMaxWidth()
-                        .height(50.dp)
+                        .height(100.dp)
                     ) {
 
                     }

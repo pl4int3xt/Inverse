@@ -96,7 +96,9 @@ fun SearchBar(
                         imeAction = ImeAction.Search
                     ),
                     keyboardActions = KeyboardActions(
-                        onSearch = { onSearchClicked(text)}
+                        onSearch = {
+                            onSearchClicked(text)
+                        }
                     )
                 )
             }
