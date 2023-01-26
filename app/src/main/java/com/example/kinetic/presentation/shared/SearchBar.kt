@@ -68,7 +68,9 @@ fun SearchBar(
                     colors = TextFieldDefaults.textFieldColors(
                         textColor = MaterialTheme.colorScheme.tertiary,
                         cursorColor = MaterialTheme.colorScheme.primary,
-                        focusedLabelColor = Color.Transparent
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent,
+                        disabledIndicatorColor = Color.Transparent
                     ),
                     modifier = Modifier.fillMaxWidth(),
                     value = text, onValueChange = {
