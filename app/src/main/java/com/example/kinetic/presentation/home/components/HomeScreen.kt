@@ -6,6 +6,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.R
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -31,6 +32,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,6 +42,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.kinetic.presentation.home.HomeScreenEvents
 import com.example.kinetic.presentation.home.HomeScreenViewModel
 import com.example.kinetic.presentation.screen.Screens
@@ -59,7 +64,7 @@ fun HomeScreen(
 ) {
     val context = LocalContext.current
     val state = viewModel.state.value
-    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
+    TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
     LaunchedEffect(key1 = true, context){
         viewModel.uiEvent.collect { event ->
@@ -77,12 +82,6 @@ fun HomeScreen(
         }
     }
 
-    val pullRefreshState = rememberPullRefreshState(
-        refreshing = state.isLoading, onRefresh = {
-            viewModel.getGames()
-        }
-    )
-
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
         topBar = {
@@ -96,58 +95,60 @@ fun HomeScreen(
             )
         }
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .pullRefresh(pullRefreshState)
-                .fillMaxHeight(1f)
-        ) {
-            Column(
-                modifier = Modifier.fillMaxSize()
+        if(state.isLoading){
+            val lottieCompositionSpec by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(
+                com.example.kinetic.R.raw.gaming))
+            LottieAnimation(
+                composition = lottieCompositionSpec,
+                iterations = Int.MAX_VALUE,
+                alignment = Alignment.Center
+            )
+        } else {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(1f)
             ) {
-                LazyColumn(){
-                    item {
-                        Column(
-                            modifier = Modifier.height(100.dp)
-                        ) {
+                Column(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    LazyColumn(){
+                        item {
+                            Column(
+                                modifier = Modifier.height(100.dp)
+                            ) {
 
+                            }
+                        }
+                        item {
+                            Text(
+                                modifier = Modifier.padding(5.dp),
+                                text = "Republic of\nGamers",
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 35.sp,
+                                color = MaterialTheme.colorScheme.tertiary
+                            )
                         }
                     }
-                    item {
-                        Text(
-                            modifier = Modifier.padding(5.dp),
-                            text = "Republic of\nGamers",
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 35.sp,
-                            color = MaterialTheme.colorScheme.tertiary
-                        )
-                    }
-                }
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ){
-                    items(state.games.size){ i ->
-                        GameCard(
-                            name = state.games[i].name,
-                            image = state.games[i].image,
-                            rating = state.games[i].rating,
-                            onclick = {
-                                navHostController.navigate(
-                                    Screens.GameDetailsScreen.route + "/${state.games[i].id}")
-                            }
-                        )
-                        Spacer(modifier = Modifier.weight(1f))
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(2),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ){
+                        items(state.games.size){ i ->
+                            GameCard(
+                                name = state.games[i].name,
+                                image = state.games[i].image?:"",
+                                rating = state.games[i].rating,
+                                onclick = {
+                                    navHostController.navigate(
+                                        Screens.GameDetailsScreen.route + "/${state.games[i].id}")
+                                }
+                            )
+                            Spacer(modifier = Modifier.weight(1f))
+                        }
                     }
                 }
             }
-            PullRefreshIndicator(
-                modifier = Modifier.align(alignment = Alignment.TopCenter),
-                refreshing = state.isLoading,
-                state = pullRefreshState,
-                contentColor = MaterialTheme.colorScheme.primary,
-                backgroundColor = MaterialTheme.colorScheme.surface
-            )
         }
     }
 }

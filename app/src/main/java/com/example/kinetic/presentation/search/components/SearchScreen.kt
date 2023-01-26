@@ -10,13 +10,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -24,11 +24,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.rememberLottieComposition
+import com.example.kinetic.R
 import com.example.kinetic.presentation.home.components.GameCard
 import com.example.kinetic.presentation.screen.Screens
-import com.example.kinetic.presentation.shared.SearchBar
 import com.example.kinetic.presentation.search.SearchScreenEvents
 import com.example.kinetic.presentation.search.SearchScreenViewModel
+import com.example.kinetic.presentation.shared.SearchBar
 import com.example.kinetic.presentation.uievent.UiEvent
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -96,7 +100,7 @@ fun SearchScreen(
                 items(state.games.size){ i ->
                     GameCard(
                         name = state.games[i].name,
-                        image = state.games[i].image,
+                        image = state.games[i].image?:"",
                         rating = state.games[i].rating,
                         onclick = {
                             navHostController.navigate(
@@ -105,10 +109,13 @@ fun SearchScreen(
                     )
                 }
             }
-            if (state.isLoading){
-                CircularProgressIndicator(
-                    modifier = Modifier
-                        .align(Alignment.Center)
+            if(state.isLoading){
+                val lottieCompositionSpec by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(
+                    R.raw.gaming))
+                LottieAnimation(
+                    composition = lottieCompositionSpec,
+                    iterations = Int.MAX_VALUE,
+                    alignment = Alignment.Center
                 )
             }
         }

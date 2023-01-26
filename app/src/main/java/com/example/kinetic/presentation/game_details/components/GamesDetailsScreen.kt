@@ -38,6 +38,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -51,6 +52,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.kinetic.R
 import com.example.kinetic.presentation.game_details.GamesDetailsScreenEvents
 import com.example.kinetic.presentation.game_details.GamesDetailsScreenViewModel
@@ -66,7 +70,6 @@ fun GameDetailsScreen(
 ) {
     val context = LocalContext.current
     val state = viewModel.state.value
-    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
     LaunchedEffect(key1 = true){
         viewModel.uiEvent.collect { event ->
@@ -84,12 +87,6 @@ fun GameDetailsScreen(
         }
     }
 
-    val pullRefreshState = rememberPullRefreshState(
-        refreshing = state.isLoading, onRefresh = {
-            viewModel.getGameDetails()
-        }
-    )
-
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
         topBar = {
@@ -100,165 +97,174 @@ fun GameDetailsScreen(
             }
         },
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .pullRefresh(pullRefreshState)
-                .fillMaxHeight(1f)
-        ) {
-            LazyColumn(){
-                item {
-                    Column(
-                        modifier = Modifier.fillMaxSize()
-                    ) {
+        if(state.isLoading){
+            val lottieCompositionSpec by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(
+                R.raw.gaming))
+            LottieAnimation(
+                composition = lottieCompositionSpec,
+                iterations = Int.MAX_VALUE,
+                alignment = Alignment.Center
+            )
+        } else{
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(1f)
+            ) {
+                LazyColumn(){
+                    item {
                         Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(400.dp)
+                            modifier = Modifier.fillMaxSize()
                         ) {
-                            AsyncImage(
-                                contentScale = ContentScale.Crop,
-                                model = state.gameDetails?.backgroundImage,
-                                contentDescription = "image"
-                            )
-                        }
-                        Column(
-                            modifier = Modifier
-                                .padding(10.dp)
-                                .fillMaxWidth()
-                                .fillMaxHeight(0.3f)
-                        ) {
-                            state.gameDetails?.let { it1 ->
-                                it1.name?.let { it2 ->
-                                    Text(
-                                        text = it2,
-                                        fontWeight = FontWeight.Bold,
-                                        fontSize = 30.sp,
-                                        color = MaterialTheme.colorScheme.tertiary
-                                    )
-                                }
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(400.dp)
+                            ) {
+                                AsyncImage(
+                                    contentScale = ContentScale.Crop,
+                                    model = state.gameDetails?.backgroundImage,
+                                    contentDescription = "image"
+                                )
                             }
-                            Spacer(modifier = Modifier.height(5.dp))
-                            Row {
-                                state.gameDetails?.esrbRating?.let {
-                                    when(it){
-                                        "Mature" -> {
-                                            EsrbRating(image = R.drawable.mature, description = "mature")
-                                        }
-                                        "Teen" -> {
-                                            EsrbRating(image = R.drawable.teen, description = "mature")
-                                        }
-                                        "Everyone" -> {
-                                            EsrbRating(image = R.drawable.everyone, description = "mature")
-                                        }
-                                        else -> {
-                                            EsrbRating(name = it)
-                                        }
-                                    }
-                                }
-                                Spacer(modifier = Modifier.weight(1f))
-                                Column() {
-                                    Text(
-                                        text = "Metacritic Rating",
-                                        color = MaterialTheme.colorScheme.tertiary
-                                    )
-                                    state.gameDetails?.metacritic?.let {
+                            Column(
+                                modifier = Modifier
+                                    .padding(10.dp)
+                                    .fillMaxWidth()
+                                    .fillMaxHeight(0.3f)
+                            ) {
+                                state.gameDetails?.let { it1 ->
+                                    it1.name?.let { it2 ->
                                         Text(
-                                            text = it.toString(),
+                                            text = it2,
+                                            fontWeight = FontWeight.Bold,
                                             fontSize = 30.sp,
                                             color = MaterialTheme.colorScheme.tertiary
                                         )
                                     }
                                 }
-                            }
-                            Spacer(modifier = Modifier.height(5.dp))
-                            Column() {
-                                Text(
-                                    text = "Game Platforms",
-                                    fontSize = 25.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    color = MaterialTheme.colorScheme.tertiary
-                                )
-                                LazyRow(){
-                                    state.gameDetails?.platforms?.let {
-                                        items(it.size){ i ->
-                                            state.gameDetails.platforms[i]?.let {
-                                                SinglePlatform(name = it)
-                                                Spacer(modifier = Modifier.width(5.dp))
+                                Spacer(modifier = Modifier.height(5.dp))
+                                Row {
+                                    state.gameDetails?.esrbRating?.let {
+                                        when(it){
+                                            "Mature" -> {
+                                                EsrbRating(image = R.drawable.mature, description = "mature")
+                                            }
+                                            "Teen" -> {
+                                                EsrbRating(image = R.drawable.teen, description = "mature")
+                                            }
+                                            "Everyone" -> {
+                                                EsrbRating(image = R.drawable.everyone, description = "mature")
+                                            }
+                                            else -> {
+                                                EsrbRating(name = it)
+                                            }
+                                        }
+                                    }
+                                    Spacer(modifier = Modifier.weight(1f))
+                                    Column() {
+                                        Text(
+                                            text = "Metacritic Rating",
+                                            color = MaterialTheme.colorScheme.tertiary
+                                        )
+                                        state.gameDetails?.metacritic?.let {
+                                            Text(
+                                                text = it.toString(),
+                                                fontSize = 30.sp,
+                                                color = MaterialTheme.colorScheme.tertiary
+                                            )
+                                        }
+                                    }
+                                }
+                                Spacer(modifier = Modifier.height(5.dp))
+                                Column() {
+                                    Text(
+                                        text = "Game Platforms",
+                                        fontSize = 25.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = MaterialTheme.colorScheme.tertiary
+                                    )
+                                    LazyRow(){
+                                        state.gameDetails?.platforms?.let {
+                                            items(it.size){ i ->
+                                                state.gameDetails.platforms[i]?.let {
+                                                    SinglePlatform(name = it)
+                                                    Spacer(modifier = Modifier.width(5.dp))
+                                                }
                                             }
                                         }
                                     }
                                 }
-                            }
-                            Spacer(modifier = Modifier.height(5.dp))
-                            Column() {
-                                Text(
-                                    text = "Game Publisher",
-                                    color = MaterialTheme.colorScheme.tertiary,
-                                    fontSize = 25.sp,
-                                    fontWeight = FontWeight.Bold
-                                )
-                                Row(
-                                    horizontalArrangement = Arrangement.SpaceBetween
-                                ) {
-                                    state.gameDetails?.publisher?.let {
-                                        Text(
-                                            text = it,
-                                            fontSize = 20.sp,
-                                            color = MaterialTheme.colorScheme.tertiary
-                                        )
+                                Spacer(modifier = Modifier.height(5.dp))
+                                Column() {
+                                    Text(
+                                        text = "Game Publisher",
+                                        color = MaterialTheme.colorScheme.tertiary,
+                                        fontSize = 25.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                    Row(
+                                        horizontalArrangement = Arrangement.SpaceBetween
+                                    ) {
+                                        state.gameDetails?.publisher?.let {
+                                            Text(
+                                                text = it,
+                                                fontSize = 20.sp,
+                                                color = MaterialTheme.colorScheme.tertiary
+                                            )
+                                        }
                                     }
                                 }
-                            }
-                            Spacer(modifier = Modifier.height(5.dp))
-                            Column() {
-                                Text(
-                                    text = "Tags",
-                                    color = MaterialTheme.colorScheme.tertiary,
-                                    fontSize = 25.sp,
-                                    fontWeight = FontWeight.Bold
-                                )
-                                LazyRow(){
-                                    state.gameDetails?.genres?.let {
-                                        items(it.size){ i ->
-                                            state.gameDetails.genres[i]?.let { name ->
-                                                SingleGenre(name = name)
-                                                Spacer(modifier = Modifier.width(5.dp))
+                                Spacer(modifier = Modifier.height(5.dp))
+                                Column() {
+                                    Text(
+                                        text = "Tags",
+                                        color = MaterialTheme.colorScheme.tertiary,
+                                        fontSize = 25.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                    LazyRow(){
+                                        state.gameDetails?.genres?.let {
+                                            items(it.size){ i ->
+                                                state.gameDetails.genres[i]?.let { name ->
+                                                    SingleGenre(name = name)
+                                                    Spacer(modifier = Modifier.width(5.dp))
+                                                }
                                             }
                                         }
                                     }
                                 }
-                            }
-                            Spacer(modifier = Modifier.height(5.dp))
-                            Column() {
-                                Text(
-                                    text = "Game Details",
-                                    color = MaterialTheme.colorScheme.tertiary,
-                                    fontSize = 25.sp,
-                                    fontWeight = FontWeight.Bold
-                                )
-                                state.gameDetails?.let {
-                                    it.description?.let { it1 ->
-                                        Text(
-                                            text = it1,
-                                            color = MaterialTheme.colorScheme.tertiary,
-                                            fontSize = 20.sp
-                                        )
+                                Spacer(modifier = Modifier.height(5.dp))
+                                Column() {
+                                    Text(
+                                        text = "Game Details",
+                                        color = MaterialTheme.colorScheme.tertiary,
+                                        fontSize = 25.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                    state.gameDetails?.let {
+                                        it.description?.let { it1 ->
+                                            Text(
+                                                text = it1,
+                                                color = MaterialTheme.colorScheme.tertiary,
+                                                fontSize = 20.sp
+                                            )
+                                        }
                                     }
-                                }
-                                Text(
-                                    text = "PC minimum requirements",
-                                    fontSize = 25.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    color = MaterialTheme.colorScheme.tertiary
-                                )
-                                state.gameDetails?.let {
-                                    it.pcRequirements?.let { it1 ->
-                                        Text(
-                                            fontSize = 20.sp,
-                                            text = it1,
-                                            color = MaterialTheme.colorScheme.tertiary
-                                        )
+                                    Text(
+                                        text = "PC minimum requirements",
+                                        fontSize = 25.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = MaterialTheme.colorScheme.tertiary
+                                    )
+                                    state.gameDetails?.let {
+                                        it.pcRequirements?.let { it1 ->
+                                            Text(
+                                                fontSize = 20.sp,
+                                                text = it1,
+                                                color = MaterialTheme.colorScheme.tertiary
+                                            )
+                                        }
                                     }
                                 }
                             }
@@ -266,13 +272,6 @@ fun GameDetailsScreen(
                     }
                 }
             }
-            PullRefreshIndicator(
-                modifier = Modifier.align(Alignment.TopCenter),
-                refreshing = state.isLoading,
-                state = pullRefreshState,
-                contentColor = MaterialTheme.colorScheme.primary,
-                backgroundColor = MaterialTheme.colorScheme.surface
-            )
         }
     }
 }
