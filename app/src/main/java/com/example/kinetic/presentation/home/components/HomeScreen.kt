@@ -40,6 +40,7 @@ import com.example.kinetic.presentation.home.HomeScreenEvents
 import com.example.kinetic.presentation.home.HomeScreenViewModel
 import com.example.kinetic.presentation.screen.Screens
 import com.example.kinetic.presentation.shared.MainTopAppBar
+import com.example.kinetic.presentation.ui.theme.Black
 import com.example.kinetic.presentation.uievent.UiEvent
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -82,7 +83,7 @@ fun HomeScreen(
         contentColor = MaterialTheme.colorScheme.primary
     )
     Scaffold(
-        containerColor = MaterialTheme.colorScheme.background,
+        containerColor = Black,
         topBar = {
             MainTopAppBar(
                 onClickNavigation = { /*TODO*/ },
