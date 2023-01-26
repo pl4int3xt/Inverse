@@ -22,6 +22,8 @@ import javax.inject.Inject
 class HomeScreenViewModel @Inject constructor(
     private val getGamesUseCase: GetGamesUseCase
 ): ViewModel() {
+    var darkTheme by mutableStateOf(false)
+
     var page by mutableStateOf(1)
 
     private val _uiEvent = Channel<UiEvent>()

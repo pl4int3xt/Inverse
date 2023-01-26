@@ -16,7 +16,7 @@ data class GamesDetailsDto(
     val description_raw: String,
     val developers: List<Developer>,
     val dominant_color: String,
-    val esrb_rating: EsrbRating,
+    val esrb_rating: EsrbRating? = null,
     val game_series_count: Int,
     val genres: List<Genre>,
     val id: Int,
@@ -70,7 +70,7 @@ fun GamesDetailsDto.toGameDetailsModel(): GameDetailsModel{
         pcRequirements = platforms.firstOrNull{ it.platform.name == "PC" }?.requirements?.minimum,
         publisher = publishers.firstOrNull()?.name,
         publisherImage = publishers.firstOrNull()?.image_background,
-        esrbRating = esrb_rating.name,
+        esrbRating = esrb_rating?.name,
         description = description_raw,
         genres = genres.mapNotNull { it.name }
     )

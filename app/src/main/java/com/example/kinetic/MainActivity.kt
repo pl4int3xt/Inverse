@@ -9,6 +9,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.ViewCompat
@@ -20,13 +23,19 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    var darkTheme by mutableStateOf(false)
     @OptIn(ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
+
         setContent {
-            KineticTheme {
-                MainNavGraph(navHostController = rememberAnimatedNavController())
+            KineticTheme(darkTheme = darkTheme) {
+                MainNavGraph(
+                    navHostController = rememberAnimatedNavController(),
+                    onThemeChange = { darkTheme = !darkTheme }
+                )
             }
         }
     }

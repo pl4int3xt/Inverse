@@ -13,7 +13,8 @@ import com.google.accompanist.navigation.animation.composable
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun MainNavGraph(
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    onThemeChange: () -> Unit
 ) {
     AnimatedNavHost(
         navController = navHostController,
@@ -21,6 +22,7 @@ fun MainNavGraph(
     ){
         composable(route = Screens.HomeScreen.route){
             HomeScreen(
+                onThemeChange,
                 navHostController = navHostController,
                 onNavigate = { navHostController.navigate(it.route)}
             )

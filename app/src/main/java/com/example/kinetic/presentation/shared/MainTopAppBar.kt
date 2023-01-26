@@ -10,6 +10,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
@@ -38,10 +39,7 @@ fun MainTopAppBar(
         scrollBehavior = scrollBehavior,
         modifier = Modifier.padding(5.dp),
         colors = TopAppBarDefaults.smallTopAppBarColors(
-            containerColor = Color.Transparent,
-            titleContentColor = Color.Black,
-            navigationIconContentColor = Color.White
-        ),
+            containerColor = Color.Transparent),
         navigationIcon = {
             if (navigationIcon != null) {
                 Button(
@@ -51,7 +49,7 @@ fun MainTopAppBar(
                     ,
                     shape = CircleShape,
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.White,
+                        containerColor = MaterialTheme.colorScheme.secondary,
                     ),
                     contentPadding = PaddingValues(10.dp),
                     elevation = ButtonDefaults.buttonElevation(
@@ -63,7 +61,7 @@ fun MainTopAppBar(
                     onClick = { onClickNavigation() }
                 ){
                     Icon(
-                        tint = Color.Black,
+                        tint = MaterialTheme.colorScheme.tertiary,
                         imageVector = navigationIcon, contentDescription = "")
                 }
             }
@@ -73,7 +71,7 @@ fun MainTopAppBar(
                 Button(
                     modifier = Modifier.size(50.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.White,
+                        containerColor = MaterialTheme.colorScheme.secondary,
                     ),
                     contentPadding = PaddingValues(0.dp),
                     elevation = ButtonDefaults.buttonElevation(
@@ -86,14 +84,17 @@ fun MainTopAppBar(
                     ,
                     onClick = { onClickAction() }) {
                         Icon(
-                            tint = Color.Black,
+                            tint = MaterialTheme.colorScheme.tertiary,
                             imageVector = actions, contentDescription = "")
                 }
             }
         },
         title = {
             if (title != null) {
-                Text(text = title)
+                Text(
+                    text = title,
+                    color = MaterialTheme.colorScheme.tertiary
+                )
             }
         }
     )

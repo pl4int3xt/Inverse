@@ -90,12 +90,6 @@ fun GameDetailsScreen(
         }
     )
 
-    PullRefreshIndicator(
-        refreshing = state.isLoading,
-        state = pullRefreshState,
-        contentColor = MaterialTheme.colorScheme.primary
-    )
-
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
         topBar = {
@@ -139,7 +133,8 @@ fun GameDetailsScreen(
                                     Text(
                                         text = it2,
                                         fontWeight = FontWeight.Bold,
-                                        fontSize = 30.sp
+                                        fontSize = 30.sp,
+                                        color = MaterialTheme.colorScheme.tertiary
                                     )
                                 }
                             }
@@ -163,11 +158,15 @@ fun GameDetailsScreen(
                                 }
                                 Spacer(modifier = Modifier.weight(1f))
                                 Column() {
-                                    Text(text = "Metacritic")
+                                    Text(
+                                        text = "Metacritic Rating",
+                                        color = MaterialTheme.colorScheme.tertiary
+                                    )
                                     state.gameDetails?.metacritic?.let {
                                         Text(
                                             text = it.toString(),
-                                            fontSize = 30.sp
+                                            fontSize = 30.sp,
+                                            color = MaterialTheme.colorScheme.tertiary
                                         )
                                     }
                                 }
@@ -177,7 +176,8 @@ fun GameDetailsScreen(
                                 Text(
                                     text = "Game Platforms",
                                     fontSize = 25.sp,
-                                    fontWeight = FontWeight.Bold
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.tertiary
                                 )
                                 LazyRow(){
                                     state.gameDetails?.platforms?.let {
@@ -194,6 +194,7 @@ fun GameDetailsScreen(
                             Column() {
                                 Text(
                                     text = "Game Publisher",
+                                    color = MaterialTheme.colorScheme.tertiary,
                                     fontSize = 25.sp,
                                     fontWeight = FontWeight.Bold
                                 )
@@ -203,7 +204,8 @@ fun GameDetailsScreen(
                                     state.gameDetails?.publisher?.let {
                                         Text(
                                             text = it,
-                                            fontSize = 20.sp
+                                            fontSize = 20.sp,
+                                            color = MaterialTheme.colorScheme.tertiary
                                         )
                                     }
                                 }
@@ -212,6 +214,7 @@ fun GameDetailsScreen(
                             Column() {
                                 Text(
                                     text = "Tags",
+                                    color = MaterialTheme.colorScheme.tertiary,
                                     fontSize = 25.sp,
                                     fontWeight = FontWeight.Bold
                                 )
@@ -230,6 +233,7 @@ fun GameDetailsScreen(
                             Column() {
                                 Text(
                                     text = "Game Details",
+                                    color = MaterialTheme.colorScheme.tertiary,
                                     fontSize = 25.sp,
                                     fontWeight = FontWeight.Bold
                                 )
@@ -237,6 +241,7 @@ fun GameDetailsScreen(
                                     it.description?.let { it1 ->
                                         Text(
                                             text = it1,
+                                            color = MaterialTheme.colorScheme.tertiary,
                                             fontSize = 20.sp
                                         )
                                     }
@@ -244,13 +249,15 @@ fun GameDetailsScreen(
                                 Text(
                                     text = "PC minimum requirements",
                                     fontSize = 25.sp,
-                                    fontWeight = FontWeight.Bold
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.tertiary
                                 )
                                 state.gameDetails?.let {
                                     it.pcRequirements?.let { it1 ->
                                         Text(
                                             fontSize = 20.sp,
-                                            text = it1
+                                            text = it1,
+                                            color = MaterialTheme.colorScheme.tertiary
                                         )
                                     }
                                 }
@@ -261,9 +268,9 @@ fun GameDetailsScreen(
             }
             PullRefreshIndicator(
                 refreshing = state.isLoading,
-                contentColor = MaterialTheme.colorScheme.primary,
                 state = pullRefreshState,
-                modifier = Modifier.align(Alignment.TopCenter)
+                contentColor = MaterialTheme.colorScheme.primary,
+                backgroundColor = MaterialTheme.colorScheme.surface
             )
         }
     }

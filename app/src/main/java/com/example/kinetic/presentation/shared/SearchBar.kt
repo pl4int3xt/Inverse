@@ -14,6 +14,7 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Cancel
 import androidx.compose.material.icons.filled.Close
@@ -21,6 +22,7 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
@@ -56,18 +58,25 @@ fun SearchBar(
         ),
         actions = {
             Surface (
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .clip(RoundedCornerShape(20.dp))
                 ,
-                color = Color.White
+                color = MaterialTheme.colorScheme.secondary
             ){
                 TextField(
+                    colors = TextFieldDefaults.textFieldColors(
+                        textColor = MaterialTheme.colorScheme.tertiary,
+                        cursorColor = MaterialTheme.colorScheme.primary,
+                        focusedLabelColor = Color.Transparent
+                    ),
                     modifier = Modifier.fillMaxWidth(),
                     value = text, onValueChange = {
                         onTextChange(it)
                     },
                     placeholder = {
                         Text(
+                            color = MaterialTheme.colorScheme.tertiary,
                             modifier = Modifier.alpha(ContentAlpha.medium),
                             text = "search game here ....")},
                     singleLine = true,
@@ -76,6 +85,7 @@ fun SearchBar(
                             modifier = Modifier.alpha(ContentAlpha.medium),
                             onClick = { /*TODO*/ }) {
                             Icon(
+                                tint = MaterialTheme.colorScheme.tertiary,
                                 imageVector = Icons.Default.Search,
                                 contentDescription = "search icon"
                             )
@@ -91,6 +101,7 @@ fun SearchBar(
                                 }
                             }) {
                             Icon(
+                                tint = MaterialTheme.colorScheme.tertiary,
                                 imageVector = Icons.Default.Close,
                                 contentDescription = "close icon"
                             )

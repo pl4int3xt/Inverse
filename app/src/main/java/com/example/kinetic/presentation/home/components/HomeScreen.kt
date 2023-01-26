@@ -2,6 +2,7 @@ package com.example.kinetic.presentation.home.components
 
 import android.annotation.SuppressLint
 import android.widget.Toast
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,6 +17,8 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DarkMode
+import androidx.compose.material.icons.filled.LightMode
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
@@ -42,12 +45,14 @@ import com.example.kinetic.presentation.home.HomeScreenViewModel
 import com.example.kinetic.presentation.screen.Screens
 import com.example.kinetic.presentation.shared.MainTopAppBar
 import com.example.kinetic.presentation.ui.theme.Black
+import com.example.kinetic.presentation.ui.theme.KineticTheme
 import com.example.kinetic.presentation.uievent.UiEvent
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
 fun HomeScreen(
+    onThemeChange: () -> Unit,
     onNavigate: (UiEvent.OnNavigate) -> Unit,
     viewModel: HomeScreenViewModel = hiltViewModel(),
     navHostController: NavHostController
@@ -78,16 +83,14 @@ fun HomeScreen(
         }
     )
 
-    PullRefreshIndicator(
-        refreshing = state.isLoading,
-        state = pullRefreshState,
-        contentColor = MaterialTheme.colorScheme.primary
-    )
     Scaffold(
-        containerColor = Color.Black,
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             MainTopAppBar(
-                onClickNavigation = { /*TODO*/ },
+                navigationIcon = if (viewModel.darkTheme) Icons.Default.DarkMode else Icons.Default.LightMode,
+                onClickNavigation = {
+                    onThemeChange()
+                    viewModel.darkTheme = !viewModel.darkTheme },
                 onClickAction = { viewModel.onEvent(HomeScreenEvents.OnSearchClicked)},
                 actions = Icons.Default.Search
             )
@@ -115,7 +118,8 @@ fun HomeScreen(
                             modifier = Modifier.padding(5.dp),
                             text = "Republic of\nGamers",
                             fontWeight = FontWeight.Bold,
-                            fontSize = 35.sp
+                            fontSize = 35.sp,
+                            color = MaterialTheme.colorScheme.tertiary
                         )
                     }
                 }
@@ -138,10 +142,11 @@ fun HomeScreen(
                 }
             }
             PullRefreshIndicator(
+                modifier = Modifier.align(alignment = Alignment.TopCenter),
                 refreshing = state.isLoading,
-                contentColor = MaterialTheme.colorScheme.primary,
                 state = pullRefreshState,
-                modifier = Modifier.align(Alignment.TopCenter)
+                contentColor = MaterialTheme.colorScheme.primary,
+                backgroundColor = MaterialTheme.colorScheme.surface
             )
         }
     }
