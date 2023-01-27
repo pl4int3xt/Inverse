@@ -22,6 +22,7 @@ import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -58,6 +59,8 @@ fun HomeScreen(
     viewModel: HomeScreenViewModel = hiltViewModel(),
     navHostController: NavHostController
 ) {
+    val PAGE_SIZE = 30
+    val page = viewModel.page.value
     val context = LocalContext.current
     val state = viewModel.state.value
     TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
@@ -147,6 +150,10 @@ fun HomeScreen(
                         horizontalArrangement = Arrangement.SpaceBetween
                     ){
                         items(state.games.size){ i ->
+                            viewModel.onChangeGameScrollPosition(i)
+                            if ((i + 1) >= (page * PAGE_SIZE) && !state.isLoading){
+                                viewModel.nextPage()
+                            }
                             GameCard(
                                 name = state.games[i].name?:"",
                                 image = state.games[i].image?:"",
@@ -157,6 +164,11 @@ fun HomeScreen(
                                 }
                             )
                             Spacer(modifier = Modifier.weight(1f))
+                        }
+                        if (state.nextLoading){
+                            item {
+                                CircularProgressIndicator()
+                            }
                         }
                     }
                     Spacer(modifier = Modifier.height(50.dp))
