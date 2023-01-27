@@ -81,11 +81,12 @@ class HomeScreenViewModel @Inject constructor(
                         }
                     }.launchIn(viewModelScope)
                 }
-                state = HomeScreenState(isLoading = false)
+                state = HomeScreenState(isNextLoading = false)
             }
         }
     }
     private fun appendGames(games: List<GameModel>){
+        Log.e("-------------state games", "appendGames: ${state.games.size}", )
         val current = ArrayList(state.games)
         current.addAll(games)
         state = HomeScreenState(games = current)
@@ -98,7 +99,6 @@ class HomeScreenViewModel @Inject constructor(
     }
     private fun incrementPage(){
         page.value = page.value + 1
-        Log.e("=========page", "incrementPage: ${page.value}", )
     }
 
     fun onChangeGamesScrollPosition(position: Int){

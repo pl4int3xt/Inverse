@@ -155,7 +155,7 @@ fun HomeScreen(
                     ){
                         itemsIndexed(state.games){ i , game ->
                             viewModel.onChangeGamesScrollPosition(i)
-                            if ((i + 1) >= (page * PAGE_SIZE)){
+                            if ((i + 1) >= (page * PAGE_SIZE) && !state.isNextLoading){
                                 viewModel.nextPage()
                             }
                             GameCard(
