@@ -43,14 +43,14 @@ class HomeScreenViewModel @Inject constructor(
         getGamesUseCase(page.value, PAGE_SIZE).onEach { result ->
             when(result){
                 is Resource.Loading -> {
-                    state = HomeScreenState(isLoading = true)
+                    state = state.copy(isLoading = true)
                 }
                 is Resource.Error -> {
-                    state = HomeScreenState(message = result.message?: "Unexpected error occurred")
+                    state = state.copy(message = result.message?: "Unexpected error occurred")
                     sendUiEvent(UiEvent.ShowToast(message = result.message?:"unexpected error occurred"))
                 }
                 is Resource.Success -> {
-                    state = HomeScreenState(games = result.data?: emptyList())
+                    state = state.copy(games = result.data?: emptyList())
                 }
             }
         }.launchIn(viewModelScope)
@@ -66,13 +66,13 @@ class HomeScreenViewModel @Inject constructor(
     fun nextPage(){
         viewModelScope.launch {
             if((gamesScrollPosition + 1) >= (page.value * PAGE_SIZE)){
-                state = HomeScreenState(isNextLoading = true)
+                state = state.copy(isNextLoading = true)
                 incrementPage()
                 if (page.value > 1){
                     getGamesUseCase(page.value, PAGE_SIZE).onEach { result ->
                         when(result){
                             is Resource.Error -> {
-                                state = HomeScreenState(message = result.message?: "Unexpected error occurred")
+                                state = state.copy(message = result.message?: "Unexpected error occurred")
                                 sendUiEvent(UiEvent.ShowToast(message = result.message?:"unexpected error occurred"))
                             }
                             is Resource.Success -> {
@@ -81,7 +81,7 @@ class HomeScreenViewModel @Inject constructor(
                         }
                     }.launchIn(viewModelScope)
                 }
-                state = HomeScreenState(isNextLoading = false)
+                state = state.copy(isNextLoading = true)
             }
         }
     }
