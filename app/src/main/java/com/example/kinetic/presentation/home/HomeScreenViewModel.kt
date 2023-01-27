@@ -86,10 +86,10 @@ class HomeScreenViewModel @Inject constructor(
         }
     }
     private fun appendGames(games: List<GameModel>){
-        Log.e("-------------state games", "appendGames: ${state.games}", )
-        val current = ArrayList(state.games)
+        Log.e("------------============doaddoajd", "appendGames:${state.copy().games.size}", )
+        val current = ArrayList(state.copy().games)
         current.addAll(games)
-        state.games = current
+        state.copy().games = current
     }
 
     private fun resetSearchState(){
