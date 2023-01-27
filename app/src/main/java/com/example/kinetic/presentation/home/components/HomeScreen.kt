@@ -23,6 +23,7 @@ import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -105,7 +106,8 @@ fun HomeScreen(
                 )
             } else if (state.message.isNotEmpty()){
                 Button(
-                    modifier = Modifier.size(50.dp)
+                    modifier = Modifier
+                        .size(50.dp)
                         .align(Alignment.Center)
                     ,
                     colors = ButtonDefaults.buttonColors(
@@ -167,8 +169,22 @@ fun HomeScreen(
                             )
                             Spacer(modifier = Modifier.weight(1f))
                         }
+                        item {
+                            Box{
+                                if (state.isNextLoading){
+                                    CircularProgressIndicator(
+                                        modifier = Modifier.align(Alignment.Center)
+                                    )
+                                }
+                            }
+                        }
+                        item {
+                            Spacer(modifier = Modifier.height(50.dp))
+                        }
+                        item {
+                            Spacer(modifier = Modifier.height(50.dp))
+                        }
                     }
-                    Spacer(modifier = Modifier.height(50.dp))
                 }
             }
         }

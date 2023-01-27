@@ -65,21 +65,18 @@ class HomeScreenViewModel @Inject constructor(
     fun nextPage(){
         viewModelScope.launch {
             if((gamesScrollPosition + 1) >= (page.value * (PAGE_SIZE/2))){
-                state = HomeScreenState(isLoading = true)
+                state = HomeScreenState(isNextLoading = true)
                 incrementPage()
                 if (page.value > 1){
                     getGamesUseCase(page.value, PAGE_SIZE).onEach { result ->
                         when(result){
-                            is Resource.Loading -> {
-                                state = HomeScreenState(isLoading = true)
-                            }
                             is Resource.Error -> {
                                 state = HomeScreenState(message = result.message?: "Unexpected error occurred")
                                 sendUiEvent(UiEvent.ShowToast(message = result.message?:"unexpected error occurred"))
                             }
                             is Resource.Success -> {
                                 appendGames(result.data?: emptyList())
-                            }
+                            } else -> Unit
                         }
                     }.launchIn(viewModelScope)
                 }
