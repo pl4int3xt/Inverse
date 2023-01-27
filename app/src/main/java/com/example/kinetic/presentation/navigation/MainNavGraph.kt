@@ -1,6 +1,8 @@
 package com.example.kinetic.presentation.navigation
 
+import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.example.kinetic.presentation.game_details.components.GameDetailsScreen
@@ -18,16 +20,82 @@ fun MainNavGraph(
 ) {
     AnimatedNavHost(
         navController = navHostController,
-        startDestination = Screens.HomeScreen.route
+        startDestination = Screens.HomeScreen.route,
     ){
-        composable(route = Screens.HomeScreen.route){
+        composable(
+            route = Screens.HomeScreen.route,
+            enterTransition = {
+                when (initialState.destination.route) {
+                    Screens.GameDetailsScreen.route ->
+                        slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(1000))
+                    else -> null
+                }
+            },
+
+            exitTransition = {
+                when (targetState.destination.route) {
+                    Screens.GameDetailsScreen.route ->
+                        slideOutOfContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(1000))
+                    else -> null
+                }
+            },
+
+            popEnterTransition = {
+                when (initialState.destination.route) {
+                    Screens.GameDetailsScreen.route ->
+                        slideIntoContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(1000))
+                    else -> null
+                }
+            },
+
+            popExitTransition = {
+                when (targetState.destination.route) {
+                    Screens.GameDetailsScreen.route ->
+                        slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(1000))
+                    else -> null
+                }
+            }
+        ){
             HomeScreen(
                 onThemeChange,
                 navHostController = navHostController,
                 onNavigate = { navHostController.navigate(it.route)}
             )
         }
-        composable(route = Screens.GameDetailsScreen.route + "/{gameId}"){
+        composable(
+            route = Screens.GameDetailsScreen.route + "/{gameId}",
+            enterTransition = {
+                when (initialState.destination.route) {
+                    Screens.GameDetailsScreen.route ->
+                        slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(1000))
+                    else -> null
+                }
+            },
+
+            exitTransition = {
+                when (targetState.destination.route) {
+                    Screens.GameDetailsScreen.route ->
+                        slideOutOfContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(1000))
+                    else -> null
+                }
+            },
+
+            popEnterTransition = {
+                when (initialState.destination.route) {
+                    Screens.GameDetailsScreen.route ->
+                        slideIntoContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(1000))
+                    else -> null
+                }
+            },
+
+            popExitTransition = {
+                when (targetState.destination.route) {
+                    Screens.GameDetailsScreen.route ->
+                        slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(1000))
+                    else -> null
+                }
+            }
+        ){
             GameDetailsScreen(
                 onPopBackStack = { navHostController.popBackStack() },
                 onNavigate = { navHostController.navigate(it.route) }
