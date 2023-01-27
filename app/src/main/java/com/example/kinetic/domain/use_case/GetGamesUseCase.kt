@@ -30,7 +30,7 @@ class GetGamesUseCase @Inject constructor(
         } catch (e: IOException){
             emit(Resource.Error("Can't reach server, check your internet connection"))
         } catch (e: HttpException){
-            if (e.hashCode()  == 404){
+            if (e.response.code  == 404){
                 emit(Resource.Error("Not found"))
             }
         }
