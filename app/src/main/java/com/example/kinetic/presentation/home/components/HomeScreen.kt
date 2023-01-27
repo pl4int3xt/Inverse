@@ -1,6 +1,7 @@
 package com.example.kinetic.presentation.home.components
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -63,7 +64,11 @@ fun HomeScreen(
     val PAGE_SIZE = 20
     val page = viewModel.page.value
     val context = LocalContext.current
-    val state = viewModel.state
+    val state = viewModel.state.value
+
+    viewModel.currentGames = viewModel.currentGames + state.games
+
+    Log.e("[[[[[[[[[[[[[[[[[[[", "HomeScreen: ${viewModel.currentGames}", )
 
     LaunchedEffect(key1 = true, context){
         viewModel.uiEvent.collect { event ->
