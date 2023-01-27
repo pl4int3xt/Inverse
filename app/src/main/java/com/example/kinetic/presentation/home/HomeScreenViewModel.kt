@@ -26,7 +26,7 @@ class HomeScreenViewModel @Inject constructor(
     private val getGamesUseCase: GetGamesUseCase,
 ): ViewModel() {
 
-    var gamesList by mutableStateOf<List<GameModel>>(emptyList())
+    var gamesList : <List<GameModel>> = emptyList<>()
     var darkTheme by mutableStateOf(false)
     val page = mutableStateOf(1)
     private var gamesScrollPosition = 0
