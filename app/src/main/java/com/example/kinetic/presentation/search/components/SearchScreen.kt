@@ -99,9 +99,9 @@ fun SearchScreen(
                 }
                 items(state.games.size){ i ->
                     GameCard(
-                        name = state.games[i].name,
+                        name = state.games[i].name?:"",
                         image = state.games[i].image?:"",
-                        rating = state.games[i].rating,
+                        rating = state.games[i].rating?:0.0,
                         onclick = {
                             navHostController.navigate(
                                 Screens.GameDetailsScreen.route + "/${state.games[i].id}")
