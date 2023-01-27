@@ -50,7 +50,7 @@ fun MainNavGraph(
             route = Screens.GameDetailsScreen.route + "/{gameId}",
             enterTransition = {
                 when (initialState.destination.route) {
-                    Screens.GameDetailsScreen.route ->
+                    Screens.HomeScreen.route ->
                         slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(1000))
                     else -> null
                 }
@@ -58,7 +58,7 @@ fun MainNavGraph(
 
             exitTransition = {
                 when (targetState.destination.route) {
-                    Screens.GameDetailsScreen.route ->
+                    Screens.HomeScreen.route ->
                         slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(1000))
                     else -> null
                 }
