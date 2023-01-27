@@ -65,6 +65,7 @@ fun HomeScreen(
     val page = viewModel.page.value
     val context = LocalContext.current
     val state = viewModel.state.value
+    val games = viewModel.currentGames.value
 
     LaunchedEffect(key1 = true, context){
         viewModel.uiEvent.collect { event ->
@@ -128,58 +129,61 @@ fun HomeScreen(
                         imageVector = Icons.Default.Refresh, contentDescription = "refresh icon")
                 }
             } else {
-                Column(
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    LazyColumn(){
-                        item {
-                            Column(
-                                modifier = Modifier.height(100.dp)
-                            ) {
+                Box {
+                    Column(
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        LazyColumn() {
+                            item {
+                                Column(
+                                    modifier = Modifier.height(100.dp)
+                                ) {
 
+                                }
+                            }
+                            item {
+                                Text(
+                                    modifier = Modifier.padding(5.dp),
+                                    text = "Republic of\nGamers",
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 35.sp,
+                                    color = MaterialTheme.colorScheme.tertiary
+                                )
                             }
                         }
-                        item {
-                            Text(
-                                modifier = Modifier.padding(5.dp),
-                                text = "Republic of\nGamers",
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 35.sp,
-                                color = MaterialTheme.colorScheme.tertiary
-                            )
+                        LazyVerticalGrid(
+                            columns = GridCells.Fixed(2),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            itemsIndexed(games) { i, game ->
+                                viewModel.onChangeGamesScrollPosition(i)
+                                if ((i + 1) >= (page * PAGE_SIZE) && !state.isNextLoading) {
+                                    viewModel.nextPage()
+                                }
+                                GameCard(
+                                    name = game.name ?: "",
+                                    image = game.image ?: "",
+                                    rating = game.rating ?: 0.0,
+                                    onclick = {
+                                        navHostController.navigate(
+                                            Screens.GameDetailsScreen.route + "/${game.id}"
+                                        )
+                                    }
+                                )
+                                Spacer(modifier = Modifier.weight(1f))
+                            }
+                            item {
+                                Spacer(modifier = Modifier.height(50.dp))
+                            }
+                            item {
+                                Spacer(modifier = Modifier.height(50.dp))
+                            }
                         }
                     }
-                    LazyVerticalGrid(
-                        columns = GridCells.Fixed(2),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ){
-                        itemsIndexed(state.games){ i , game ->
-                            viewModel.onChangeGamesScrollPosition(i)
-                            if ((i + 1) >= (page * PAGE_SIZE) && !state.isNextLoading){
-                                viewModel.nextPage()
-                            }
-                            GameCard(
-                                name = game.name?:"",
-                                image = game.image?:"",
-                                rating = game.rating?:0.0,
-                                onclick = {
-                                    navHostController.navigate(
-                                        Screens.GameDetailsScreen.route + "/${game.id}")
-                                }
-                            )
-                            Spacer(modifier = Modifier.weight(1f))
-                        }
-                        if(state.isNextLoading){
-                            item {
-                                CircularProgressIndicator()
-                            }
-                        }
-                        item {
-                            Spacer(modifier = Modifier.height(50.dp))
-                        }
-                        item {
-                            Spacer(modifier = Modifier.height(50.dp))
-                        }
+                    if(state.isNextLoading){
+                        CircularProgressIndicator(
+                            modifier = Modifier.align(Alignment.BottomCenter)
+                        )
                     }
                 }
             }

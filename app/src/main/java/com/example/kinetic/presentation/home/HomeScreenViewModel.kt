@@ -1,6 +1,7 @@
 package com.example.kinetic.presentation.home
 
 import android.util.Log
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -26,6 +27,7 @@ const val PAGE_SIZE = 20
 class HomeScreenViewModel @Inject constructor(
     private val getGamesUseCase: GetGamesUseCase,
 ): ViewModel() {
+    val currentGames: MutableState<List<GameModel>> = mutableStateOf(ArrayList())
 
     var darkTheme by mutableStateOf(false)
     val page = mutableStateOf(1)
@@ -53,7 +55,8 @@ class HomeScreenViewModel @Inject constructor(
                     sendUiEvent(UiEvent.ShowToast(message = result.message?:"unexpected error occurred"))
                 }
                 is Resource.Success -> {
-                    _state.value = HomeScreenState(games = result.data?: emptyList())
+                    this.currentGames.value = result.data?: emptyList()
+                    _state.value = HomeScreenState(isLoading = false)
                 }
             }
         }.launchIn(viewModelScope)
@@ -89,16 +92,15 @@ class HomeScreenViewModel @Inject constructor(
         }
     }
     private fun appendGames(games: List<GameModel>){
-        Log.e("------------============doaddoajd", "appendGames:${this.state.value.copy().games}", )
-        val current = ArrayList(this.state.value.games)
+        val current = ArrayList(this.currentGames.value)
         current.addAll(games)
-        _state.value = HomeScreenState(games = current)
+        this.currentGames.value = current
     }
 
     private fun resetSearchState(){
         page.value = 1
         onChangeGamesScrollPosition(0)
-        _state.value.games = listOf()
+        this.currentGames.value = listOf()
     }
     private fun incrementPage(){
         page.value = page.value + 1
