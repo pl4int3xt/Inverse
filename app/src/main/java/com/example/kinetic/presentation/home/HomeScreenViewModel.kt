@@ -25,6 +25,8 @@ const val PAGE_SIZE = 20
 class HomeScreenViewModel @Inject constructor(
     private val getGamesUseCase: GetGamesUseCase,
 ): ViewModel() {
+
+    var gamesList by mutableStateOf<List<GameModel>>(emptyList())
     var darkTheme by mutableStateOf(false)
     val page = mutableStateOf(1)
     private var gamesScrollPosition = 0
@@ -50,7 +52,7 @@ class HomeScreenViewModel @Inject constructor(
                     sendUiEvent(UiEvent.ShowToast(message = result.message?:"unexpected error occurred"))
                 }
                 is Resource.Success -> {
-                    state = HomeScreenState(games = result.data?: emptyList())
+                    gamesList = result.data?: emptyList()
                 }
             }
         }.launchIn(viewModelScope)
@@ -86,16 +88,16 @@ class HomeScreenViewModel @Inject constructor(
         }
     }
     private fun appendGames(games: List<GameModel>){
-        Log.e("-------------state games", "appendGames: ${state.games.size}", )
-        val current = ArrayList(state.games)
+        Log.e("-------------state games", "appendGames: ${gamesList}", )
+        val current = ArrayList(gamesList)
         current.addAll(games)
-        state = HomeScreenState(games = current)
+        gamesList = current
     }
 
     private fun resetSearchState(){
         page.value = 1
         onChangeGamesScrollPosition(0)
-        state = HomeScreenState(games = listOf())
+        gamesList = listOf()
     }
     private fun incrementPage(){
         page.value = page.value + 1
