@@ -50,6 +50,8 @@ fun MainNavGraph(
             route = Screens.GameDetailsScreen.route + "/{gameId}",
             enterTransition = {
                 when (initialState.destination.route) {
+                    Screens.SearchScreen.route ->
+                        slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(1000))
                     Screens.HomeScreen.route ->
                         slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(1000))
                     else -> null
@@ -58,6 +60,8 @@ fun MainNavGraph(
 
             exitTransition = {
                 when (targetState.destination.route) {
+                    Screens.SearchScreen.route ->
+                        slideOutOfContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(1000))
                     Screens.HomeScreen.route ->
                         slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(1000))
                     else -> null
@@ -73,8 +77,6 @@ fun MainNavGraph(
             route = Screens.SearchScreen.route,
             enterTransition = {
                 when (initialState.destination.route) {
-                    Screens.GameDetailsScreen.route ->
-                        slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(1000))
                     Screens.HomeScreen.route ->
                         slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(1000))
                     else -> null
@@ -83,8 +85,6 @@ fun MainNavGraph(
 
             exitTransition = {
                 when (targetState.destination.route) {
-                    Screens.GameDetailsScreen.route ->
-                        slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(1000))
                     Screens.HomeScreen.route ->
                         slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(1000))
                     else -> null

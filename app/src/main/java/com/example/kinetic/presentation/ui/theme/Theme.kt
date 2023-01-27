@@ -69,7 +69,7 @@ fun KineticTheme(
     val systemUiController = rememberSystemUiController()
     SideEffect {
         systemUiController.setSystemBarsColor(
-            color = Color.Transparent.copy(alpha = 0.1f),
+            color = Color.Transparent.copy(alpha = 0.05f),
             darkIcons = !darkTheme
         )
     }
