@@ -1,5 +1,6 @@
 package com.example.kinetic.presentation.home
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -25,7 +26,7 @@ class HomeScreenViewModel @Inject constructor(
     private val getGamesUseCase: GetGamesUseCase,
 ): ViewModel() {
     var darkTheme by mutableStateOf(false)
-    val page = mutableStateOf(2)
+    val page = mutableStateOf(1)
     private var gamesScrollPosition = 0
 
     private val _uiEvent = Channel<UiEvent>()
@@ -64,7 +65,7 @@ class HomeScreenViewModel @Inject constructor(
 
     fun nextPage(){
         viewModelScope.launch {
-            if((gamesScrollPosition + 1) >= (page.value * (PAGE_SIZE/2))){
+            if((gamesScrollPosition + 1) >= (page.value * PAGE_SIZE)){
                 state = HomeScreenState(isNextLoading = true)
                 incrementPage()
                 if (page.value > 1){
@@ -97,6 +98,7 @@ class HomeScreenViewModel @Inject constructor(
     }
     private fun incrementPage(){
         page.value = page.value + 1
+        Log.e("=========page", "incrementPage: ${page.value}", )
     }
 
     fun onChangeGamesScrollPosition(position: Int){
