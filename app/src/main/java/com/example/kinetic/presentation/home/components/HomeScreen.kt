@@ -64,7 +64,6 @@ fun HomeScreen(
     val page = viewModel.page.value
     val context = LocalContext.current
     val state = viewModel.state
-    val games = viewModel.gamesList
     TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
     LaunchedEffect(key1 = true, context){
@@ -154,7 +153,7 @@ fun HomeScreen(
                         columns = GridCells.Fixed(2),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ){
-                        itemsIndexed(games){ i , game ->
+                        itemsIndexed(state.games){ i , game ->
                             viewModel.onChangeGamesScrollPosition(i)
                             if ((i + 1) >= (page * PAGE_SIZE) && !state.isNextLoading){
                                 viewModel.nextPage()
