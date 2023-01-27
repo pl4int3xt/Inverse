@@ -170,6 +170,11 @@ fun HomeScreen(
                             Spacer(modifier = Modifier.weight(1f))
                         }
                         item {
+                            if(state.isNextLoading){
+                                CircularProgressIndicator()
+                            }
+                        }
+                        item {
                             Spacer(modifier = Modifier.height(50.dp))
                         }
                         item {
@@ -177,11 +182,6 @@ fun HomeScreen(
                         }
                     }
                 }
-            }
-            if(state.isNextLoading){
-                CircularProgressIndicator(
-                    modifier = Modifier.align(Alignment.Center)
-                )
             }
         }
     }
