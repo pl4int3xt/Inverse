@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+const val PAGE_SIZE = 20
 @HiltViewModel
 class SearchScreenViewModel @Inject constructor(
     private val searchGameUseCase: SearchGameUseCase
@@ -33,7 +34,7 @@ class SearchScreenViewModel @Inject constructor(
     val state: State<SearchScreenState> = _state
 
     fun searchGame(){
-        searchGameUseCase(searchQuery, page).onEach { result ->
+        searchGameUseCase(searchQuery, page, PAGE_SIZE).onEach { result ->
             when(result){
                 is Resource.Loading -> {
                     _state.value = SearchScreenState(isLoading = true)

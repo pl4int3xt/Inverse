@@ -16,10 +16,10 @@ import javax.inject.Inject
 class SearchGameUseCase @Inject constructor(
     private val gameRepository: GameRepository
 ) {
-    operator fun invoke(searchQuery: String ,page: Int): Flow<Resource<List<GameModel>>> = flow {
+    operator fun invoke(searchQuery: String ,page: Int, pageSize: Int): Flow<Resource<List<GameModel>>> = flow {
         try {
             emit(Resource.Loading())
-            val games = gameRepository.searchGame(searchQuery, page).results.map { it.toGameModel() }
+            val games = gameRepository.searchGame(searchQuery, page, pageSize).results.map { it.toGameModel() }
             emit(Resource.Success(games))
         } catch (e: RedirectResponseException){
             emit(Resource.Error("Error: ${e.response.status.description}"))

@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DarkMode
@@ -22,7 +23,6 @@ import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -59,10 +59,10 @@ fun HomeScreen(
     viewModel: HomeScreenViewModel = hiltViewModel(),
     navHostController: NavHostController
 ) {
-    val PAGE_SIZE = 30
+    val PAGE_SIZE = 20
     val page = viewModel.page.value
     val context = LocalContext.current
-    val state = viewModel.state.value
+    val state = viewModel.state
     TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
     LaunchedEffect(key1 = true, context){
@@ -151,26 +151,21 @@ fun HomeScreen(
                         columns = GridCells.Fixed(2),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ){
-                        items(state.games.size){ i ->
-                            viewModel.onChangeGameScrollPosition(i)
-                            if ((i + 1) >= (page * PAGE_SIZE) && !state.isLoading){
+                        itemsIndexed(state.games){ i , game ->
+                            viewModel.onChangeGamesScrollPosition(i)
+                            if ((i + 1) >= (page * (PAGE_SIZE/2))){
                                 viewModel.nextPage()
                             }
                             GameCard(
-                                name = state.games[i].name?:"",
-                                image = state.games[i].image?:"",
-                                rating = state.games[i].rating?:0.0,
+                                name = game.name?:"",
+                                image = game.image?:"",
+                                rating = game.rating?:0.0,
                                 onclick = {
                                     navHostController.navigate(
                                         Screens.GameDetailsScreen.route + "/${state.games[i].id}")
                                 }
                             )
                             Spacer(modifier = Modifier.weight(1f))
-                        }
-                        if (state.nextLoading){
-                            item {
-                                CircularProgressIndicator()
-                            }
                         }
                     }
                     Spacer(modifier = Modifier.height(50.dp))
