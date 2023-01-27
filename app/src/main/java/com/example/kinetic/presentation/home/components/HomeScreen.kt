@@ -5,13 +5,16 @@ import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -20,6 +23,8 @@ import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.LightMode
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -98,11 +103,24 @@ fun HomeScreen(
                     alignment = Alignment.Center
                 )
             } else if (state.message.isNotEmpty()){
-                IconButton(
-                    modifier = Modifier.align(Alignment.Center),
+                Button(
+                    modifier = Modifier.size(50.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.secondary,
+                    ),
+                    contentPadding = PaddingValues(0.dp),
+                    elevation = ButtonDefaults.buttonElevation(
+                        defaultElevation = 5.dp,
+                        pressedElevation = 5.dp,
+                        focusedElevation = 5.dp,
+                        hoveredElevation = 5.dp,
+                    ),
+                    shape = CircleShape
+                    ,
                     onClick = { viewModel.getGames() }) {
-                    Icon(imageVector = Icons.Default.Refresh,
-                        contentDescription = "refresh icon")
+                    androidx.compose.material3.Icon(
+                        tint = MaterialTheme.colorScheme.tertiary,
+                        imageVector = Icons.Default.Refresh, contentDescription = "refresh icon")
                 }
             } else {
                 Column(
