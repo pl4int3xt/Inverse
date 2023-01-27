@@ -16,14 +16,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
+import androidx.compose.material3.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Refresh
@@ -53,7 +50,6 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.kinetic.R
 import com.example.kinetic.presentation.game_details.GamesDetailsScreenEvents
 import com.example.kinetic.presentation.game_details.GamesDetailsScreenViewModel
-import com.example.kinetic.presentation.home.HomeScreenEvents
 import com.example.kinetic.presentation.shared.MainTopAppBar
 import com.example.kinetic.presentation.uievent.UiEvent
 
@@ -123,7 +119,7 @@ fun GameDetailsScreen(
                     shape = CircleShape
                     ,
                     onClick = { viewModel.getGameDetails() }) {
-                    androidx.compose.material3.Icon(
+                    Icon(
                         tint = MaterialTheme.colorScheme.tertiary,
                         imageVector = Icons.Default.Refresh, contentDescription = "refresh icon")
                 }
