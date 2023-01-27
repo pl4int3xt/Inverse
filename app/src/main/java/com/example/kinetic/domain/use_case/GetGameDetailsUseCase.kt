@@ -1,5 +1,6 @@
 package com.example.kinetic.domain.use_case
 
+import coil.network.HttpException
 import com.example.kinetic.constants.Resource
 import com.example.kinetic.data.remote.dto.toGameDetailsModel
 import com.example.kinetic.domain.model.GameDetailsModel
@@ -28,6 +29,10 @@ class GetGameDetailsUseCase @Inject constructor(
             emit(Resource.Error("Error: ${e.response.status.description}"))
         } catch (e: IOException){
             emit(Resource.Error("Can't reach server, check your internet connection"))
+        } catch (e: HttpException){
+            if (e.hashCode()  == 404){
+                emit(Resource.Error("Not found"))
+            }
         }
     }
 }

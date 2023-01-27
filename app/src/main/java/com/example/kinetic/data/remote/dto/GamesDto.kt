@@ -1,7 +1,5 @@
 package com.example.kinetic.data.remote.dto
 
-import com.example.kinetic.domain.model.GameModel
-
 data class GamesDto(
     val count: Int,
     val description: String,
