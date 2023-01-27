@@ -26,7 +26,7 @@ const val PAGE_SIZE = 20
 class HomeScreenViewModel @Inject constructor(
     private val getGamesUseCase: GetGamesUseCase,
 ): ViewModel() {
-    var currentGames: List<GameModel> by mutableStateOf(emptyList())
+
     var darkTheme by mutableStateOf(false)
     val page = mutableStateOf(1)
     private var gamesScrollPosition = 0
@@ -89,8 +89,8 @@ class HomeScreenViewModel @Inject constructor(
         }
     }
     private fun appendGames(games: List<GameModel>){
-        Log.e("------------============doaddoajd", "appendGames:${currentGames}", )
-        val current = ArrayList(currentGames)
+        Log.e("------------============doaddoajd", "appendGames:${this.state.value.copy().games}", )
+        val current = ArrayList(this.state.value.games)
         current.addAll(games)
         _state.value = HomeScreenState(games = current)
     }

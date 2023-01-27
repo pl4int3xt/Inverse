@@ -66,10 +66,6 @@ fun HomeScreen(
     val context = LocalContext.current
     val state = viewModel.state.value
 
-    viewModel.currentGames = viewModel.currentGames + state.games
-
-    Log.e("[[[[[[[[[[[[[[[[[[[", "HomeScreen: ${viewModel.currentGames}", )
-
     LaunchedEffect(key1 = true, context){
         viewModel.uiEvent.collect { event ->
             when(event){
