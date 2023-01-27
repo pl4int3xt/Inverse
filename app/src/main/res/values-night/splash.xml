@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Theme.Kinetic.Splash" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">#FF6D00</item>
+        <item name="windowSplashScreenBackground">#000000</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash</item>
         <item name="postSplashScreenTheme">@style/Theme.Kinetic</item>
     </style>
