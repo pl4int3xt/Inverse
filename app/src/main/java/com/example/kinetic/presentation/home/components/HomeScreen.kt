@@ -64,7 +64,6 @@ fun HomeScreen(
     val page = viewModel.page.value
     val context = LocalContext.current
     val state = viewModel.state
-    TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
     LaunchedEffect(key1 = true, context){
         viewModel.uiEvent.collect { event ->
