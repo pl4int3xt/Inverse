@@ -105,7 +105,9 @@ fun HomeScreen(
                 )
             } else if (state.message.isNotEmpty()){
                 Button(
-                    modifier = Modifier.size(50.dp),
+                    modifier = Modifier.size(50.dp)
+                        .align(Alignment.Center)
+                    ,
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.secondary,
                     ),
