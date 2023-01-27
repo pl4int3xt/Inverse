@@ -79,6 +79,8 @@ fun MainNavGraph(
                 when (initialState.destination.route) {
                     Screens.HomeScreen.route ->
                         slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(1000))
+                    Screens.GameDetailsScreen.route ->
+                        slideIntoContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(1000))
                     else -> null
                 }
             },
@@ -87,6 +89,8 @@ fun MainNavGraph(
                 when (targetState.destination.route) {
                     Screens.HomeScreen.route ->
                         slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(1000))
+                    Screens.GameDetailsScreen.route ->
+                        slideOutOfContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(1000))
                     else -> null
                 }
             }
