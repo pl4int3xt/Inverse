@@ -35,22 +35,6 @@ fun MainNavGraph(
             exitTransition = {
                 when (targetState.destination.route) {
                     Screens.GameDetailsScreen.route ->
-                        slideOutOfContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(1000))
-                    else -> null
-                }
-            },
-
-            popEnterTransition = {
-                when (initialState.destination.route) {
-                    Screens.GameDetailsScreen.route ->
-                        slideIntoContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(1000))
-                    else -> null
-                }
-            },
-
-            popExitTransition = {
-                when (targetState.destination.route) {
-                    Screens.GameDetailsScreen.route ->
                         slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(1000))
                     else -> null
                 }
@@ -75,22 +59,6 @@ fun MainNavGraph(
             exitTransition = {
                 when (targetState.destination.route) {
                     Screens.GameDetailsScreen.route ->
-                        slideOutOfContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(1000))
-                    else -> null
-                }
-            },
-
-            popEnterTransition = {
-                when (initialState.destination.route) {
-                    Screens.GameDetailsScreen.route ->
-                        slideIntoContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(1000))
-                    else -> null
-                }
-            },
-
-            popExitTransition = {
-                when (targetState.destination.route) {
-                    Screens.GameDetailsScreen.route ->
                         slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(1000))
                     else -> null
                 }
@@ -101,7 +69,28 @@ fun MainNavGraph(
                 onNavigate = { navHostController.navigate(it.route) }
             )
         }
-        composable(route = Screens.SearchScreen.route){
+        composable(
+            route = Screens.SearchScreen.route,
+            enterTransition = {
+                when (initialState.destination.route) {
+                    Screens.GameDetailsScreen.route ->
+                        slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(1000))
+                    Screens.HomeScreen.route ->
+                        slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(1000))
+                    else -> null
+                }
+            },
+
+            exitTransition = {
+                when (targetState.destination.route) {
+                    Screens.GameDetailsScreen.route ->
+                        slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(1000))
+                    Screens.HomeScreen.route ->
+                        slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(1000))
+                    else -> null
+                }
+            }
+        ){
             SearchScreen(navHostController = navHostController,
                 onPopBackStack = { navHostController.popBackStack() })
         }
