@@ -51,7 +51,7 @@ fun MainNavGraph(
             enterTransition = {
                 when (initialState.destination.route) {
                     Screens.SearchScreen.route ->
-                        slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(1000))
+                        slideIntoContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(1000))
                     Screens.HomeScreen.route ->
                         slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(1000))
                     else -> null
