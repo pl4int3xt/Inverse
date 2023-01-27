@@ -13,10 +13,11 @@ import javax.inject.Inject
 class GameRepositoryImpl @Inject constructor(
     private val httpClient: HttpClient
 ): GameRepository {
-    override suspend fun getGames(page: Int): GamesDto {
+    override suspend fun getGames(page: Int, pageSize: Int): GamesDto {
         return httpClient.get {
             url(Constants.GET_GAMES_URL)
             parameter("page", page)
+            parameter("page_size", pageSize)
             parameter("key", "ddcd58c5aaef4a71981eff6c99e548f4")
         }
     }
@@ -28,10 +29,11 @@ class GameRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun searchGame(searchQuery: String, page: Int): GamesDto {
+    override suspend fun searchGame(searchQuery: String, page: Int, pageSize: Int): GamesDto {
         return httpClient.get {
             url(Constants.GET_GAMES_URL)
             parameter("page", page)
+            parameter("page_size", pageSize)
             parameter("search", searchQuery)
             parameter("key", "ddcd58c5aaef4a71981eff6c99e548f4")
         }

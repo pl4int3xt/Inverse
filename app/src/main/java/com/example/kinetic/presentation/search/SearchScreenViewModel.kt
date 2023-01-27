@@ -32,7 +32,7 @@ class SearchScreenViewModel @Inject constructor(
     private val _state = mutableStateOf(SearchScreenState())
     val state: State<SearchScreenState> = _state
 
-    private fun searchGame(){
+    fun searchGame(){
         searchGameUseCase(searchQuery, page).onEach { result ->
             when(result){
                 is Resource.Loading -> {

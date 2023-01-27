@@ -5,12 +5,22 @@ import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
@@ -74,41 +84,7 @@ fun SearchScreen(
             )
         }
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(1f)
-        ) {
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ){
-                item {
-                    Column(modifier = Modifier.fillMaxWidth()
-                        .height(100.dp)
-                    ) {
-
-                    }
-                }
-                item {
-                    Column(modifier = Modifier.fillMaxWidth()
-                        .height(100.dp)
-                    ) {
-
-                    }
-                }
-                items(state.games.size){ i ->
-                    GameCard(
-                        name = state.games[i].name?:"",
-                        image = state.games[i].image?:"",
-                        rating = state.games[i].rating?:0.0,
-                        onclick = {
-                            navHostController.navigate(
-                                Screens.GameDetailsScreen.route + "/${state.games[i].id}")
-                        }
-                    )
-                }
-            }
+        Box(modifier = Modifier.fillMaxSize()){
             if(state.isLoading){
                 val lottieCompositionSpec by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(
                     R.raw.gaming))
@@ -117,6 +93,59 @@ fun SearchScreen(
                     iterations = Int.MAX_VALUE,
                     alignment = Alignment.Center
                 )
+            } else if (state.message.isNotEmpty()){
+                Button(
+                    modifier = Modifier.size(50.dp)
+                        .align(Alignment.Center)
+                    ,
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.secondary,
+                    ),
+                    contentPadding = PaddingValues(0.dp),
+                    elevation = ButtonDefaults.buttonElevation(
+                        defaultElevation = 5.dp,
+                        pressedElevation = 5.dp,
+                        focusedElevation = 5.dp,
+                        hoveredElevation = 5.dp,
+                    ),
+                    shape = CircleShape
+                    ,
+                    onClick = { viewModel.searchGame() }) {
+                    Icon(
+                        tint = MaterialTheme.colorScheme.tertiary,
+                        imageVector = Icons.Default.Refresh, contentDescription = "refresh icon")
+                }
+            } else {
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ){
+                    item {
+                        Column(modifier = Modifier.fillMaxWidth()
+                            .height(100.dp)
+                        ) {
+
+                        }
+                    }
+                    item {
+                        Column(modifier = Modifier.fillMaxWidth()
+                            .height(100.dp)
+                        ) {
+
+                        }
+                    }
+                    items(state.games.size){ i ->
+                        GameCard(
+                            name = state.games[i].name?:"",
+                            image = state.games[i].image?:"",
+                            rating = state.games[i].rating?:0.0,
+                            onclick = {
+                                navHostController.navigate(
+                                    Screens.GameDetailsScreen.route + "/${state.games[i].id}")
+                            }
+                        )
+                    }
+                }
             }
         }
     }
