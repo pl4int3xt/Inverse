@@ -3,7 +3,10 @@ package com.example.kinetic.presentation.navigation
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.example.kinetic.presentation.game_details.components.GameDetailsScreen
@@ -26,11 +29,25 @@ fun MainNavGraph(
         composable(
             route = Screens.HomeScreen.route,
             enterTransition = {
-                slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(1000))
+                when (initialState.destination.route) {
+                    Screens.GameDetailsScreen.route ->
+                        slideInHorizontally(
+                            initialOffsetX = { 300 },
+                            animationSpec = tween(300)
+                        ) + fadeIn(animationSpec = tween(300))
+                    else -> null
+                }
             },
             exitTransition = {
-                slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(1000))
-            }
+                when (targetState.destination.route) {
+                    Screens.GameDetailsScreen.route ->
+                        slideOutHorizontally(
+                            targetOffsetX = { -300 },
+                            animationSpec = tween(300)
+                        ) + fadeOut(animationSpec = tween(300))
+                    else -> null
+                }
+            },
         ){
             HomeScreen(
                 onThemeChange,
@@ -41,11 +58,25 @@ fun MainNavGraph(
         composable(
             route = Screens.GameDetailsScreen.route + "/{gameId}",
             enterTransition = {
-                slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(1000))
+                when (initialState.destination.route) {
+                    Screens.HomeScreen.route ->
+                        slideInHorizontally(
+                            initialOffsetX = { 300 },
+                            animationSpec = tween(300)
+                        ) + fadeIn(animationSpec = tween(300))
+                    else -> null
+                }
             },
             exitTransition = {
-                slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(1000))
-            }
+                when (targetState.destination.route) {
+                    Screens.HomeScreen.route ->
+                        slideOutHorizontally(
+                            targetOffsetX = { -300 },
+                            animationSpec = tween(300)
+                        ) + fadeOut(animationSpec = tween(300))
+                    else -> null
+                }
+            },
         ){
             GameDetailsScreen(
                 onPopBackStack = { navHostController.popBackStack() },
@@ -55,11 +86,35 @@ fun MainNavGraph(
         composable(
             route = Screens.SearchScreen.route,
             enterTransition = {
-                slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(1000))
+                when (initialState.destination.route) {
+                    Screens.HomeScreen.route ->
+                        slideInHorizontally(
+                            initialOffsetX = { 300 },
+                            animationSpec = tween(300)
+                        ) + fadeIn(animationSpec = tween(300))
+                    Screens.GameDetailsScreen.route ->
+                        slideInHorizontally(
+                            initialOffsetX = { 300 },
+                            animationSpec = tween(300)
+                        ) + fadeIn(animationSpec = tween(300))
+                    else -> null
+                }
             },
             exitTransition = {
-                slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(1000))
-            }
+                when (targetState.destination.route) {
+                    Screens.HomeScreen.route ->
+                        slideOutHorizontally(
+                            targetOffsetX = { -300 },
+                            animationSpec = tween(300)
+                        ) + fadeOut(animationSpec = tween(300))
+                    Screens.GameDetailsScreen.route ->
+                        slideOutHorizontally(
+                            targetOffsetX = { -300 },
+                            animationSpec = tween(300)
+                        ) + fadeOut(animationSpec = tween(300))
+                    else -> null
+                }
+            },
         ){
             SearchScreen(navHostController = navHostController,
                 onPopBackStack = { navHostController.popBackStack() })

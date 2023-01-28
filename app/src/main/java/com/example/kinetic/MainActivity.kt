@@ -1,5 +1,6 @@
 package com.example.kinetic
 
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -22,6 +23,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
+        window.setBackgroundDrawable(BitmapDrawable())
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             KineticTheme(darkTheme = darkTheme) {
