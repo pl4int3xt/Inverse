@@ -80,11 +80,11 @@ class HomeScreenViewModel @Inject constructor(
                         }
                         is Resource.Success -> {
                             appendGames(result.data?: emptyList())
+                            _state.value = HomeScreenState(isNextLoading = false)
                         } else -> Unit
                     }
                 }.launchIn(viewModelScope)
             }
-            _state.value = HomeScreenState(isNextLoading = true)
         }
     }
     private fun appendGames(games: List<GameModel>){
