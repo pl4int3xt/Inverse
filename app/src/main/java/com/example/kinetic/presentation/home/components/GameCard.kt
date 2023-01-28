@@ -1,6 +1,7 @@
 package com.example.kinetic.presentation.home.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -83,7 +84,14 @@ fun GameCard(
                         fontSize = 15.sp
                     )
                     Spacer(modifier = Modifier.weight(1f))
-
+                    Box(
+                        modifier = Modifier.border(
+                            width = 1.dp,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    ) {
+                        Text(text = "92")
+                    }
                 }
                 Text(
                     color = MaterialTheme.colorScheme.tertiary,
