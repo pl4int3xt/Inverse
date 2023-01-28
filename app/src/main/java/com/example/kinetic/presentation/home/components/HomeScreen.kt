@@ -1,7 +1,6 @@
 package com.example.kinetic.presentation.home.components
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -134,19 +133,28 @@ fun HomeScreen(
                         LazyColumn() {
                             item {
                                 Column(
-                                    modifier = Modifier.height(100.dp)
+                                    modifier = Modifier.height(150.dp)
                                 ) {
 
                                 }
                             }
                             item {
-                                Text(
+                                Column(
                                     modifier = Modifier.padding(5.dp),
-                                    text = "Republic of\nGamers",
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 35.sp,
-                                    color = MaterialTheme.colorScheme.tertiary
-                                )
+                                ) {
+                                    Text(
+                                        text = "Republic of",
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 35.sp,
+                                        color = MaterialTheme.colorScheme.tertiary
+                                    )
+                                    Text(
+                                        text = "Gamer",
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 35.sp,
+                                        color = MaterialTheme.colorScheme.tertiary
+                                    )
+                                }
                             }
                         }
                         Box(
@@ -174,10 +182,10 @@ fun HomeScreen(
                                     )
                                 }
                                 item {
-                                    Spacer(modifier = Modifier.height(50.dp))
+                                    Spacer(modifier = Modifier.height(100.dp))
                                 }
                                 item {
-                                    Spacer(modifier = Modifier.height(50.dp))
+                                    Spacer(modifier = Modifier.height(100.dp))
                                 }
                             }
                             if (state.isNextLoading) {
