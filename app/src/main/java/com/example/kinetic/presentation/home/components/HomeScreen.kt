@@ -151,39 +151,38 @@ fun HomeScreen(
                                 )
                             }
                         }
-                        LazyVerticalGrid(
-                            columns = GridCells.Fixed(2),
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            itemsIndexed(games) { i, game ->
-                                viewModel.onChangeGamesScrollPosition(i)
-                                if ((i + 1) >= (page * PAGE_SIZE) && !state.isNextLoading) {
-                                    viewModel.nextPage()
-                                }
-                                GameCard(
-                                    name = game.name ?: "",
-                                    image = game.image ?: "",
-                                    rating = game.rating ?: 0.0,
-                                    onclick = {
-                                        navHostController.navigate(
-                                            Screens.GameDetailsScreen.route + "/${game.id}"
-                                        )
+                        Box {
+                            LazyVerticalGrid(
+                                columns = GridCells.Fixed(2),
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                itemsIndexed(games) { i, game ->
+                                    viewModel.onChangeGamesScrollPosition(i)
+                                    if ((i + 1) >= (page * PAGE_SIZE) && !state.isNextLoading) {
+                                        viewModel.nextPage()
                                     }
-                                )
-                                Spacer(modifier = Modifier.weight(1f))
-                            }
-                            item {
-                                Spacer(modifier = Modifier.height(50.dp))
-                            }
-                            item {
-                                Spacer(modifier = Modifier.height(50.dp))
-                            }
-                            if (state.isNextLoading){
-                                item {
-                                    CircularProgressIndicator(
-                                        modifier = Modifier.size(5.dp)
+                                    GameCard(
+                                        name = game.name ?: "",
+                                        image = game.image ?: "",
+                                        rating = game.rating ?: 0.0,
+                                        onclick = {
+                                            navHostController.navigate(
+                                                Screens.GameDetailsScreen.route + "/${game.id}"
+                                            )
+                                        }
                                     )
                                 }
+                                item {
+                                    Spacer(modifier = Modifier.height(50.dp))
+                                }
+                                item {
+                                    Spacer(modifier = Modifier.height(50.dp))
+                                }
+                            }
+                            if (state.isNextLoading) {
+                                CircularProgressIndicator(
+                                    modifier = Modifier.align(Alignment.BottomCenter)
+                                )
                             }
                         }
                     }

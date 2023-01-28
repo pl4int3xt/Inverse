@@ -123,47 +123,50 @@ fun SearchScreen(
                         imageVector = Icons.Default.Refresh, contentDescription = "refresh icon")
                 }
             } else {
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ){
-                    item {
-                        Column(modifier = Modifier
-                            .fillMaxWidth()
-                            .height(100.dp)
-                        ) {
-
-                        }
-                    }
-                    item {
-                        Column(modifier = Modifier
-                            .fillMaxWidth()
-                            .height(100.dp)
-                        ) {
-
-                        }
-                    }
-                    itemsIndexed(games){ i , game->
-                        viewModel.onChangeGamesScrollPosition(i)
-                        if ((i + 1) >= (page * PAGE_SIZE) && !state.isNextLoading) {
-                            viewModel.nextPage()
-                        }
-                        GameCard(
-                            name = game.name?:"",
-                            image = game.image?:"",
-                            rating = game.rating?:0.0,
-                            onclick = {
-                                navHostController.navigate(
-                                    Screens.GameDetailsScreen.route + "/${game.id}")
-                            }
-                        )
-                    }
-                    if (state.isNextLoading){
+                Box {
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(2),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
                         item {
-                            CircularProgressIndicator(
-                                modifier = Modifier.size(5.dp)
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(100.dp)
+                            ) {
+
+                            }
+                        }
+                        item {
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(100.dp)
+                            ) {
+
+                            }
+                        }
+                        itemsIndexed(games) { i, game ->
+                            viewModel.onChangeGamesScrollPosition(i)
+                            if ((i + 1) >= (page * PAGE_SIZE) && !state.isNextLoading) {
+                                viewModel.nextPage()
+                            }
+                            GameCard(
+                                name = game.name ?: "",
+                                image = game.image ?: "",
+                                rating = game.rating ?: 0.0,
+                                onclick = {
+                                    navHostController.navigate(
+                                        Screens.GameDetailsScreen.route + "/${game.id}"
+                                    )
+                                }
                             )
                         }
+                    }
+                    if (state.isNextLoading) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.align(Alignment.BottomCenter)
+                        )
                     }
                 }
             }
