@@ -175,7 +175,9 @@ fun HomeScreen(
                                 }
                                 item {
                                     if (state.isNextLoading) {
-                                        CircularProgressIndicator()
+                                        CircularProgressIndicator(
+                                            modifier = Modifier.size(5.dp)
+                                        )
                                     }
                                 }
                                 item {

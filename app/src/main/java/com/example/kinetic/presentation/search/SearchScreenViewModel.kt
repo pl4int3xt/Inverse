@@ -70,11 +70,11 @@ class SearchScreenViewModel @Inject constructor(
                         }
                         is Resource.Success -> {
                             appendGames(result.data?: emptyList())
-                            _state.value = SearchScreenState(isNextLoading = false)
                         } else -> Unit
                     }
                 }.launchIn(viewModelScope)
             }
+            _state.value = SearchScreenState(isNextLoading = false)
         }
     }
     private fun appendGames(games: List<GameModel>){
