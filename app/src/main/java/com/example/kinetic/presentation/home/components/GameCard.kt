@@ -46,7 +46,7 @@ fun GameCard(
         modifier = Modifier
             .padding(10.dp)
             .fillMaxWidth()
-            .height(200.dp),
+            .height(300.dp),
         shape = RoundedCornerShape(10.dp)
     ){
         Column(
@@ -81,7 +81,7 @@ fun GameCard(
                 color = Color.White,
                 text = name,
                 fontWeight = FontWeight.Bold,
-                fontSize = 25.sp
+                fontSize = 20.sp
             )
         }
     }
