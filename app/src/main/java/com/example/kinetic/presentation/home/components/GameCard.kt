@@ -46,12 +46,11 @@ fun GameCard(
             .padding(10.dp)
             .fillMaxWidth()
             .height(200.dp),
-        shape = RoundedCornerShape(20.dp)
+        shape = RoundedCornerShape(10.dp)
     ){
-        Box(
+        Column(
             modifier = Modifier
                 .fillMaxSize(),
-            contentAlignment = Alignment.BottomCenter
         ){
             AsyncImage(
                 contentScale = ContentScale.Crop,
@@ -73,23 +72,14 @@ fun GameCard(
                     fontSize = 15.sp
                 )
             }
-            Column(
-                modifier = Modifier.graphicsLayer {
-                    alpha = 0.4F
-                }
-                    .align(Alignment.TopStart)
-                    .background(Color.Black)
-                    .fillMaxWidth()
-            ) {
-                Text(
-                    modifier = Modifier
-                        .padding(5.dp),
-                    color = Color.White,
-                    text = name,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 15.sp
-                )
-            }
+            Text(
+                modifier = Modifier
+                    .padding(10.dp),
+                color = Color.White,
+                text = name,
+                fontWeight = FontWeight.Bold,
+                fontSize = 25.sp
+            )
         }
     }
 }
