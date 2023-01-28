@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -35,6 +36,7 @@ import coil.compose.AsyncImage
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GameCard(
+    metacritic : Int,
     rating: Double,
     name: String,
     image: String,
@@ -78,19 +80,26 @@ fun GameCard(
                         tint = Color.Yellow,
                         imageVector = Icons.Default.Star, contentDescription = "rating")
                     Text(
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.tertiary,
                         text = rating.toString(),
                         fontWeight = FontWeight.Bold,
                         fontSize = 15.sp
                     )
                     Spacer(modifier = Modifier.weight(1f))
-                    Box(
-                        modifier = Modifier.border(
+                    Box(modifier = Modifier
+                        .border(
                             width = 1.dp,
-                            color = MaterialTheme.colorScheme.primary
+                            color = MaterialTheme.colorScheme.primary,
+                            shape = RoundedCornerShape(5.dp)
                         )
-                    ) {
-                        Text(text = "92")
+                        .padding(10.dp)
+                    ){
+                        Text(
+                            text = metacritic.toString(),
+                            color = MaterialTheme.colorScheme.primary,
+                            textAlign = TextAlign.Center,
+                            style = MaterialTheme.typography.bodySmall
+                        )
                     }
                 }
                 Text(

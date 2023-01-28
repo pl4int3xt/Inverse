@@ -40,6 +40,7 @@ fun Result.toGameModel(): GameModel{
         id = id,
         name = name,
         image = background_image,
-        rating = rating
+        rating = rating,
+        metacritic = metacritic
     )
 }

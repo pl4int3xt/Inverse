@@ -12,9 +12,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
@@ -125,19 +127,7 @@ fun SearchScreen(
                 }
             } else {
                 Box {
-                    LazyVerticalGrid(
-                        columns = GridCells.Fixed(2),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        item {
-                            Column(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(100.dp)
-                            ) {
-
-                            }
-                        }
+                    LazyColumn() {
                         item {
                             Column(
                                 modifier = Modifier
@@ -156,15 +146,13 @@ fun SearchScreen(
                                 name = game.name ?: "",
                                 image = game.image ?: "",
                                 rating = game.rating ?: 0.0,
+                                metacritic = game.metacritic ?: 0,
                                 onclick = {
                                     navHostController.navigate(
                                         Screens.GameDetailsScreen.route + "/${game.id}"
                                     )
                                 }
                             )
-                        }
-                        item {
-                            Spacer(modifier = Modifier.height(100.dp))
                         }
                         item {
                             Spacer(modifier = Modifier.height(100.dp))

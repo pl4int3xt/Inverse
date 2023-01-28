@@ -166,6 +166,7 @@ fun HomeScreen(
                                     name = game.name ?: "",
                                     image = game.image ?: "",
                                     rating = game.rating ?: 0.0,
+                                    metacritic = game.metacritic?:0,
                                     onclick = {
                                         navHostController.navigate(
                                             Screens.GameDetailsScreen.route + "/${game.id}"
