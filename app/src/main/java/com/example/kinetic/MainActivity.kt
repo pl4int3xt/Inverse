@@ -23,7 +23,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
-        window.setBackgroundDrawable(BitmapDrawable())
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             KineticTheme(darkTheme = darkTheme) {
