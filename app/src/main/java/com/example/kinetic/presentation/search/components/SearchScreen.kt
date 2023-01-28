@@ -158,8 +158,12 @@ fun SearchScreen(
                             }
                         )
                     }
-                    item {
-                        CircularProgressIndicator()
+                    if (state.isNextLoading){
+                        item {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(5.dp)
+                            )
+                        }
                     }
                 }
             }
