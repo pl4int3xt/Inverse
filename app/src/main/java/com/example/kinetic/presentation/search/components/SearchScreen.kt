@@ -162,13 +162,11 @@ fun SearchScreen(
                                 }
                             )
                         }
-                        item {
-                            if (state.isNextLoading) {
-                                CircularProgressIndicator(
-                                    modifier = Modifier.size(5.dp)
-                                )
-                            }
-                        }
+                    }
+                    if (state.isNextLoading) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.align(Alignment.BottomCenter)
+                        )
                     }
                 }
             }
