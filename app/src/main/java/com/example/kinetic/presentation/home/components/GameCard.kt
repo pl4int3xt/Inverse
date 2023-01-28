@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,6 +18,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -51,7 +53,11 @@ fun GameCard(
     ){
         Column(
             modifier = Modifier
-                .fillMaxSize(),
+                .fillMaxSize()
+                .background(
+                    color = MaterialTheme.colorScheme.background
+                )
+            ,
         ){
             AsyncImage(
                 modifier = Modifier.fillMaxHeight(0.7f),
@@ -59,30 +65,33 @@ fun GameCard(
                 model = image,
                 contentDescription = "category image"
             )
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Start
+            Column(
+                modifier = Modifier.padding(10.dp),
+                verticalArrangement = Arrangement.Center
             ) {
-                Icon(
-                    modifier = Modifier.padding(2.dp),
-                    tint = Color.Yellow,
-                    imageVector = Icons.Default.Star, contentDescription = "rating")
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Start
+                ) {
+                    Icon(
+                        tint = Color.Yellow,
+                        imageVector = Icons.Default.Star, contentDescription = "rating")
+                    Text(
+                        color = Color.White,
+                        text = rating.toString(),
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 15.sp
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+
+                }
                 Text(
-                    modifier = Modifier.padding(2.dp),
-                    color = Color.White,
-                    text = rating.toString(),
+                    color = MaterialTheme.colorScheme.tertiary,
+                    text = name,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 15.sp
+                    fontSize = 20.sp
                 )
             }
-            Text(
-                modifier = Modifier
-                    .padding(10.dp),
-                color = Color.White,
-                text = name,
-                fontWeight = FontWeight.Bold,
-                fontSize = 20.sp
-            )
         }
     }
 }
