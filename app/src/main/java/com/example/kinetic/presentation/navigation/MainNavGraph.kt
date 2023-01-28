@@ -42,7 +42,7 @@ fun MainNavGraph(
                 when (targetState.destination.route) {
                     Screens.GameDetailsScreen.route ->
                         slideOutHorizontally(
-                            targetOffsetX = { -300 },
+                            targetOffsetX = { 300 },
                             animationSpec = tween(300)
                         )
                     //+ fadeOut(animationSpec = tween(300))
@@ -73,7 +73,7 @@ fun MainNavGraph(
                 when (targetState.destination.route) {
                     Screens.HomeScreen.route ->
                         slideOutHorizontally(
-                            targetOffsetX = { -300 },
+                            targetOffsetX = { 300 },
                             animationSpec = tween(300)
                         )
                     //+ fadeOut(animationSpec = tween(300))
