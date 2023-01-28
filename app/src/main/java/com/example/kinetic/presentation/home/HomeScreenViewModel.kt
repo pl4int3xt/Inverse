@@ -1,6 +1,5 @@
 package com.example.kinetic.presentation.home
 
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue

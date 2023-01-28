@@ -44,7 +44,8 @@ fun SearchBar(
     scrollBehavior: TopAppBarScrollBehavior? = null,
     onTextChange: (String) -> Unit,
     onCloseClicked: () -> Unit,
-    onSearchClicked: (String) -> Unit
+    onSearchClicked: (String) -> Unit,
+    onResetSearchState: () -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
 
@@ -98,6 +99,7 @@ fun SearchBar(
                             onClick = {
                                 if (text.isNotEmpty()){
                                     onTextChange("")
+                                    onResetSearchState()
                                 } else {
                                     onCloseClicked()
                                 }

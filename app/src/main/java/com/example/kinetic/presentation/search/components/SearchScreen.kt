@@ -13,11 +13,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -53,9 +55,12 @@ fun SearchScreen(
     onPopBackStack: () -> Unit,
     viewModel: SearchScreenViewModel = hiltViewModel()
 ) {
+    val PAGE_SIZE = 20
+    val page = viewModel.page.value
     val context = LocalContext.current
     val state = viewModel.state.value
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
+    val games = viewModel.currentGames.value
 
     LaunchedEffect(key1 = true, context){
         viewModel.uiEvent.collect {event ->
@@ -80,7 +85,8 @@ fun SearchScreen(
                 text = viewModel.searchQuery,
                 onTextChange = { viewModel.onEvent(SearchScreenEvents.OnSearchQueryChanged(it))},
                 onCloseClicked = { viewModel.onEvent(SearchScreenEvents.OnBackClicked) },
-                onSearchClicked = { viewModel.onEvent(SearchScreenEvents.OnSearchClicked)}
+                onSearchClicked = { viewModel.onEvent(SearchScreenEvents.OnSearchClicked)},
+                onResetSearchState = { viewModel.resetSearchState() }
             )
         }
     ) {
@@ -95,7 +101,8 @@ fun SearchScreen(
                 )
             } else if (state.message.isNotEmpty()){
                 Button(
-                    modifier = Modifier.size(50.dp)
+                    modifier = Modifier
+                        .size(50.dp)
                         .align(Alignment.Center)
                     ,
                     colors = ButtonDefaults.buttonColors(
@@ -121,29 +128,38 @@ fun SearchScreen(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ){
                     item {
-                        Column(modifier = Modifier.fillMaxWidth()
+                        Column(modifier = Modifier
+                            .fillMaxWidth()
                             .height(100.dp)
                         ) {
 
                         }
                     }
                     item {
-                        Column(modifier = Modifier.fillMaxWidth()
+                        Column(modifier = Modifier
+                            .fillMaxWidth()
                             .height(100.dp)
                         ) {
 
                         }
                     }
-                    items(state.games.size){ i ->
+                    itemsIndexed(games){ i , game->
+                        viewModel.onChangeGamesScrollPosition(i)
+                        if ((i + 1) >= (page * PAGE_SIZE) && !state.isNextLoading) {
+                            viewModel.nextPage()
+                        }
                         GameCard(
-                            name = state.games[i].name?:"",
-                            image = state.games[i].image?:"",
-                            rating = state.games[i].rating?:0.0,
+                            name = game.name?:"",
+                            image = game.image?:"",
+                            rating = game.rating?:0.0,
                             onclick = {
                                 navHostController.navigate(
-                                    Screens.GameDetailsScreen.route + "/${state.games[i].id}")
+                                    Screens.GameDetailsScreen.route + "/${game.id}")
                             }
                         )
+                    }
+                    item {
+                        CircularProgressIndicator()
                     }
                 }
             }

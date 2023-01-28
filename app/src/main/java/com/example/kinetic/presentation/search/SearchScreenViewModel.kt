@@ -1,5 +1,6 @@
 package com.example.kinetic.presentation.search
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -7,6 +8,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kinetic.constants.Resource
+import com.example.kinetic.domain.model.GameModel
 import com.example.kinetic.domain.use_case.SearchGameUseCase
 import com.example.kinetic.presentation.home.HomeScreenState
 import com.example.kinetic.presentation.uievent.UiEvent
@@ -23,7 +25,10 @@ const val PAGE_SIZE = 20
 class SearchScreenViewModel @Inject constructor(
     private val searchGameUseCase: SearchGameUseCase
 ) : ViewModel() {
-    var page by mutableStateOf(1)
+    val currentGames: MutableState<List<GameModel>> = mutableStateOf(ArrayList())
+
+    val page = mutableStateOf(1)
+    private var gamesScrollPosition = 0
 
     var searchQuery by mutableStateOf("")
 
@@ -34,7 +39,8 @@ class SearchScreenViewModel @Inject constructor(
     val state: State<SearchScreenState> = _state
 
     fun searchGame(){
-        searchGameUseCase(searchQuery, page, PAGE_SIZE).onEach { result ->
+        resetSearchState()
+        searchGameUseCase(searchQuery, page.value, PAGE_SIZE).onEach { result ->
             when(result){
                 is Resource.Loading -> {
                     _state.value = SearchScreenState(isLoading = true)
@@ -44,10 +50,52 @@ class SearchScreenViewModel @Inject constructor(
                     sendUiEvent(UiEvent.ShowToast(message = result.message?:"unexpected error occurred"))
                 }
                 is Resource.Success -> {
-                    _state.value = SearchScreenState(games = result.data?: emptyList())
+                    this.currentGames.value = result.data?: emptyList()
+                    _state.value = SearchScreenState(isLoading = false)
                 }
             }
         }.launchIn(viewModelScope)
+    }
+
+    fun nextPage(){
+        viewModelScope.launch {
+            if((gamesScrollPosition + 1) >= (page.value * com.example.kinetic.presentation.home.PAGE_SIZE)){
+                _state.value = SearchScreenState(isNextLoading = true)
+                incrementPage()
+                if (page.value > 1){
+                    searchGameUseCase(searchQuery,page.value, PAGE_SIZE).onEach { result ->
+                        when(result){
+                            is Resource.Error -> {
+                                _state.value = SearchScreenState(message = result.message?: "Unexpected error occurred")
+                                sendUiEvent(UiEvent.ShowToast(message = result.message?:"unexpected error occurred"))
+                            }
+                            is Resource.Success -> {
+                                appendGames(result.data?: emptyList())
+                            } else -> Unit
+                        }
+                    }.launchIn(viewModelScope)
+                }
+                _state.value = SearchScreenState(isNextLoading = false)
+            }
+        }
+    }
+    private fun appendGames(games: List<GameModel>){
+        val current = ArrayList(this.currentGames.value)
+        current.addAll(games)
+        this.currentGames.value = current
+    }
+
+    fun resetSearchState(){
+        page.value = 1
+        onChangeGamesScrollPosition(0)
+        this.currentGames.value = listOf()
+    }
+    private fun incrementPage(){
+        page.value = page.value + 1
+    }
+
+    fun onChangeGamesScrollPosition(position: Int){
+        gamesScrollPosition = position
     }
 
     fun onEvent(searchScreenEvents: SearchScreenEvents){
