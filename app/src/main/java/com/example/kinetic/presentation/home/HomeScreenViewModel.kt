@@ -41,7 +41,6 @@ class HomeScreenViewModel @Inject constructor(
 
     init {
         getGames()
-        _state.value = HomeScreenState()
     }
 
     fun getGames(){
