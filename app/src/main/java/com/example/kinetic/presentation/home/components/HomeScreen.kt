@@ -174,6 +174,11 @@ fun HomeScreen(
                                     )
                                 }
                                 item {
+                                    if (state.isNextLoading) {
+                                        CircularProgressIndicator()
+                                    }
+                                }
+                                item {
                                     Spacer(modifier = Modifier.height(50.dp))
                                 }
                                 item {
