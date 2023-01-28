@@ -58,7 +58,7 @@ class SearchScreenViewModel @Inject constructor(
     }
 
     fun nextPage(){
-        if((gamesScrollPosition + 1) >= (page.value * com.example.kinetic.presentation.home.PAGE_SIZE)){
+        if((gamesScrollPosition + 1) >= (page.value * PAGE_SIZE)){
             _state.value = SearchScreenState(isNextLoading = true)
             incrementPage()
             if (page.value > 1){
