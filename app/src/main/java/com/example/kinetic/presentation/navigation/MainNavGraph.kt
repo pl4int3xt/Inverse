@@ -1,6 +1,8 @@
 package com.example.kinetic.presentation.navigation
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.EaseInOut
+import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -32,9 +34,11 @@ fun MainNavGraph(
                     Screens.GameDetailsScreen.route ->
                         slideInHorizontally(
                             initialOffsetX = { 300 },
-                            animationSpec = tween(300)
-                        )
-                    //+ fadeIn(animationSpec = tween(300))
+                            animationSpec = tween(
+                                300,
+                                easing = FastOutSlowInEasing
+                            )
+                        )+ fadeIn(animationSpec = tween(300))
                     else -> null
                 }
             },
@@ -43,9 +47,11 @@ fun MainNavGraph(
                     Screens.GameDetailsScreen.route ->
                         slideOutHorizontally(
                             targetOffsetX = { 300 },
-                            animationSpec = tween(300)
-                        )
-                    //+ fadeOut(animationSpec = tween(300))
+                            animationSpec = tween(
+                                300,
+                                easing = FastOutSlowInEasing
+                            )
+                        )+ fadeOut(animationSpec = tween(300))
                     else -> null
                 }
             },
@@ -63,9 +69,11 @@ fun MainNavGraph(
                     Screens.HomeScreen.route ->
                         slideInHorizontally(
                             initialOffsetX = { 300 },
-                            animationSpec = tween(300)
-                        )
-                   // + fadeIn(animationSpec = tween(300))
+                            animationSpec = tween(
+                                300,
+                                easing = FastOutSlowInEasing
+                            )
+                        )+ fadeIn(animationSpec = tween(300))
                     else -> null
                 }
             },
@@ -74,9 +82,11 @@ fun MainNavGraph(
                     Screens.HomeScreen.route ->
                         slideOutHorizontally(
                             targetOffsetX = { 300 },
-                            animationSpec = tween(300)
-                        )
-                    //+ fadeOut(animationSpec = tween(300))
+                            animationSpec = tween(
+                                300,
+                                easing = FastOutSlowInEasing
+                            )
+                        )+ fadeOut(animationSpec = tween(300))
                     else -> null
                 }
             },
@@ -93,15 +103,19 @@ fun MainNavGraph(
                     Screens.HomeScreen.route ->
                         slideInHorizontally(
                             initialOffsetX = { 300 },
-                            animationSpec = tween(300)
-                        )
-                    //+ fadeIn(animationSpec = tween(300))
+                            animationSpec = tween(
+                                300,
+                                easing = FastOutSlowInEasing
+                            )
+                        )+ fadeIn(animationSpec = tween(300))
                     Screens.GameDetailsScreen.route ->
                         slideInHorizontally(
                             initialOffsetX = { 300 },
-                            animationSpec = tween(300)
-                        )
-                    //+ fadeIn(animationSpec = tween(300))
+                            animationSpec = tween(
+                                300,
+                                easing = FastOutSlowInEasing
+                            )
+                        )+ fadeIn(animationSpec = tween(300))
                     else -> null
                 }
             },
@@ -110,15 +124,19 @@ fun MainNavGraph(
                     Screens.HomeScreen.route ->
                         slideOutHorizontally(
                             targetOffsetX = { -300 },
-                            animationSpec = tween(300)
-                        )
-                    //+ fadeOut(animationSpec = tween(300))
+                            animationSpec = tween(
+                                300,
+                                easing = FastOutSlowInEasing
+                            )
+                        )+ fadeOut(animationSpec = tween(300))
                     Screens.GameDetailsScreen.route ->
                         slideOutHorizontally(
                             targetOffsetX = { -300 },
-                            animationSpec = tween(300)
-                        )
-                    //+ fadeOut(animationSpec = tween(300))
+                            animationSpec = tween(
+                                300,
+                                easing = FastOutSlowInEasing
+                            )
+                        )+ fadeOut(animationSpec = tween(300))
                     else -> null
                 }
             },
