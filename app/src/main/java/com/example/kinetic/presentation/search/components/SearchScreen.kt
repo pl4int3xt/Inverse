@@ -150,7 +150,6 @@ fun SearchScreen(
                             viewModel.onChangeGamesScrollPosition(i)
                             if ((i + 1) >= (page * PAGE_SIZE) && !state.isNextLoading) {
                                 viewModel.nextPage()
-                                Log.e("0000000000000", "SearchScreen: ${state.isNextLoading}", )
                             }
                             GameCard(
                                 name = game.name ?: "",

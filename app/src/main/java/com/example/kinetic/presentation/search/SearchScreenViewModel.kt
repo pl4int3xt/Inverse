@@ -58,25 +58,23 @@ class SearchScreenViewModel @Inject constructor(
     }
 
     fun nextPage(){
-        viewModelScope.launch {
-            if((gamesScrollPosition + 1) >= (page.value * com.example.kinetic.presentation.home.PAGE_SIZE)){
-                _state.value = SearchScreenState(isNextLoading = true)
-                incrementPage()
-                if (page.value > 1){
-                    searchGameUseCase(searchQuery,page.value, PAGE_SIZE).onEach { result ->
-                        when(result){
-                            is Resource.Error -> {
-                                _state.value = SearchScreenState(message = result.message?: "Unexpected error occurred")
-                                sendUiEvent(UiEvent.ShowToast(message = result.message?:"unexpected error occurred"))
-                            }
-                            is Resource.Success -> {
-                                appendGames(result.data?: emptyList())
-                            } else -> Unit
+        if((gamesScrollPosition + 1) >= (page.value * com.example.kinetic.presentation.home.PAGE_SIZE)){
+            _state.value = SearchScreenState(isNextLoading = true)
+            incrementPage()
+            if (page.value > 1){
+                searchGameUseCase(searchQuery,page.value, PAGE_SIZE).onEach { result ->
+                    when(result){
+                        is Resource.Error -> {
+                            _state.value = SearchScreenState(message = result.message?: "Unexpected error occurred")
+                            sendUiEvent(UiEvent.ShowToast(message = result.message?:"unexpected error occurred"))
                         }
-                    }.launchIn(viewModelScope)
-                }
-                _state.value = SearchScreenState(isNextLoading = false)
+                        is Resource.Success -> {
+                            appendGames(result.data?: emptyList())
+                        } else -> Unit
+                    }
+                }.launchIn(viewModelScope)
             }
+            _state.value = SearchScreenState(isNextLoading = false)
         }
     }
     private fun appendGames(games: List<GameModel>){
