@@ -26,10 +26,10 @@ fun MainNavGraph(
         composable(
             route = Screens.HomeScreen.route,
             enterTransition = {
-                slideIntoContainer(AnimatedContentScope.SlideDirection.Left)
+                slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(1000))
             },
             exitTransition = {
-                slideOutOfContainer(AnimatedContentScope.SlideDirection.Right)
+                slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(1000))
             }
         ){
             HomeScreen(
@@ -41,10 +41,10 @@ fun MainNavGraph(
         composable(
             route = Screens.GameDetailsScreen.route + "/{gameId}",
             enterTransition = {
-                slideIntoContainer(AnimatedContentScope.SlideDirection.Left)
+                slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(1000))
             },
             exitTransition = {
-                slideOutOfContainer(AnimatedContentScope.SlideDirection.Right)
+                slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(1000))
             }
         ){
             GameDetailsScreen(
@@ -55,10 +55,10 @@ fun MainNavGraph(
         composable(
             route = Screens.SearchScreen.route,
             enterTransition = {
-                slideIntoContainer(AnimatedContentScope.SlideDirection.Left)
+                slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(1000))
             },
             exitTransition = {
-                slideOutOfContainer(AnimatedContentScope.SlideDirection.Right)
+                slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(1000))
             }
         ){
             SearchScreen(navHostController = navHostController,
