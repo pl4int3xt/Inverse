@@ -43,7 +43,7 @@ fun GameCard(
             pressedElevation = 0.dp
         ),
         modifier = Modifier
-            .padding(8.dp)
+            .padding(10.dp)
             .fillMaxWidth(0.5f)
             .height(200.dp),
         shape = RoundedCornerShape(20.dp)

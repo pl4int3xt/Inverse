@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DarkMode
@@ -156,42 +157,24 @@ fun HomeScreen(
                                     )
                                 }
                             }
-                        }
-                        Box(
-                            modifier = Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            LazyVerticalGrid(
-                                columns = GridCells.Fixed(2),
-                                horizontalArrangement = Arrangement.SpaceBetween
-                            ) {
-                                itemsIndexed(games) { i, game ->
-                                    viewModel.onChangeGamesScrollPosition(i)
-                                    if ((i + 1) >= (page * PAGE_SIZE) && !state.isNextLoading) {
-                                        viewModel.nextPage()
+                            itemsIndexed(games) { i, game ->
+                                viewModel.onChangeGamesScrollPosition(i)
+                                if ((i + 1) >= (page * PAGE_SIZE) && !state.isNextLoading) {
+                                    viewModel.nextPage()
+                                }
+                                GameCard(
+                                    name = game.name ?: "",
+                                    image = game.image ?: "",
+                                    rating = game.rating ?: 0.0,
+                                    onclick = {
+                                        navHostController.navigate(
+                                            Screens.GameDetailsScreen.route + "/${game.id}"
+                                        )
                                     }
-                                    GameCard(
-                                        name = game.name ?: "",
-                                        image = game.image ?: "",
-                                        rating = game.rating ?: 0.0,
-                                        onclick = {
-                                            navHostController.navigate(
-                                                Screens.GameDetailsScreen.route + "/${game.id}"
-                                            )
-                                        }
-                                    )
-                                }
-                                item {
-                                    Spacer(modifier = Modifier.height(100.dp))
-                                }
-                                item {
-                                    Spacer(modifier = Modifier.height(100.dp))
-                                }
-                            }
-                            if (state.isNextLoading) {
-                                CircularProgressIndicator(
-                                    modifier = Modifier.align(Alignment.BottomCenter)
                                 )
+                            }
+                            item {
+                                Spacer(modifier = Modifier.height(100.dp))
                             }
                         }
                     }
