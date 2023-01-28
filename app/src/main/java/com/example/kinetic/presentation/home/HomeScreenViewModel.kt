@@ -85,7 +85,7 @@ class HomeScreenViewModel @Inject constructor(
                                 appendGames(result.data?: emptyList())
                             } else -> Unit
                         }
-                    }.launchIn(viewModelScope)
+                    }
                 }
                 isNextLoading = false
             }
