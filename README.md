@@ -56,7 +56,7 @@ The domain layer is responsible for encapsulating complex business logic, or sim
 * [Lottie](https://github.com/airbnb/lottie-android) - Lottie is a mobile library for Android and iOS that parses Adobe After Effects animations exported as json with Bodymovin and renders them natively on mobile!
 
 ## Data Source
-This application fetches its data from the [Rawgb](https://rawg.io). Find the Documentation by following this [link](https://rawg.io/apidocs).
+This application fetches its data from the [Rawg](https://rawg.io). Find the Documentation by following this [link](https://rawg.io/apidocs).
 
 ## Author
 Benjamin Muthui
