@@ -44,7 +44,7 @@ fun GameCard(
         ),
         modifier = Modifier
             .padding(10.dp)
-            .fillMaxWidth(0.5f)
+            .fillMaxWidth()
             .height(200.dp),
         shape = RoundedCornerShape(20.dp)
     ){
