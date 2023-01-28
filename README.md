@@ -71,7 +71,7 @@ Benjamin Muthui
   ```
   MIT License
 
-Copyright (c) 2022 Felix m Kariuki
+Copyright (c) 2022 Benjamin Muthui
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
