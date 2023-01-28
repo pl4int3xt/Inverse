@@ -32,8 +32,8 @@ fun MainNavGraph(
                     Screens.GameDetailsScreen.route ->
                         slideInHorizontally(
                             initialOffsetX = { 300 },
-                            animationSpec = tween(300)
-                        )+ fadeIn(animationSpec = tween(300))
+                            animationSpec = tween(500)
+                        )
                     else -> null
                 }
             },
@@ -42,8 +42,8 @@ fun MainNavGraph(
                     Screens.GameDetailsScreen.route ->
                         slideOutHorizontally(
                             targetOffsetX = { 300 },
-                            animationSpec = tween(300)
-                        )+ fadeOut(animationSpec = tween(300))
+                            animationSpec = tween(500)
+                        )
                     else -> null
                 }
             },
@@ -61,8 +61,12 @@ fun MainNavGraph(
                     Screens.HomeScreen.route ->
                         slideInHorizontally(
                             initialOffsetX = { 300 },
-                            animationSpec = tween(300)
-                        )+ fadeIn(animationSpec = tween(300))
+                            animationSpec = tween(500))
+                    Screens.SearchScreen.route ->
+                        slideInHorizontally(
+                            initialOffsetX = { 300 },
+                            animationSpec = tween(500)
+                        )
                     else -> null
                 }
             },
@@ -71,8 +75,13 @@ fun MainNavGraph(
                     Screens.HomeScreen.route ->
                         slideOutHorizontally(
                             targetOffsetX = { 300 },
-                            animationSpec = tween(300)
-                        )+ fadeOut(animationSpec = tween(300))
+                            animationSpec = tween(500)
+                        )
+                    Screens.SearchScreen.route ->
+                        slideOutHorizontally(
+                            targetOffsetX = { 300 },
+                            animationSpec = tween(500)
+                        )
                     else -> null
                 }
             },
@@ -89,13 +98,13 @@ fun MainNavGraph(
                     Screens.HomeScreen.route ->
                         slideInHorizontally(
                             initialOffsetX = { 300 },
-                            animationSpec = tween(300)
-                        )+ fadeIn(animationSpec = tween(300))
+                            animationSpec = tween(500)
+                        )
                     Screens.GameDetailsScreen.route ->
                         slideInHorizontally(
                             initialOffsetX = { 300 },
-                            animationSpec = tween(300)
-                        )+ fadeIn(animationSpec = tween(300))
+                            animationSpec = tween(500)
+                        )
                     else -> null
                 }
             },
@@ -103,14 +112,14 @@ fun MainNavGraph(
                 when (targetState.destination.route) {
                     Screens.HomeScreen.route ->
                         slideOutHorizontally(
-                            targetOffsetX = { -300 },
-                            animationSpec = tween(300)
-                        )+ fadeOut(animationSpec = tween(300))
+                            targetOffsetX = { 300 },
+                            animationSpec = tween(500)
+                        )
                     Screens.GameDetailsScreen.route ->
                         slideOutHorizontally(
-                            targetOffsetX = { -300 },
-                            animationSpec = tween(300)
-                        )+ fadeOut(animationSpec = tween(300))
+                            targetOffsetX = { 300 },
+                            animationSpec = tween(500)
+                        )
                     else -> null
                 }
             },

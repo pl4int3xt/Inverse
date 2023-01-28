@@ -179,12 +179,13 @@ fun HomeScreen(
                                 Spacer(modifier = Modifier.height(50.dp))
                             }
                             item {
-                                CircularProgressIndicator()
+                                if(state.isNextLoading){
+                                    CircularProgressIndicator(
+                                        modifier = Modifier.size(20.dp)
+                                    )
+                                }
                             }
                         }
-                    }
-                    if(state.isNextLoading){
-
                     }
                 }
             }
