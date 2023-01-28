@@ -3,6 +3,7 @@ package com.example.kinetic.presentation.navigation
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInHorizontally
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.example.kinetic.presentation.game_details.components.GameDetailsScreen
@@ -25,10 +26,10 @@ fun MainNavGraph(
         composable(
             route = Screens.HomeScreen.route,
             enterTransition = {
-                slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(1000))
+                slideIntoContainer(AnimatedContentScope.SlideDirection.Left)
             },
             exitTransition = {
-                slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(1000))
+                slideOutOfContainer(AnimatedContentScope.SlideDirection.Right)
             }
         ){
             HomeScreen(
@@ -40,10 +41,10 @@ fun MainNavGraph(
         composable(
             route = Screens.GameDetailsScreen.route + "/{gameId}",
             enterTransition = {
-                slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(1000))
+                slideIntoContainer(AnimatedContentScope.SlideDirection.Left)
             },
             exitTransition = {
-                slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(1000))
+                slideOutOfContainer(AnimatedContentScope.SlideDirection.Right)
             }
         ){
             GameDetailsScreen(
@@ -54,10 +55,10 @@ fun MainNavGraph(
         composable(
             route = Screens.SearchScreen.route,
             enterTransition = {
-                slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(1000))
+                slideIntoContainer(AnimatedContentScope.SlideDirection.Left)
             },
             exitTransition = {
-                slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(1000))
+                slideOutOfContainer(AnimatedContentScope.SlideDirection.Right)
             }
         ){
             SearchScreen(navHostController = navHostController,
