@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScopeInstance.align
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -66,6 +67,7 @@ fun HomeScreen(
     val context = LocalContext.current
     val state = viewModel.state.value
     val games = viewModel.currentGames.value
+    val isNextLoading = viewModel.isNextLoading
 
     LaunchedEffect(key1 = true, context){
         viewModel.uiEvent.collect { event ->
@@ -151,14 +153,17 @@ fun HomeScreen(
                                 )
                             }
                         }
-                        Box {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
                             LazyVerticalGrid(
                                 columns = GridCells.Fixed(2),
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
                                 itemsIndexed(games) { i, game ->
                                     viewModel.onChangeGamesScrollPosition(i)
-                                    if ((i + 1) >= (page * PAGE_SIZE) && !state.isNextLoading) {
+                                    if ((i + 1) >= (page * PAGE_SIZE) && !isNextLoading) {
                                         viewModel.nextPage()
                                     }
                                     GameCard(
@@ -179,7 +184,7 @@ fun HomeScreen(
                                     Spacer(modifier = Modifier.height(50.dp))
                                 }
                             }
-                            if (state.isNextLoading) {
+                            if (isNextLoading) {
                                 CircularProgressIndicator(
                                     modifier = Modifier.align(Alignment.BottomCenter)
                                 )
