@@ -1,6 +1,7 @@
 package com.example.kinetic.presentation.home.components
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -63,7 +64,6 @@ fun HomeScreen(
     val context = LocalContext.current
     val state = viewModel.state.value
     val games = viewModel.currentGames.value
-    val isNextLoading = viewModel.isNextLoading
 
     LaunchedEffect(key1 = true, context){
         viewModel.uiEvent.collect { event ->
@@ -159,7 +159,7 @@ fun HomeScreen(
                             ) {
                                 itemsIndexed(games) { i, game ->
                                     viewModel.onChangeGamesScrollPosition(i)
-                                    if ((i + 1) >= (page * PAGE_SIZE) && !isNextLoading) {
+                                    if ((i + 1) >= (page * PAGE_SIZE) && !state.isNextLoading) {
                                         viewModel.nextPage()
                                     }
                                     GameCard(
@@ -180,7 +180,7 @@ fun HomeScreen(
                                     Spacer(modifier = Modifier.height(50.dp))
                                 }
                             }
-                            if (isNextLoading) {
+                            if (state.isNextLoading) {
                                 CircularProgressIndicator(
                                     modifier = Modifier.align(Alignment.BottomCenter)
                                 )

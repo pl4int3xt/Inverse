@@ -27,8 +27,6 @@ class HomeScreenViewModel @Inject constructor(
     private val getGamesUseCase: GetGamesUseCase,
 ): ViewModel() {
     val currentGames: MutableState<List<GameModel>> = mutableStateOf(ArrayList())
-    var isNextLoading by mutableStateOf(false)
-
     var darkTheme by mutableStateOf(false)
     val page = mutableStateOf(1)
     private var gamesScrollPosition = 0
@@ -70,25 +68,23 @@ class HomeScreenViewModel @Inject constructor(
     }
 
     fun nextPage(){
-        viewModelScope.launch {
-            if((gamesScrollPosition + 1) >= (page.value * PAGE_SIZE)){
-                isNextLoading = true
-                incrementPage()
-                if (page.value > 1){
-                    getGamesUseCase(page.value, PAGE_SIZE).onEach { result ->
-                        when(result){
-                            is Resource.Error -> {
-                                _state.value = HomeScreenState(message = result.message?: "Unexpected error occurred")
-                                sendUiEvent(UiEvent.ShowToast(message = result.message?:"unexpected error occurred"))
-                            }
-                            is Resource.Success -> {
-                                appendGames(result.data?: emptyList())
-                            } else -> Unit
+        if((gamesScrollPosition + 1) >= (page.value * PAGE_SIZE)){
+            _state.value = HomeScreenState(isLoading = true)
+            incrementPage()
+            if (page.value > 1){
+                getGamesUseCase(page.value, PAGE_SIZE).onEach { result ->
+                    when(result){
+                        is Resource.Error -> {
+                            _state.value = HomeScreenState(message = result.message?: "Unexpected error occurred")
+                            sendUiEvent(UiEvent.ShowToast(message = result.message?:"unexpected error occurred"))
                         }
+                        is Resource.Success -> {
+                            appendGames(result.data?: emptyList())
+                        } else -> Unit
                     }
-                }
-                isNextLoading = false
+                }.launchIn(viewModelScope)
             }
+            _state.value = HomeScreenState(isLoading = true)
         }
     }
     private fun appendGames(games: List<GameModel>){
