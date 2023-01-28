@@ -75,7 +75,8 @@ fun GameCard(
             }
             Column(
                 modifier = Modifier.graphicsLayer {
-                alpha = 0.4F }
+                    alpha = 0.4F
+                }
                     .align(Alignment.TopStart)
                     .background(Color.Black)
                     .fillMaxWidth()
