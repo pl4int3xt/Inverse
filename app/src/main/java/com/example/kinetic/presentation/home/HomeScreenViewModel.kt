@@ -42,7 +42,6 @@ class HomeScreenViewModel @Inject constructor(
     }
 
     fun getGames(){
-        resetSearchState()
         getGamesUseCase(page.value, PAGE_SIZE).onEach { result ->
             when(result){
                 is Resource.Loading -> {
@@ -93,11 +92,6 @@ class HomeScreenViewModel @Inject constructor(
         this.currentGames.value = current
     }
 
-    private fun resetSearchState(){
-        page.value = 1
-        onChangeGamesScrollPosition(0)
-        this.currentGames.value = listOf()
-    }
     private fun incrementPage(){
         page.value = page.value + 1
     }
