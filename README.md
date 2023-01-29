@@ -13,7 +13,7 @@ Kinetic is A games details App Built with Jetpack Compose using the Rawg API. Th
 - #### Dark Mode
 <img src="./screenshots/Screenshot_1674997493.png" width="320">&emsp;
 <img src="./screenshots/Screenshot_1674904724.png" width="320">&emsp;
-<img src="./screenshots/Screenshot_1674914957.png" width="320">&emsp;
+<img src="./screenshots/Screenshot_1674915023.png" width="320">&emsp;
 <img src="./screenshots/Screenshot_1674998940.png" width="320">
 
 ## Architecture
