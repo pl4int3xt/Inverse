@@ -28,7 +28,6 @@ fun SingleGenre(
                 text = name,
                 color = MaterialTheme.colorScheme.primary,
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.bodySmall
             )
         }
     }
