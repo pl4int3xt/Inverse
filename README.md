@@ -2,9 +2,6 @@
 
 Kinetic is A games details App Built with Jetpack Compose using the Rawg API. The app follows mvvm clean architecture design pattern
 
-## App Link
-https://drive.google.com/file/d/1CMMjTHgJH_zJH4se4eTg5CTda5tVJl38/view?usp=sharing
-
 ## **Screenshots**
 
 - #### Light Mode
