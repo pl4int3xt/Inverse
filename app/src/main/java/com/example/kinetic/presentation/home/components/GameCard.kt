@@ -41,9 +41,12 @@ fun GameCard(
     onclick: () -> Unit
 ) {
     Card(
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.onPrimary
+        ),
         onClick = { onclick()},
         elevation = CardDefaults.cardElevation(
-            defaultElevation = 10.dp,
+            defaultElevation = 5.dp,
             pressedElevation = 0.dp
         ),
         modifier = Modifier
