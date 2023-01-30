@@ -16,6 +16,11 @@ Kinetic is A games details App Built with Jetpack Compose using the Rawg API. Th
 <img src="./screenshots/Screenshot_1674915023.png" width="320">&emsp;
 <img src="./screenshots/Screenshot_1674998940.png" width="320">
 
+##API_KEY
+Replace the api key in the constants object with your own key
+```kotlin
+const val API_KEY = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+```
 ## Tech Stack
  - [Kotlin](https://kotlinlang.org/docs/reference/) - Kotlin is a cross-platform, statically typed, general-purpose programming language with type inference. Kotlin is designed to interoperate fully with Java, and the JVM version of Kotlin's standard library depends on the Java Class Library, but type inference allows its syntax to be more concise
  
