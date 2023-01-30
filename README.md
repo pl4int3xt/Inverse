@@ -16,7 +16,7 @@ Kinetic is A games details App Built with Jetpack Compose using the Rawg API. Th
 <img src="./screenshots/Screenshot_1674915023.png" width="320">&emsp;
 <img src="./screenshots/Screenshot_1674998940.png" width="320">
 
-##API_KEY
+## API_KEY
 Replace the api key in the constants object with your own key
 ```kotlin
 const val API_KEY = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
