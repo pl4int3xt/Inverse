@@ -5,4 +5,5 @@ sealed class SettingsScreenEvents {
     data class OnUseSystemSettingsSelected(var selected: Boolean): SettingsScreenEvents()
     data class OnDarkModeSelected(var selected: Boolean): SettingsScreenEvents()
     data class OnLightModeYouSelected(var selected: Boolean): SettingsScreenEvents()
+    object OnPopBackStack: SettingsScreenEvents()
 }

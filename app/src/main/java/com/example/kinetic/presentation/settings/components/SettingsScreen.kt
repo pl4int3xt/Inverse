@@ -2,6 +2,7 @@ package com.example.kinetic.presentation.settings.components
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,7 +12,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Brush
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.DismissibleDrawerSheet
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -20,67 +23,98 @@ import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.kinetic.presentation.game_details.GamesDetailsScreenEvents
+import com.example.kinetic.presentation.settings.SettingsScreenViewModel
+import com.example.kinetic.presentation.shared.MainTopAppBar
+import com.example.kinetic.presentation.uievent.UiEvent
+import kotlinx.coroutines.flow.collectLatest
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreen() {
-    Scaffold() {
-        Column(
-            modifier = Modifier.padding(16.dp)
-        ) {
-            Text(
-                text = "Customization",
-                fontSize = 30.sp,
-                fontWeight = FontWeight.Bold
-            )
-            ElevatedButton(
-                shape = RoundedCornerShape(10.dp),
-                modifier = Modifier.fillMaxWidth(),
-                onClick = { /*TODO*/ }
-            ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Start
-                ) {
-                    Icon(imageVector = Icons.Filled.Brush, contentDescription = "customize")
-                    Spacer(modifier = Modifier.width(5.dp))
-                    Text(
-                        text = "Themes",
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold
-                    )
+fun SettingsScreen(
+    onPopBackStack: () -> Unit,
+    viewModel: SettingsScreenViewModel = hiltViewModel()
+) {
+
+    LaunchedEffect(key1 = true){
+        viewModel.uiEvent.collectLatest { event ->
+            when(event){
+                is UiEvent.PopBackStack -> {
+                    onPopBackStack()
                 }
+                else -> Unit
             }
-            Spacer(modifier = Modifier.height(5.dp))
-            ElevatedButton(
-                shape = RoundedCornerShape(10.dp),
-                modifier = Modifier.fillMaxWidth(),
-                onClick = { /*TODO*/ }) {
-                Column(
+        }
+    }
+
+    Scaffold(
+        topBar = {
+            MainTopAppBar(
+                title = "",
+                navigationIcon = Icons.Default.ArrowBack,
+                onClickNavigation = { viewModel.onEvent(GamesDetailsScreenEvents.OnCancelClicked) },
+                onClickAction = { },
+            )
+        }
+    ) {
+        Box(
+            modifier = Modifier.padding(top = it.calculateTopPadding())
+        ) {
+            Column(
+                modifier = Modifier.padding(16.dp)
+            ) {
+                Text(
+                    text = "Customization",
+                    fontSize = 30.sp,
+                    color = Color.Blue,
+                    fontWeight = FontWeight.Bold
+                )
+                ElevatedButton(
+                    shape = RoundedCornerShape(10.dp),
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.Start
+                    onClick = { /*TODO*/ }
                 ) {
-                    Text(
-                        text = "Language",
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(text = "(System Default)")
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Start
+                    ) {
+                        Icon(imageVector = Icons.Filled.Brush, contentDescription = "customize")
+                        Spacer(modifier = Modifier.width(5.dp))
+                        Text(
+                            text = "Themes",
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
+                Spacer(modifier = Modifier.height(5.dp))
+                ElevatedButton(
+                    shape = RoundedCornerShape(10.dp),
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = { /*TODO*/ }) {
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalAlignment = Alignment.Start
+                    ) {
+                        Text(
+                            text = "Language",
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(text = "(System Default)")
+                    }
                 }
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun SettingsPrev() {
-    SettingsScreen()
 }
