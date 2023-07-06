@@ -136,6 +136,7 @@ fun SettingsScreen(
                         ) {
                             SingleMode(selected = viewModel.darkMode,
                                 onClick = {
+                                    onDarkOn()
                                     viewModel.onEvent(SettingsScreenEvents.OnDarkModeSelected(!viewModel.darkMode))
                                 },
                                 icon = Icons.Filled.DarkMode,
@@ -143,6 +144,7 @@ fun SettingsScreen(
                             )
                             SingleMode(selected = viewModel.lightMode,
                                 onClick = {
+                                    onLightOn()
                                     viewModel.onEvent(SettingsScreenEvents.OnLightModeYouSelected(!viewModel.lightMode))
                                 },
                                 icon = Icons.Filled.LightMode,

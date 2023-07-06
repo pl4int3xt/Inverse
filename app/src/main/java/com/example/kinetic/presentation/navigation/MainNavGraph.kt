@@ -21,6 +21,7 @@ fun MainNavGraph(
     navHostController: NavHostController,
     onDarkOn: () -> Unit,
     onLightOn: () -> Unit,
+    onFollowSystem: () -> Unit,
     onDynamicColorOn: () -> Unit
 ) {
     AnimatedNavHost(

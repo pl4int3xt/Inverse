@@ -1,10 +1,10 @@
 package com.example.kinetic
 
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -18,8 +18,9 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    var darkTheme by mutableStateOf(false)
-    var dynamicColor by mutableStateOf(false)
+    private var darkTheme by mutableStateOf(false)
+    private var dynamicColor by mutableStateOf(false)
+    private var followSystem by mutableStateOf(true)
     @OptIn(ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,19 +28,25 @@ class MainActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             KineticTheme(
-                darkTheme = darkTheme,
+                darkTheme = if(followSystem) isSystemInDarkTheme() else darkTheme,
                 dynamicColor = dynamicColor
             ) {
                 MainNavGraph(
                     navHostController = rememberAnimatedNavController(),
                     onLightOn = {
+                        followSystem = false
                         darkTheme = false
                         dynamicColor = false },
                     onDarkOn = {
+                        followSystem = false
                         darkTheme = true
                         dynamicColor = false },
                     onDynamicColorOn = {
+                        followSystem = false
                         dynamicColor = true
+                    },
+                    onFollowSystem = {
+                        followSystem = true
                     }
                 )
             }
