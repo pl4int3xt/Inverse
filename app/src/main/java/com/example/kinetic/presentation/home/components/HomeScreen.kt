@@ -65,7 +65,6 @@ fun HomeScreen(
     navHostController: NavHostController
 ) {
     val games = viewModel.pagingFlow.collectAsLazyPagingItems()
-    val page = viewModel.page.value
     val context = LocalContext.current
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
@@ -195,6 +194,11 @@ fun HomeScreen(
                                 if (games.loadState.append is LoadState.Loading) {
                                     item {
                                         CircularProgressIndicator()
+                                    }
+                                }
+                                if (games.loadState.append is LoadState.Error){
+                                    item {
+                                        (games.loadState.append as LoadState.Error).error.message?.let { it1 -> Text(text = it1) }
                                     }
                                 }
                                 item {
