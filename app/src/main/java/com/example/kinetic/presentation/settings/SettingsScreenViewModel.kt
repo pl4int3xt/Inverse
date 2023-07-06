@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kinetic.presentation.uievent.UiEvent
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
@@ -24,24 +23,22 @@ class SettingsScreenViewModel: ViewModel() {
     fun onEvent(settingsScreenEvents: SettingsScreenEvents){
         when(settingsScreenEvents){
             is SettingsScreenEvents.OnDarkModeSelected -> {
-                settingsScreenEvents.selected = darkMode
+                darkMode = settingsScreenEvents.selected
             }
             is SettingsScreenEvents.OnLightModeYouSelected -> {
-                settingsScreenEvents.selected = lightMode
+                lightMode = settingsScreenEvents.selected
             }
             is SettingsScreenEvents.OnMaterialYouSelected -> {
-                settingsScreenEvents.selected = materialYou
+                materialYou = settingsScreenEvents.selected
             }
             is SettingsScreenEvents.OnUseSystemSettingsSelected -> {
-                settingsScreenEvents.selected = systemSettings
+                systemSettings = settingsScreenEvents.selected
             }
             is SettingsScreenEvents.OnPopBackStack -> {
-                viewModelScope.launch {
-                    _uiEvent.emit(UiEvent.PopBackStack)
-                }
+                viewModelScope.launch { _uiEvent.emit(UiEvent.PopBackStack) }
             }
             is SettingsScreenEvents.OnDialogStateChanged -> {
-                settingsScreenEvents.dialogState = dialogState
+                dialogState = settingsScreenEvents.dialogState
             }
         }
     }

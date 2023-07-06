@@ -14,6 +14,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Brush
+import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -116,30 +117,21 @@ fun SettingsScreen(
                     }
                 }
             }
-            Dialog(
-                onDismissRequest = { viewModel.dialogState },
-                properties = DialogProperties(
-                    dismissOnBackPress = true,
-                    dismissOnClickOutside = true
-                )
-            ) {
-                ElevatedCard {
-                    Column {
-                        Row {
-                            RadioButton(selected = true, onClick = { /*TODO*/ })
-                            Text(text = "Dark Mode")
-                        }
-                        Row {
-                            RadioButton(selected = true, onClick = { /*TODO*/ })
-                            Text(text = "Light Mode")
-                        }
-                        Row {
-                            RadioButton(selected = true, onClick = { /*TODO*/ })
-                            Text(text = "Follow System Mode")
-                        }
-                        Row {
-                            RadioButton(selected = true, onClick = { /*TODO*/ })
-                            Text(text = "Material You")
+            if (viewModel.dialogState){
+                Dialog(
+                    onDismissRequest = {
+                        viewModel.onEvent(SettingsScreenEvents.OnDialogStateChanged(false))
+                    },
+                    properties = DialogProperties(
+                        dismissOnBackPress = true,
+                        dismissOnClickOutside = true
+                    )
+                ) {
+                    ElevatedCard {
+                        Column(
+                            modifier = Modifier.padding(16.dp)
+                        ) {
+
                         }
                     }
                 }
