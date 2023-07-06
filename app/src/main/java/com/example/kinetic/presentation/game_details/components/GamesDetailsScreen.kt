@@ -108,9 +108,9 @@ fun GameDetailsScreen(
                     modifier = Modifier.size(50.dp)
                         .align(Alignment.Center)
                     ,
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.secondary,
-                    ),
+//                    colors = ButtonDefaults.buttonColors(
+//                        containerColor = MaterialTheme.colorScheme.secondary,
+//                    ),
                     contentPadding = PaddingValues(0.dp),
                     elevation = ButtonDefaults.buttonElevation(
                         defaultElevation = 5.dp,
