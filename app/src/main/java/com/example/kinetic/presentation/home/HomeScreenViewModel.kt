@@ -63,6 +63,9 @@ class HomeScreenViewModel @Inject constructor(
             is HomeScreenEvents.OnSearchClicked -> {
                 sendUiEvent(UiEvent.OnNavigate(Screens.SearchScreen.route))
             }
+            is HomeScreenEvents.OnSettingsCLicked -> {
+                sendUiEvent(UiEvent.OnNavigate(Screens.SettingsScreen.route))
+            }
         }
     }
 

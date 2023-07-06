@@ -18,6 +18,7 @@ import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.LightMode
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -81,10 +82,13 @@ fun HomeScreen(
         containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             MainTopAppBar(
-                navigationIcon = if (viewModel.darkTheme) Icons.Default.DarkMode else Icons.Default.LightMode,
+                navigationIcon = Icons.Filled.Settings,
+//                if (viewModel.darkTheme) Icons.Default.DarkMode else Icons.Default.LightMode,
                 onClickNavigation = {
-                    onThemeChange()
-                    viewModel.darkTheme = !viewModel.darkTheme },
+                  viewModel.onEvent(HomeScreenEvents)
+                },
+//                    onThemeChange()
+//                    viewModel.darkTheme = !viewModel.darkTheme },
                 onClickAction = { viewModel.onEvent(HomeScreenEvents.OnSearchClicked)},
                 actions = Icons.Default.Search
             )
