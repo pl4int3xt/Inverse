@@ -46,6 +46,9 @@ import kotlinx.coroutines.flow.collectLatest
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
+    onLightOn: () -> Unit,
+    onDarkOn: () -> Unit,
+    onDynamicColorOn: () -> Unit,
     onPopBackStack: () -> Unit,
     viewModel: SettingsScreenViewModel = hiltViewModel()
 ) {
@@ -53,9 +56,7 @@ fun SettingsScreen(
     LaunchedEffect(key1 = true){
         viewModel.uiEvent.collectLatest { event ->
             when(event){
-                is UiEvent.PopBackStack -> {
-                    onPopBackStack()
-                }
+                is UiEvent.PopBackStack -> { onPopBackStack() }
                 else -> Unit
             }
         }

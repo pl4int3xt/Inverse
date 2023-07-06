@@ -19,7 +19,9 @@ import com.google.accompanist.navigation.animation.composable
 @Composable
 fun MainNavGraph(
     navHostController: NavHostController,
-    onThemeChange: () -> Unit
+    onDarkOn: () -> Unit,
+    onLightOn: () -> Unit,
+    onDynamicColorOn: () -> Unit
 ) {
     AnimatedNavHost(
         navController = navHostController,
@@ -43,7 +45,6 @@ fun MainNavGraph(
             }
         ){
             HomeScreen(
-                onThemeChange,
                 navHostController = navHostController,
                 onNavigate = { navHostController.navigate(it.route)}
             )
@@ -111,6 +112,9 @@ fun MainNavGraph(
             }
         ){
             SettingsScreen(
+                onLightOn,
+                onDarkOn,
+                onDynamicColorOn,
                 onPopBackStack = { navHostController.popBackStack() }
             )
         }

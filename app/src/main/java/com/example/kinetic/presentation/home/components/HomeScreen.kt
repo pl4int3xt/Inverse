@@ -51,7 +51,6 @@ import com.example.kinetic.presentation.uievent.UiEvent
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    onThemeChange: () -> Unit,
     onNavigate: (UiEvent.OnNavigate) -> Unit,
     viewModel: HomeScreenViewModel = hiltViewModel(),
     navHostController: NavHostController

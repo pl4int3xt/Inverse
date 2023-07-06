@@ -24,15 +24,27 @@ class SettingsScreenViewModel: ViewModel() {
         when(settingsScreenEvents){
             is SettingsScreenEvents.OnDarkModeSelected -> {
                 darkMode = settingsScreenEvents.selected
+                lightMode = false
+                systemSettings = false
+                materialYou = false
             }
             is SettingsScreenEvents.OnLightModeYouSelected -> {
                 lightMode = settingsScreenEvents.selected
+                darkMode = false
+                systemSettings = false
+                materialYou = false
             }
             is SettingsScreenEvents.OnMaterialYouSelected -> {
                 materialYou = settingsScreenEvents.selected
+                lightMode = false
+                darkMode = false
+                systemSettings = false
             }
             is SettingsScreenEvents.OnUseSystemSettingsSelected -> {
                 systemSettings = settingsScreenEvents.selected
+                lightMode = false
+                darkMode = false
+                materialYou = false
             }
             is SettingsScreenEvents.OnPopBackStack -> {
                 viewModelScope.launch { _uiEvent.emit(UiEvent.PopBackStack) }

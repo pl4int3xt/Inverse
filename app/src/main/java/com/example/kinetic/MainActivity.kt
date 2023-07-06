@@ -19,16 +19,28 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     var darkTheme by mutableStateOf(false)
+    var dynamicColor by mutableStateOf(false)
     @OptIn(ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
-            KineticTheme(darkTheme = darkTheme) {
+            KineticTheme(
+                darkTheme = darkTheme,
+                dynamicColor = dynamicColor
+            ) {
                 MainNavGraph(
                     navHostController = rememberAnimatedNavController(),
-                    onThemeChange = { darkTheme = !darkTheme }
+                    onLightOn = {
+                        darkTheme = false
+                        dynamicColor = false },
+                    onDarkOn = {
+                        darkTheme = true
+                        dynamicColor = false },
+                    onDynamicColorOn = {
+                        dynamicColor = true
+                    }
                 )
             }
         }
