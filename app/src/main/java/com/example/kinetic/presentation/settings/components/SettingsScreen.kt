@@ -14,12 +14,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Brush
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.DismissibleDrawerSheet
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,11 +25,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.kinetic.presentation.game_details.GamesDetailsScreenEvents
+import com.example.kinetic.presentation.settings.SettingsScreenEvents
 import com.example.kinetic.presentation.settings.SettingsScreenViewModel
 import com.example.kinetic.presentation.shared.MainTopAppBar
 import com.example.kinetic.presentation.uievent.UiEvent
@@ -62,7 +60,7 @@ fun SettingsScreen(
             MainTopAppBar(
                 title = "",
                 navigationIcon = Icons.Default.ArrowBack,
-                onClickNavigation = { viewModel.onEvent(GamesDetailsScreenEvents.OnCancelClicked) },
+                onClickNavigation = { viewModel.onEvent(SettingsScreenEvents.OnPopBackStack) },
                 onClickAction = { },
             )
         }
@@ -114,6 +112,11 @@ fun SettingsScreen(
                         Text(text = "(System Default)")
                     }
                 }
+            }
+            Dialog(
+                onDismissRequest = { /*TODO*/ }
+            ) {
+
             }
         }
     }

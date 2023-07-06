@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
 class SettingsScreenViewModel: ViewModel() {
+    var dialogState by mutableStateOf(false)
     var darkMode by mutableStateOf(false)
     var lightMode by mutableStateOf(false)
     var systemSettings by mutableStateOf(true)
