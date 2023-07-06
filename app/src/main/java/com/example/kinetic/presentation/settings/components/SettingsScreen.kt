@@ -49,6 +49,7 @@ fun SettingsScreen(
     onLightOn: () -> Unit,
     onDarkOn: () -> Unit,
     onDynamicColorOn: () -> Unit,
+    onFollowSystem: () -> Unit,
     onPopBackStack: () -> Unit,
     viewModel: SettingsScreenViewModel = hiltViewModel()
 ) {
@@ -152,6 +153,7 @@ fun SettingsScreen(
                             )
                             SingleMode(selected = viewModel.systemSettings,
                                 onClick = {
+                                    onFollowSystem()
                                     viewModel.onEvent(SettingsScreenEvents.OnUseSystemSettingsSelected(!viewModel.systemSettings))
                                 },
                                 icon = Icons.Filled.Settings,
@@ -159,6 +161,7 @@ fun SettingsScreen(
                             )
                             SingleMode(selected = viewModel.materialYou,
                                 onClick = {
+                                    onDynamicColorOn()
                                     viewModel.onEvent(SettingsScreenEvents.OnMaterialYouSelected(!viewModel.materialYou))
                                 },
                                 icon = Icons.Filled.Brush,

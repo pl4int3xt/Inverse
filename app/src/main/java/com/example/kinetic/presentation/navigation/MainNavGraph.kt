@@ -116,6 +116,7 @@ fun MainNavGraph(
                 onLightOn,
                 onDarkOn,
                 onDynamicColorOn,
+                onFollowSystem,
                 onPopBackStack = { navHostController.popBackStack() }
             )
         }
