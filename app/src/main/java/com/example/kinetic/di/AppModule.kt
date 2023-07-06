@@ -7,6 +7,7 @@ import com.example.kinetic.data.remote.dto.GamesDto
 import com.example.kinetic.data.remote.repository.GameRepositoryImpl
 import com.example.kinetic.domain.repository.GameRepository
 import com.example.kinetic.domain.use_case.GetGamesUseCase
+import com.example.kinetic.domain.use_case.SearchGameUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,7 +41,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideGamesPager(gameRepository: GameRepository): Pager<Int, GamesDto> {
+    fun provideGamesPager(gameRepository: GameRepository): Pager<Int, GameDto> {
         return Pager(
             config = PagingConfig(pageSize = 20),
             pagingSourceFactory = {
@@ -48,4 +49,18 @@ object AppModule {
             }
         )
     }
+
+//    @Singleton
+//    @Provides
+//    fun provideSearchGamesPager(gameRepository: GameRepository): Pager<Int, GameDto> {
+//        return Pager(
+//            config = PagingConfig(pageSize = 20),
+//            pagingSourceFactory = {
+//                SearchGameUseCase(
+//                    gameRepository,
+//                    searchQuery =
+//                )
+//            }
+//        )
+//    }
 }
