@@ -12,20 +12,26 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun SingleMode() {
+fun SingleMode(
+    selected: Boolean,
+    onClick: () -> Unit,
+    icon: ImageVector,
+    title: String
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Start
     ) {
-        RadioButton(selected = true, onClick = { /*TODO*/ })
-        Icon(imageVector = Icons.Filled.DarkMode, contentDescription = "Dark mode")
+        RadioButton(selected = selected, onClick = { onClick() })
+        Icon(imageVector = icon, contentDescription = title)
         Text(
-            text = "Dark Mode",
+            text = title,
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold
         )
