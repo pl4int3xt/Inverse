@@ -198,7 +198,18 @@ fun HomeScreen(
                                 }
                                 if (games.loadState.append is LoadState.Error){
                                     item {
-                                        (games.loadState.append as LoadState.Error).error.message?.let { it1 -> Text(text = it1) }
+                                        (games.loadState.append as LoadState.Error).error.message?.let {
+                                            it1 -> Text(
+                                            modifier = Modifier.padding(16.dp),
+                                            text = it1,
+                                            color = Color.Red)
+                                        }
+                                        IconButton(onClick = { games.refresh() }) {
+                                            Icon(
+                                                imageVector = Icons.Filled.Refresh,
+                                                contentDescription = "Refresh"
+                                            )
+                                        }
                                     }
                                 }
                                 item {
