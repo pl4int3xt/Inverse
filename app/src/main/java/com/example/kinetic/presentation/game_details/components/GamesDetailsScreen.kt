@@ -141,6 +141,7 @@ fun GameDetailsScreen(
                                 }
                         ) {
                             AsyncImage(
+                                modifier = Modifier.height(600.dp),
                                 contentScale = ContentScale.Crop,
                                 model = state.gameDetails?.backgroundImage,
                                 contentDescription = "image"
