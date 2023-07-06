@@ -85,7 +85,7 @@ fun HomeScreen(
                 navigationIcon = Icons.Filled.Settings,
 //                if (viewModel.darkTheme) Icons.Default.DarkMode else Icons.Default.LightMode,
                 onClickNavigation = {
-                  viewModel.onEvent(HomeScreenEvents)
+                  viewModel.onEvent(HomeScreenEvents.OnSettingsCLicked)
                 },
 //                    onThemeChange()
 //                    viewModel.darkTheme = !viewModel.darkTheme },
