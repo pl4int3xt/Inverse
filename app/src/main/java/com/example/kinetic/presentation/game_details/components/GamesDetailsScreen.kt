@@ -31,12 +31,15 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -64,6 +67,7 @@ fun GameDetailsScreen(
     val context = LocalContext.current
     val state = viewModel.state.value
     val scrollState = rememberScrollState()
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
     LaunchedEffect(key1 = true){
         viewModel.uiEvent.collect { event ->
@@ -83,9 +87,10 @@ fun GameDetailsScreen(
     }
 
     Scaffold(
-        containerColor = MaterialTheme.colorScheme.background,
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             MainTopAppBar(
+                scrollBehavior = scrollBehavior,
                 title = "",
                 navigationIcon = Icons.Default.ArrowBack,
                 onClickNavigation = { viewModel.onEvent(GamesDetailsScreenEvents.OnCancelClicked) },
@@ -106,11 +111,7 @@ fun GameDetailsScreen(
             } else if (state.message.isNotEmpty()){
                 Button(
                     modifier = Modifier.size(50.dp)
-                        .align(Alignment.Center)
-                    ,
-//                    colors = ButtonDefaults.buttonColors(
-//                        containerColor = MaterialTheme.colorScheme.secondary,
-//                    ),
+                        .align(Alignment.Center),
                     contentPadding = PaddingValues(0.dp),
                     elevation = ButtonDefaults.buttonElevation(
                         defaultElevation = 5.dp,

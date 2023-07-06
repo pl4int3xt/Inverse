@@ -3,8 +3,6 @@ package com.example.kinetic.presentation.navigation
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.example.kinetic.presentation.game_details.components.GameDetailsScreen
@@ -45,7 +43,6 @@ fun MainNavGraph(
                     navHostController.currentDestination?.route ->
                         slideOutOfContainer(
                             AnimatedContentScope.SlideDirection.Right,
-                            targetOffset = {0},
                             animationSpec = tween(1000))
                     else -> null
                 }

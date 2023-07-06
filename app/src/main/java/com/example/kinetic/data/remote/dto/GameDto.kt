@@ -1,9 +1,8 @@
 package com.example.kinetic.data.remote.dto
 
-import com.example.kinetic.data.remote.dto.Result
 import com.example.kinetic.domain.model.GameModel
 
-data class Result(
+data class GameDto(
     val added: Int,
     val added_by_status: AddedByStatusX,
     val background_image: String,
@@ -35,7 +34,7 @@ data class Result(
     val user_game: Any
 )
 
-fun Result.toGameModel(): GameModel{
+fun GameDto.toGameModel(): GameModel{
     return GameModel(
         id = id,
         name = name,

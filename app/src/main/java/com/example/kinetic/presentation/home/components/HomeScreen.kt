@@ -14,8 +14,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DarkMode
-import androidx.compose.material.icons.filled.LightMode
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
@@ -27,11 +25,14 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -60,6 +61,7 @@ fun HomeScreen(
     val context = LocalContext.current
     val state = viewModel.state.value
     val games = viewModel.currentGames.value
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
     LaunchedEffect(key1 = true, context){
         viewModel.uiEvent.collect { event ->
@@ -78,16 +80,14 @@ fun HomeScreen(
     }
 
     Scaffold(
-        containerColor = MaterialTheme.colorScheme.background,
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             MainTopAppBar(
+                scrollBehavior = scrollBehavior,
                 navigationIcon = Icons.Filled.Settings,
-//                if (viewModel.darkTheme) Icons.Default.DarkMode else Icons.Default.LightMode,
                 onClickNavigation = {
                   viewModel.onEvent(HomeScreenEvents.OnSettingsCLicked)
                 },
-//                    onThemeChange()
-//                    viewModel.darkTheme = !viewModel.darkTheme },
                 onClickAction = { viewModel.onEvent(HomeScreenEvents.OnSearchClicked)},
                 actions = Icons.Default.Search
             )
@@ -109,7 +109,7 @@ fun HomeScreen(
                         .align(Alignment.Center)
                     ,
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.secondary,
+                        containerColor = MaterialTheme.colorScheme.surface,
                     ),
                     contentPadding = PaddingValues(0.dp),
                     elevation = ButtonDefaults.buttonElevation(
@@ -118,8 +118,7 @@ fun HomeScreen(
                         focusedElevation = 5.dp,
                         hoveredElevation = 5.dp,
                     ),
-                    shape = CircleShape
-                    ,
+                    shape = CircleShape,
                     onClick = { viewModel.getGames() }) {
                     Icon(
                         tint = MaterialTheme.colorScheme.tertiary,
@@ -133,7 +132,7 @@ fun HomeScreen(
                         LazyColumn() {
                             item {
                                 Column(
-                                    modifier = Modifier.height(150.dp)
+                                    modifier = Modifier.height(100.dp)
                                 ) {
 
                                 }
@@ -149,7 +148,7 @@ fun HomeScreen(
                                         color = MaterialTheme.colorScheme.tertiary
                                     )
                                     Text(
-                                        text = "Gamer",
+                                        text = "Gamers",
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 35.sp,
                                         color = MaterialTheme.colorScheme.tertiary
