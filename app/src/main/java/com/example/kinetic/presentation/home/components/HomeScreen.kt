@@ -65,11 +65,8 @@ fun HomeScreen(
     navHostController: NavHostController
 ) {
     val games = viewModel.pagingFlow.collectAsLazyPagingItems()
-    //val PAGE_SIZE = 20
     val page = viewModel.page.value
     val context = LocalContext.current
-    //val state = viewModel.state.value
-    //val games = viewModel.currentGames.value
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
     LaunchedEffect(key1 = games.loadState){
@@ -152,7 +149,9 @@ fun HomeScreen(
                         Column(
                             modifier = Modifier.fillMaxSize()
                         ) {
-                            LazyColumn() {
+                            LazyColumn(
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
                                 item {
                                     Column(
                                         modifier = Modifier.height(100.dp)
