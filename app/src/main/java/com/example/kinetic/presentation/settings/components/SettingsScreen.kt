@@ -15,8 +15,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Brush
 import androidx.compose.material3.ElevatedButton
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,6 +30,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.kinetic.presentation.game_details.GamesDetailsScreenEvents
 import com.example.kinetic.presentation.settings.SettingsScreenEvents
@@ -80,7 +83,7 @@ fun SettingsScreen(
                 ElevatedButton(
                     shape = RoundedCornerShape(10.dp),
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = { /*TODO*/ }
+                    onClick = { viewModel.onEvent(SettingsScreenEvents.OnDialogStateChanged(true)) }
                 ) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -114,9 +117,32 @@ fun SettingsScreen(
                 }
             }
             Dialog(
-                onDismissRequest = { /*TODO*/ }
+                onDismissRequest = { viewModel.dialogState },
+                properties = DialogProperties(
+                    dismissOnBackPress = true,
+                    dismissOnClickOutside = true
+                )
             ) {
-
+                ElevatedCard {
+                    Column {
+                        Row {
+                            RadioButton(selected = true, onClick = { /*TODO*/ })
+                            Text(text = "Dark Mode")
+                        }
+                        Row {
+                            RadioButton(selected = true, onClick = { /*TODO*/ })
+                            Text(text = "Light Mode")
+                        }
+                        Row {
+                            RadioButton(selected = true, onClick = { /*TODO*/ })
+                            Text(text = "Follow System Mode")
+                        }
+                        Row {
+                            RadioButton(selected = true, onClick = { /*TODO*/ })
+                            Text(text = "Material You")
+                        }
+                    }
+                }
             }
         }
     }

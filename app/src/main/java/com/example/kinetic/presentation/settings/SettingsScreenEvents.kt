@@ -6,5 +6,5 @@ sealed class SettingsScreenEvents {
     data class OnDarkModeSelected(var selected: Boolean): SettingsScreenEvents()
     data class OnLightModeYouSelected(var selected: Boolean): SettingsScreenEvents()
     object OnPopBackStack: SettingsScreenEvents()
-    data class OnDialogStateChanged(var isVisible: Boolean): SettingsScreenEvents()
+    data class OnDialogStateChanged(var dialogState: Boolean): SettingsScreenEvents()
 }

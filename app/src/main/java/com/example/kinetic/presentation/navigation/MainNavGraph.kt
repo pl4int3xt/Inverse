@@ -110,7 +110,9 @@ fun MainNavGraph(
                 }
             }
         ){
-            SettingsScreen()
+            SettingsScreen(
+                onPopBackStack = { navHostController.popBackStack() }
+            )
         }
     }
 }

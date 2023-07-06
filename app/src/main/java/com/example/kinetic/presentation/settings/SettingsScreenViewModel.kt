@@ -40,6 +40,9 @@ class SettingsScreenViewModel: ViewModel() {
                     _uiEvent.emit(UiEvent.PopBackStack)
                 }
             }
+            is SettingsScreenEvents.OnDialogStateChanged -> {
+                settingsScreenEvents.dialogState = dialogState
+            }
         }
     }
 }
