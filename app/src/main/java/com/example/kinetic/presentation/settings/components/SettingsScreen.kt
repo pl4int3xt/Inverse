@@ -15,6 +15,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Brush
 import androidx.compose.material.icons.filled.DarkMode
+import androidx.compose.material.icons.filled.LightMode
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -131,7 +133,34 @@ fun SettingsScreen(
                         Column(
                             modifier = Modifier.padding(16.dp)
                         ) {
-
+                            SingleMode(selected = viewModel.darkMode,
+                                onClick = {
+                                    viewModel.onEvent(SettingsScreenEvents.OnDarkModeSelected(!viewModel.darkMode))
+                                },
+                                icon = Icons.Filled.DarkMode,
+                                title = "Dark Mode"
+                            )
+                            SingleMode(selected = viewModel.lightMode,
+                                onClick = {
+                                    viewModel.onEvent(SettingsScreenEvents.OnLightModeYouSelected(!viewModel.lightMode))
+                                },
+                                icon = Icons.Filled.LightMode,
+                                title = "Light Mode"
+                            )
+                            SingleMode(selected = viewModel.systemSettings,
+                                onClick = {
+                                    viewModel.onEvent(SettingsScreenEvents.OnUseSystemSettingsSelected(!viewModel.systemSettings))
+                                },
+                                icon = Icons.Filled.Settings,
+                                title = "Follow system"
+                            )
+                            SingleMode(selected = viewModel.materialYou,
+                                onClick = {
+                                    viewModel.onEvent(SettingsScreenEvents.OnMaterialYouSelected(!viewModel.materialYou))
+                                },
+                                icon = Icons.Filled.Brush,
+                                title = "Material You"
+                            )
                         }
                     }
                 }
