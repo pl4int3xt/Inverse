@@ -33,14 +33,20 @@ fun MainNavGraph(
             enterTransition = {
                 when (targetState.destination.route) {
                     navHostController.currentDestination?.route ->
-                        slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(300))
+                        slideIntoContainer(
+                            AnimatedContentScope.SlideDirection.Left,
+                            initialOffset = {0},
+                            animationSpec = tween(300))
                     else -> null
                 }
             },
             popExitTransition = {
                 when (targetState.destination.route) {
                     navHostController.currentDestination?.route ->
-                        slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(1000))
+                        slideOutOfContainer(
+                            AnimatedContentScope.SlideDirection.Right,
+                            targetOffset = {0},
+                            animationSpec = tween(1000))
                     else -> null
                 }
             }
@@ -56,7 +62,10 @@ fun MainNavGraph(
             enterTransition = {
                 when (targetState.destination.route) {
                     navHostController.currentDestination?.route ->
-                        slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(300))
+                        slideIntoContainer(
+                            AnimatedContentScope.SlideDirection.Left,
+                            initialOffset = {0},
+                            animationSpec = tween(300))
                     else -> null
                 }
             },
@@ -79,7 +88,10 @@ fun MainNavGraph(
             enterTransition = {
                 when (targetState.destination.route) {
                     navHostController.currentDestination?.route ->
-                        slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(300))
+                        slideIntoContainer(
+                            AnimatedContentScope.SlideDirection.Left,
+                            initialOffset = {0},
+                            animationSpec = tween(300))
                     else -> null
                 }
             },
@@ -100,7 +112,10 @@ fun MainNavGraph(
             enterTransition = {
                 when (targetState.destination.route) {
                     navHostController.currentDestination?.route ->
-                        slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(300))
+                        slideIntoContainer(
+                            AnimatedContentScope.SlideDirection.Left,
+                            initialOffset = {0},
+                            animationSpec = tween(300))
                     else -> null
                 }
             },
