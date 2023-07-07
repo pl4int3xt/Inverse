@@ -7,7 +7,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.cachedIn
+import androidx.paging.map
 import com.example.kinetic.constants.Resource
+import com.example.kinetic.data.remote.dto.GameDto
+import com.example.kinetic.data.remote.dto.toGameModel
 import com.example.kinetic.domain.model.GameModel
 import com.example.kinetic.domain.use_case.SearchGameUseCase
 import com.example.kinetic.presentation.home.HomeScreenState
@@ -15,13 +20,24 @@ import com.example.kinetic.presentation.uievent.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 const val PAGE_SIZE = 20
-class SearchScreenViewModel : ViewModel() {
+@HiltViewModel
+class SearchScreenViewModel @Inject constructor(
+    private val pager: Pager<Int, GameDto>
+) : ViewModel() {
+    val pagingFlow = pager
+        .flow
+        .map { pagingData ->
+            pagingData.map { it.toGameModel() }
+        }
+        .cachedIn(viewModelScope)
+
     val currentGames: MutableState<List<GameModel>> = mutableStateOf(ArrayList())
 
     val page = mutableStateOf(1)

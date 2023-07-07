@@ -50,17 +50,14 @@ object AppModule {
         )
     }
 
-//    @Singleton
-//    @Provides
-//    fun provideSearchGamesPager(gameRepository: GameRepository): Pager<Int, GameDto> {
-//        return Pager(
-//            config = PagingConfig(pageSize = 20),
-//            pagingSourceFactory = {
-//                SearchGameUseCase(
-//                    gameRepository,
-//                    searchQuery =
-//                )
-//            }
-//        )
-//    }
+    @Singleton
+    @Provides
+    fun provideSearchGamesPager(gameRepository: GameRepository, searchQuery: String): Pager<Int, GameDto> {
+        return Pager(
+            config = PagingConfig(pageSize = 20),
+            pagingSourceFactory = {
+                SearchGameUseCase(gameRepository, searchQuery)
+            }
+        )
+    }
 }
