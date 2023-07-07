@@ -1,52 +1,62 @@
 package com.example.kinetic.presentation.search
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
-import com.example.kinetic.constants.Resource
 import com.example.kinetic.data.remote.dto.GameDto
 import com.example.kinetic.data.remote.dto.toGameModel
 import com.example.kinetic.domain.model.GameModel
+import com.example.kinetic.domain.repository.GameRepository
 import com.example.kinetic.domain.use_case.SearchGameUseCase
-import com.example.kinetic.presentation.home.HomeScreenState
 import com.example.kinetic.presentation.uievent.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-const val PAGE_SIZE = 20
 @HiltViewModel
 class SearchScreenViewModel @Inject constructor(
-    private val pager: Pager<Int, GameDto>
+    private val repository: GameRepository
 ) : ViewModel() {
-    val pagingFlow = pager
-        .flow
-        .map { pagingData ->
-            pagingData.map { it.toGameModel() }
-        }
-        .cachedIn(viewModelScope)
+    var searchQuery by mutableStateOf("")
 
-    val currentGames: MutableState<List<GameModel>> = mutableStateOf(ArrayList())
+    fun getGames(): Flow<PagingData<GameModel>>{
+        val gamesPager = Pager(
+            config = PagingConfig(pageSize = 20),
+            pagingSourceFactory = {
+                SearchGameUseCase(repository, searchQuery)
+            }
+        )
+            .flow
+            .cachedIn(viewModelScope)
+            .map {
+                pagingData ->
+                pagingData.map {
+                    it.toGameModel()
+                }
+            }
+        return gamesPager
+    }
 
-    val page = mutableStateOf(1)
-    private var gamesScrollPosition = 0
+//    val currentGames: MutableState<List<GameModel>> = mutableStateOf(ArrayList())
+
+//    val page = mutableStateOf(1)
+//    private var gamesScrollPosition = 0
 //
 //    var searchQuery by mutableStateOf("")
 //
-//    private val _uiEvent = Channel<UiEvent>()
-//    val uiEvent = _uiEvent.receiveAsFlow()
+    private val _uiEvent = Channel<UiEvent>()
+    val uiEvent = _uiEvent.receiveAsFlow()
 //
 //    private val _state = mutableStateOf(SearchScreenState())
 //    val state: State<SearchScreenState> = _state
@@ -109,23 +119,22 @@ class SearchScreenViewModel @Inject constructor(
 //        gamesScrollPosition = position
 //    }
 //
-//    fun onEvent(searchScreenEvents: SearchScreenEvents){
-//        when(searchScreenEvents){
-//            is SearchScreenEvents.OnSearchClicked -> {
-//                searchGame()
-//            }
-//            is SearchScreenEvents.OnBackClicked -> {
-//                sendUiEvent(UiEvent.PopBackStack)
-//            }
-//            is SearchScreenEvents.OnSearchQueryChanged ->{
-//                searchQuery = searchScreenEvents.search
-//            }
-//        }
-//    }
-//
-//    private fun sendUiEvent(uiEvent: UiEvent){
-//        viewModelScope.launch {
-//            _uiEvent.send(uiEvent)
-//        }
-//    }
+    fun onEvent(searchScreenEvents: SearchScreenEvents){
+        when(searchScreenEvents){
+            is SearchScreenEvents.OnSearchClicked -> {
+                getGames()
+            }
+            is SearchScreenEvents.OnBackClicked -> {
+                sendUiEvent(UiEvent.PopBackStack)
+            }
+            is SearchScreenEvents.OnSearchQueryChanged ->{
+                searchQuery = searchScreenEvents.search
+            }
+        }
+    }
+    private fun sendUiEvent(uiEvent: UiEvent){
+        viewModelScope.launch {
+            _uiEvent.send(uiEvent)
+        }
+    }
 }

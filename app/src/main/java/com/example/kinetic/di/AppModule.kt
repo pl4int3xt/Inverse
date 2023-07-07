@@ -3,7 +3,6 @@ package com.example.kinetic.di
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.example.kinetic.data.remote.dto.GameDto
-import com.example.kinetic.data.remote.dto.GamesDto
 import com.example.kinetic.data.remote.repository.GameRepositoryImpl
 import com.example.kinetic.domain.repository.GameRepository
 import com.example.kinetic.domain.use_case.GetGamesUseCase
