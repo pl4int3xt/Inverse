@@ -53,115 +53,115 @@ fun SearchScreen(
     onPopBackStack: () -> Unit,
     viewModel: SearchScreenViewModel = hiltViewModel()
 ) {
-//    val PAGE_SIZE = 20
-//    val page = viewModel.page.value
-//    val context = LocalContext.current
-//    val state = viewModel.state.value
-//    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
-//    val games = viewModel.currentGames.value
-//
-//    LaunchedEffect(key1 = true, context){
-//        viewModel.uiEvent.collect {event ->
-//            when(event){
-//                is UiEvent.ShowToast -> {
-//                    Toast.makeText(
-//                        context,
-//                        event.message,
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                }
-//                is UiEvent.PopBackStack -> onPopBackStack()
-//                else -> Unit
-//            }
-//        }
-//    }
-//    Scaffold(
-//        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-//        topBar = {
-//            SearchBar(
-//                scrollBehavior = scrollBehavior,
-//                text = viewModel.searchQuery,
-//                onTextChange = { viewModel.onEvent(SearchScreenEvents.OnSearchQueryChanged(it))},
-//                onCloseClicked = { viewModel.onEvent(SearchScreenEvents.OnBackClicked) },
-//                onSearchClicked = { viewModel.onEvent(SearchScreenEvents.OnSearchClicked)},
-//                onResetSearchState = { viewModel.resetSearchState() }
-//            )
-//        }
-//    ) {
-//        Box(modifier = Modifier.fillMaxSize()){
-//            if(state.isLoading){
-//                val lottieCompositionSpec by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(
-//                    R.raw.gaming))
-//                LottieAnimation(
-//                    composition = lottieCompositionSpec,
-//                    iterations = Int.MAX_VALUE,
-//                    alignment = Alignment.Center
-//                )
-//            } else if (state.message.isNotEmpty()){
-//                Button(
-//                    modifier = Modifier
-//                        .size(50.dp)
-//                        .align(Alignment.Center)
-//                    ,
-//                    colors = ButtonDefaults.buttonColors(
-//                        containerColor = MaterialTheme.colorScheme.secondary,
-//                    ),
-//                    contentPadding = PaddingValues(0.dp),
-//                    elevation = ButtonDefaults.buttonElevation(
-//                        defaultElevation = 5.dp,
-//                        pressedElevation = 5.dp,
-//                        focusedElevation = 5.dp,
-//                        hoveredElevation = 5.dp,
-//                    ),
-//                    shape = CircleShape
-//                    ,
-//                    onClick = { viewModel.searchGame() }) {
-//                    Icon(
-//                        tint = MaterialTheme.colorScheme.tertiary,
-//                        imageVector = Icons.Default.Refresh, contentDescription = "refresh icon")
-//                }
-//            } else {
-//                Box {
-//                    LazyColumn() {
-//                        item {
-//                            Column(
-//                                modifier = Modifier
-//                                    .fillMaxWidth()
-//                                    .height(100.dp)
-//                            ) {
-//
-//                            }
-//                        }
-//                        itemsIndexed(games) { i, game ->
-//                            viewModel.onChangeGamesScrollPosition(i)
-//                            if ((i + 1) >= (page * PAGE_SIZE) && !state.isNextLoading) {
-//                                viewModel.nextPage()
-//                            }
-//                            GameCard(
-//                                name = game.name ?: "",
-//                                image = game.image ?: "",
-//                                rating = game.rating ?: 0.0,
-//                                metacritic = game.metacritic ?: 0,
-//                                onclick = {
-//                                    navHostController.navigate(
-//                                        Screens.GameDetailsScreen.route + "/${game.id}"
-//                                    )
-//                                }
-//                            )
-//                        }
-//                        if (state.isNextLoading) {
-//                            item {
-//                                CircularProgressIndicator(
-//                                    modifier = Modifier.align(Alignment.BottomCenter)
-//                                )
-//                            }
-//                        }
-//                        item {
-//                            Spacer(modifier = Modifier.height(100.dp))
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
+    val PAGE_SIZE = 20
+    val page = viewModel.page.value
+    val context = LocalContext.current
+    val state = viewModel.state.value
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
+    val games = viewModel.currentGames.value
+
+    LaunchedEffect(key1 = true, context){
+        viewModel.uiEvent.collect {event ->
+            when(event){
+                is UiEvent.ShowToast -> {
+                    Toast.makeText(
+                        context,
+                        event.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                is UiEvent.PopBackStack -> onPopBackStack()
+                else -> Unit
+            }
+        }
+    }
+    Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            SearchBar(
+                scrollBehavior = scrollBehavior,
+                text = viewModel.searchQuery,
+                onTextChange = { viewModel.onEvent(SearchScreenEvents.OnSearchQueryChanged(it))},
+                onCloseClicked = { viewModel.onEvent(SearchScreenEvents.OnBackClicked) },
+                onSearchClicked = { viewModel.onEvent(SearchScreenEvents.OnSearchClicked)},
+                onResetSearchState = { viewModel.resetSearchState() }
+            )
+        }
+    ) {
+        Box(modifier = Modifier.fillMaxSize()){
+            if(state.isLoading){
+                val lottieCompositionSpec by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(
+                    R.raw.gaming))
+                LottieAnimation(
+                    composition = lottieCompositionSpec,
+                    iterations = Int.MAX_VALUE,
+                    alignment = Alignment.Center
+                )
+            } else if (state.message.isNotEmpty()){
+                Button(
+                    modifier = Modifier
+                        .size(50.dp)
+                        .align(Alignment.Center)
+                    ,
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.secondary,
+                    ),
+                    contentPadding = PaddingValues(0.dp),
+                    elevation = ButtonDefaults.buttonElevation(
+                        defaultElevation = 5.dp,
+                        pressedElevation = 5.dp,
+                        focusedElevation = 5.dp,
+                        hoveredElevation = 5.dp,
+                    ),
+                    shape = CircleShape
+                    ,
+                    onClick = { viewModel.searchGame() }) {
+                    Icon(
+                        tint = MaterialTheme.colorScheme.tertiary,
+                        imageVector = Icons.Default.Refresh, contentDescription = "refresh icon")
+                }
+            } else {
+                Box {
+                    LazyColumn() {
+                        item {
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(100.dp)
+                            ) {
+
+                            }
+                        }
+                        itemsIndexed(games) { i, game ->
+                            viewModel.onChangeGamesScrollPosition(i)
+                            if ((i + 1) >= (page * PAGE_SIZE) && !state.isNextLoading) {
+                                viewModel.nextPage()
+                            }
+                            GameCard(
+                                name = game.name ?: "",
+                                image = game.image ?: "",
+                                rating = game.rating ?: 0.0,
+                                metacritic = game.metacritic ?: 0,
+                                onclick = {
+                                    navHostController.navigate(
+                                        Screens.GameDetailsScreen.route + "/${game.id}"
+                                    )
+                                }
+                            )
+                        }
+                        if (state.isNextLoading) {
+                            item {
+                                CircularProgressIndicator(
+                                    modifier = Modifier.align(Alignment.BottomCenter)
+                                )
+                            }
+                        }
+                        item {
+                            Spacer(modifier = Modifier.height(100.dp))
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

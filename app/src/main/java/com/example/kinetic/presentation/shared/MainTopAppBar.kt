@@ -44,7 +44,7 @@ fun MainTopAppBar(
                     ,
                     shape = CircleShape,
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.primary,
+                        containerColor = MaterialTheme.colorScheme.surface,
                     ),
                     contentPadding = PaddingValues(10.dp),
                     elevation = ButtonDefaults.buttonElevation(
@@ -56,7 +56,7 @@ fun MainTopAppBar(
                     onClick = { onClickNavigation() }
                 ){
                     Icon(
-                        tint = MaterialTheme.colorScheme.surface,
+                        tint = MaterialTheme.colorScheme.tertiary,
                         imageVector = navigationIcon, contentDescription = "")
                 }
             }
@@ -66,7 +66,7 @@ fun MainTopAppBar(
                 Button(
                     modifier = Modifier.size(50.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.primary,
+                        containerColor = MaterialTheme.colorScheme.surface,
                     ),
                     contentPadding = PaddingValues(0.dp),
                     elevation = ButtonDefaults.buttonElevation(
@@ -78,7 +78,7 @@ fun MainTopAppBar(
                     shape = CircleShape,
                     onClick = { onClickAction() }) {
                         Icon(
-                            tint = MaterialTheme.colorScheme.surface,
+                            tint = MaterialTheme.colorScheme.tertiary,
                             imageVector = actions, contentDescription = "")
                 }
             }
