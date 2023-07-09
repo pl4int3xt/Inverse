@@ -8,6 +8,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -37,24 +38,7 @@ fun MainTopAppBar(
             containerColor = Color.Transparent),
         navigationIcon = {
             if (navigationIcon != null) {
-                Button(
-                    modifier = Modifier
-                        .size(50.dp)
-                        .graphicsLayer {}
-                    ,
-                    shape = CircleShape,
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.surface,
-                    ),
-                    contentPadding = PaddingValues(10.dp),
-                    elevation = ButtonDefaults.buttonElevation(
-                        defaultElevation = 5.dp,
-                        pressedElevation = 5.dp,
-                        focusedElevation = 5.dp,
-                        hoveredElevation = 5.dp,
-                    ),
-                    onClick = { onClickNavigation() }
-                ){
+                IconButton(onClick = { onClickNavigation() }) {
                     Icon(
                         tint = MaterialTheme.colorScheme.tertiary,
                         imageVector = navigationIcon, contentDescription = "")
@@ -63,23 +47,10 @@ fun MainTopAppBar(
         },
         actions = {
             if (actions != null) {
-                Button(
-                    modifier = Modifier.size(50.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.surface,
-                    ),
-                    contentPadding = PaddingValues(0.dp),
-                    elevation = ButtonDefaults.buttonElevation(
-                        defaultElevation = 5.dp,
-                        pressedElevation = 5.dp,
-                        focusedElevation = 5.dp,
-                        hoveredElevation = 5.dp,
-                    ),
-                    shape = CircleShape,
-                    onClick = { onClickAction() }) {
-                        Icon(
-                            tint = MaterialTheme.colorScheme.tertiary,
-                            imageVector = actions, contentDescription = "")
+                IconButton(onClick = { onClickAction() }) {
+                    Icon(
+                        tint = MaterialTheme.colorScheme.tertiary,
+                        imageVector = actions, contentDescription = "")
                 }
             }
         },
