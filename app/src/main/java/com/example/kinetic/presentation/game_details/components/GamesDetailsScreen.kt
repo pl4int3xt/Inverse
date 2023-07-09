@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -34,6 +35,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonColors
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -44,6 +47,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
@@ -121,7 +125,14 @@ fun GameDetailsScreen(
                 )
             } else if (state.message.isNotEmpty()){
                 IconButton(
-                    modifier = Modifier.align(Alignment.Center),
+                    modifier = Modifier.align(Alignment.Center)
+                        .clip(CircleShape)
+                        .background(
+                            color = MaterialTheme.colorScheme.primary.copy(
+                                alpha = 0.05f
+                            ),
+                            shape = CircleShape)
+                    ,
                     onClick = { viewModel.getGameDetails() }
                 ) {
                     Icon(
@@ -147,6 +158,7 @@ fun GameDetailsScreen(
                                 modifier = Modifier
                                     .height(600.dp)
                                     .fillMaxWidth()
+                                    .clickable { }
                                 ,
                                 contentScale = ContentScale.Crop,
                                 model = state.gameDetails?.backgroundImage,
