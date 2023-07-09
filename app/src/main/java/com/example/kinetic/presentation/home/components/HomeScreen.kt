@@ -121,23 +121,7 @@ fun HomeScreen(
                     )
                 }
                 is LoadState.Error -> {
-                    Button(
-                        modifier = Modifier
-                            .size(50.dp)
-                            .align(Alignment.Center)
-                        ,
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.surface,
-                        ),
-                        contentPadding = PaddingValues(0.dp),
-                        elevation = ButtonDefaults.buttonElevation(
-                            defaultElevation = 5.dp,
-                            pressedElevation = 5.dp,
-                            focusedElevation = 5.dp,
-                            hoveredElevation = 5.dp,
-                        ),
-                        shape = CircleShape,
-                        onClick = { games.refresh() }) {
+                    IconButton(onClick = { games.refresh() }) {
                         Icon(
                             tint = MaterialTheme.colorScheme.tertiary,
                             imageVector = Icons.Default.Refresh, contentDescription = "refresh icon"
@@ -162,7 +146,8 @@ fun HomeScreen(
                                 item {
                                     Column(
                                         horizontalAlignment = Alignment.Start,
-                                        modifier = Modifier.padding(16.dp)
+                                        modifier = Modifier
+                                            .padding(16.dp)
                                             .fillMaxWidth()
                                         ,
                                     ) {
