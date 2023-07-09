@@ -2,6 +2,7 @@ package com.example.kinetic.presentation.game_details.components
 
 import android.annotation.SuppressLint
 import android.widget.Toast
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,6 +18,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PageSize
+import androidx.compose.foundation.pager.VerticalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
@@ -58,13 +63,18 @@ import com.example.kinetic.presentation.shared.MainTopAppBar
 import com.example.kinetic.presentation.uievent.UiEvent
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun GameDetailsScreen(
     onPopBackStack: () -> Unit,
     onNavigate: (UiEvent.OnNavigate) -> Unit,
     viewModel: GamesDetailsScreenViewModel = hiltViewModel()
 ) {
+    val pagerState = rememberPagerState(
+        initialPage = 1,
+        initialPageOffsetFraction = 0f
+    )
+
     val context = LocalContext.current
     val state = viewModel.state.value
     val scrollState = rememberScrollState()
@@ -133,28 +143,15 @@ fun GameDetailsScreen(
                                     translationY = 0.4f * scrollState.value
                                 }
                         ) {
-                            LazyRow {
-                                item {
-                                    AsyncImage(
-                                        modifier = Modifier.height(600.dp)
-                                            .fillMaxWidth()
-                                        ,
-                                        contentScale = ContentScale.Crop,
-                                        model = state.gameDetails?.backgroundImage,
-                                        contentDescription = "image"
-                                    )
-                                }
-                                item {
-                                    AsyncImage(
-                                        modifier = Modifier.height(600.dp)
-                                            .fillMaxWidth()
-                                        ,
-                                        contentScale = ContentScale.Crop,
-                                        model = state.gameDetails?.backgroundImageAdditional,
-                                        contentDescription = "image"
-                                    )
-                                }
-                            }
+                            AsyncImage(
+                                modifier = Modifier
+                                    .height(600.dp)
+                                    .fillMaxWidth()
+                                ,
+                                contentScale = ContentScale.Crop,
+                                model = state.gameDetails?.backgroundImage,
+                                contentDescription = "image"
+                            )
                         }
                         Column(
                             modifier = Modifier.background(
