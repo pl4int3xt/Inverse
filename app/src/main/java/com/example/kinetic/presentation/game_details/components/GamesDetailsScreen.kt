@@ -28,6 +28,7 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -109,19 +110,10 @@ fun GameDetailsScreen(
                     alignment = Alignment.Center
                 )
             } else if (state.message.isNotEmpty()){
-                Button(
-                    modifier = Modifier.size(50.dp)
-                        .align(Alignment.Center),
-                    contentPadding = PaddingValues(0.dp),
-                    elevation = ButtonDefaults.buttonElevation(
-                        defaultElevation = 5.dp,
-                        pressedElevation = 5.dp,
-                        focusedElevation = 5.dp,
-                        hoveredElevation = 5.dp,
-                    ),
-                    shape = CircleShape
-                    ,
-                    onClick = { viewModel.getGameDetails() }) {
+                IconButton(
+                    modifier = Modifier.align(Alignment.Center),
+                    onClick = { viewModel.getGameDetails() }
+                ) {
                     Icon(
                         tint = MaterialTheme.colorScheme.tertiary,
                         imageVector = Icons.Default.Refresh, contentDescription = "refresh icon")
@@ -141,12 +133,28 @@ fun GameDetailsScreen(
                                     translationY = 0.4f * scrollState.value
                                 }
                         ) {
-                            AsyncImage(
-                                modifier = Modifier.height(600.dp),
-                                contentScale = ContentScale.Crop,
-                                model = state.gameDetails?.backgroundImage,
-                                contentDescription = "image"
-                            )
+                            LazyRow {
+                                item {
+                                    AsyncImage(
+                                        modifier = Modifier.height(600.dp)
+                                            .fillMaxWidth()
+                                        ,
+                                        contentScale = ContentScale.Crop,
+                                        model = state.gameDetails?.backgroundImage,
+                                        contentDescription = "image"
+                                    )
+                                }
+                                item {
+                                    AsyncImage(
+                                        modifier = Modifier.height(600.dp)
+                                            .fillMaxWidth()
+                                        ,
+                                        contentScale = ContentScale.Crop,
+                                        model = state.gameDetails?.backgroundImageAdditional,
+                                        contentDescription = "image"
+                                    )
+                                }
+                            }
                         }
                         Column(
                             modifier = Modifier.background(
