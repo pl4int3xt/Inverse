@@ -121,7 +121,9 @@ fun HomeScreen(
                     )
                 }
                 is LoadState.Error -> {
-                    IconButton(onClick = { games.refresh() }) {
+                    IconButton(
+                        modifier = Modifier.align(Alignment.Center),
+                        onClick = { games.refresh() }) {
                         Icon(
                             tint = MaterialTheme.colorScheme.tertiary,
                             imageVector = Icons.Default.Refresh, contentDescription = "refresh icon"
