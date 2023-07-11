@@ -5,10 +5,8 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Home
-import androidx.compose.material.icons.rounded.Landscape
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material.icons.rounded.Settings
-import androidx.compose.material.icons.rounded.Tv
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -49,9 +47,7 @@ fun MainScreen(
                     )
                 ),
                 navController = navController,
-                onItemClick = {
-                    navController.navigate(it.route)
-                })
+                onItemClick = { navController.navigate(it.route) })
         }
     ) {
         MainNavGraph(
