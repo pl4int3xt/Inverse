@@ -99,17 +99,6 @@ fun HomeScreen(
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = {
-            MainTopAppBar(
-                scrollBehavior = scrollBehavior,
-                navigationIcon = Icons.Filled.Settings,
-                onClickNavigation = {
-                  viewModel.onEvent(HomeScreenEvents.OnSettingsCLicked)
-                },
-                onClickAction = { viewModel.onEvent(HomeScreenEvents.OnSearchClicked)},
-                actions = Icons.Default.Search
-            )
-        }
     ) {
         Box(modifier = Modifier.fillMaxSize()){
             when(games.loadState.refresh){
