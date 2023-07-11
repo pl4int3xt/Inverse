@@ -64,16 +64,7 @@ fun SettingsScreen(
         }
     }
 
-    Scaffold(
-        topBar = {
-            MainTopAppBar(
-                title = "",
-                navigationIcon = Icons.Default.ArrowBack,
-                onClickNavigation = { viewModel.onEvent(SettingsScreenEvents.OnPopBackStack) },
-                onClickAction = { },
-            )
-        }
-    ) {
+    Scaffold {
         Box(
             modifier = Modifier.padding(top = it.calculateTopPadding())
         ) {
