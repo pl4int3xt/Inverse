@@ -122,20 +122,15 @@ fun HomeScreen(
                     }
                 }
                 else -> {
-                    Box {
+                    Box(
+                        modifier = Modifier.padding(top = it.calculateTopPadding())
+                    ) {
                         Column(
                             modifier = Modifier.fillMaxSize()
                         ) {
                             LazyColumn(
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
-                                item {
-                                    Column(
-                                        modifier = Modifier.height(100.dp)
-                                    ) {
-
-                                    }
-                                }
                                 item {
                                     Column(
                                         horizontalAlignment = Alignment.Start,
