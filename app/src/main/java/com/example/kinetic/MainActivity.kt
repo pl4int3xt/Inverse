@@ -10,6 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
+import com.example.kinetic.presentation.main.MainScreen
 import com.example.kinetic.presentation.navigation.MainNavGraph
 import com.example.kinetic.presentation.ui.theme.KineticTheme
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
@@ -31,8 +32,8 @@ class MainActivity : ComponentActivity() {
                 darkTheme = if(followSystem) isSystemInDarkTheme() else darkTheme,
                 dynamicColor = dynamicColor
             ) {
-                MainNavGraph(
-                    navHostController = rememberAnimatedNavController(),
+                MainScreen(
+                    navController = rememberAnimatedNavController(),
                     onLightOn = {
                         followSystem = false
                         darkTheme = false
