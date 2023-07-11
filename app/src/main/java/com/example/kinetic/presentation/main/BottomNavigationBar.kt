@@ -3,6 +3,7 @@ package com.example.kinetic.presentation.main
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,7 +21,7 @@ fun BottomNavigationBar(
     val backStackEntry = navController.currentBackStackEntryAsState()
     BottomNavigation(
         modifier = modifier,
-        backgroundColor = Color.Black,
+        backgroundColor = MaterialTheme.colorScheme.surface,
         elevation = 5.dp
     ) {
         items.forEach { item ->
@@ -28,7 +29,7 @@ fun BottomNavigationBar(
             BottomNavigationItem(
                 selected = selected,
                 onClick = { onItemClick(item) },
-                selectedContentColor = Color.White,
+                selectedContentColor = MaterialTheme.colorScheme.tertiary,
                 unselectedContentColor = Color.Gray,
                 icon = {
                     Icon(
