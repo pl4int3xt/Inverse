@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Search
@@ -30,7 +31,7 @@ fun MainScreen(
     Scaffold(
         bottomBar = {
             BottomNavigationBar(
-                modifier = Modifier.padding(bottom = PaddingValues().calculateBottomPadding()),
+                modifier = Modifier.statusBarsPadding(),
                 items = listOf(
                     BottomNavItem(
                         name = "Home",
