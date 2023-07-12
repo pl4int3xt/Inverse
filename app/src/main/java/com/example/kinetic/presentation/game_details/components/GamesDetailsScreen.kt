@@ -75,11 +75,6 @@ fun GameDetailsScreen(
     onNavigate: (UiEvent.OnNavigate) -> Unit,
     viewModel: GamesDetailsScreenViewModel = hiltViewModel()
 ) {
-    val pagerState = rememberPagerState(
-        initialPage = 1,
-        initialPageOffsetFraction = 0f
-    )
-
     val context = LocalContext.current
     val state = viewModel.state.value
     val scrollState = rememberScrollState()
