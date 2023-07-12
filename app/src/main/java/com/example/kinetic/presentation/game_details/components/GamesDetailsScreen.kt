@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -114,7 +115,10 @@ fun GameDetailsScreen(
             )
         },
     ) {
-        Box(modifier = Modifier.fillMaxSize()){
+        Box(
+            modifier = Modifier.fillMaxSize()
+                .navigationBarsPadding()
+        ){
             if(state.isLoading){
                 val lottieCompositionSpec by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(
                     R.raw.gaming))

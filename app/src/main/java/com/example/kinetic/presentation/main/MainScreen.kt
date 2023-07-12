@@ -1,6 +1,7 @@
 package com.example.kinetic.presentation.main
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Home
@@ -28,7 +29,7 @@ fun MainScreen(
     Scaffold(
         bottomBar = {
             BottomNavigationBar(
-                modifier = Modifier.statusBarsPadding(),
+                modifier = Modifier.navigationBarsPadding(),
                 items = listOf(
                     BottomNavItem(
                         name = "Home",
@@ -55,7 +56,10 @@ fun MainScreen(
     ) {
         MainNavGraph(
             navHostController = navController,
-            onDarkOn, onLightOn, onFollowSystem, onDynamicColorOn
+            onDarkOn = onDarkOn,
+            onLightOn = onLightOn,
+            onFollowSystem = onFollowSystem,
+            onDynamicColorOn = onDynamicColorOn
         )
     }
 }
