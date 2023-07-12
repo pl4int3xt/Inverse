@@ -2,6 +2,7 @@ package com.example.kinetic.presentation.main
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Home
@@ -11,6 +12,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import com.example.kinetic.presentation.navigation.MainNavGraph
 import com.example.kinetic.presentation.screen.Screens
@@ -28,7 +30,7 @@ fun MainScreen(
     Scaffold(
         bottomBar = {
             BottomNavigationBar(
-                modifier = Modifier.padding(PaddingValues().calculateBottomPadding()),
+                modifier = Modifier.padding(bottom = PaddingValues().calculateBottomPadding()),
                 items = listOf(
                     BottomNavItem(
                         name = "Home",
@@ -47,7 +49,10 @@ fun MainScreen(
                     )
                 ),
                 navController = navController,
-                onItemClick = { navController.navigate(it.route) })
+                onItemClick = { navController.navigate(it.route){
+                    popUpTo(navController.graph.findStartDestination().id)
+                    launchSingleTop = true
+                } })
         }
     ) {
         MainNavGraph(
