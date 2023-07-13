@@ -10,12 +10,14 @@ import com.example.kinetic.data.remote.dto.toGameModel
 import com.example.kinetic.data.remote.dto.toGenreModel
 import com.example.kinetic.presentation.screen.Screens
 import com.example.kinetic.presentation.uievent.UiEvent
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class GenresScreenViewModel @Inject constructor(
     pager: Pager<Int, GenreDto>
 ): ViewModel(){
