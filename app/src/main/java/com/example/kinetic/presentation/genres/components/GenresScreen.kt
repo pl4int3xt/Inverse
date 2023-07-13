@@ -107,13 +107,7 @@ fun GenresScreen(
                                         ,
                                     ) {
                                         Text(
-                                            text = "Republic of",
-                                            fontWeight = FontWeight.Bold,
-                                            fontSize = 35.sp,
-                                            color = MaterialTheme.colorScheme.tertiary
-                                        )
-                                        Text(
-                                            text = "Gamers",
+                                            text = "Games Genres",
                                             fontWeight = FontWeight.Bold,
                                             fontSize = 35.sp,
                                             color = MaterialTheme.colorScheme.tertiary
