@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
@@ -27,11 +28,13 @@ fun SingleGenre(
     gameCount: Int
 ) {
     ElevatedCard(
+        modifier = Modifier.height(200.dp)
+            .padding(16.dp)
+        ,
         elevation = CardDefaults.elevatedCardElevation(
             defaultElevation = 10.dp,
             pressedElevation = 0.dp
         ),
-        modifier = Modifier.height(200.dp),
         shape = RoundedCornerShape(10.dp),
         onClick = { /*TODO*/ }
     ) {
@@ -54,5 +57,4 @@ fun SingleGenre(
             }
         }
     }
-    Spacer(modifier = Modifier.height(10.dp))
 }
