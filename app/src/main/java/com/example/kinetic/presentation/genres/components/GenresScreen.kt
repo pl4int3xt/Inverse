@@ -61,7 +61,7 @@ fun GenresScreen(
     }
 
     Scaffold {
-        Box(modifier = Modifier.navigationBarsPadding()){
+        Box(modifier = Modifier.fillMaxSize()){
             when(genres.loadState.refresh){
                 is LoadState.Loading -> {
                     val lottieCompositionSpec by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(
