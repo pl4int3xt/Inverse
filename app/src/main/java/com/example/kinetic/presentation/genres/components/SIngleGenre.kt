@@ -12,11 +12,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.example.kinetic.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -43,6 +45,7 @@ fun SingleGenre(
             AsyncImage(
                 modifier = Modifier.height(200.dp),
                 model = image,
+                placeholder = painterResource(id = R.drawable.image_loading),
                 contentDescription = "image",
                 contentScale = ContentScale.Crop
             )
