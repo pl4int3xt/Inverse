@@ -18,7 +18,7 @@ data class GamesDetailsDto(
     val dominant_color: String,
     val esrb_rating: EsrbRating? = null,
     val game_series_count: Int,
-    val genres: List<Genre>,
+    val genres: List<GenreDto>,
     val id: Int,
     val metacritic: Int,
     val metacritic_platforms: List<MetacriticPlatform>,
