@@ -42,7 +42,7 @@ fun MainScreen(
             BottomNavigationBar(
                 modifier = Modifier.navigationBarsPadding()
                     .padding(horizontal = 16.dp)
-                    .clip(RoundedCornerShape(10.dp))
+                    .clip(RoundedCornerShape(16.dp))
                 ,
                 items = listOf(
                     BottomNavItem(
