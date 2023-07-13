@@ -3,6 +3,7 @@ package com.example.kinetic.data.remote.repository
 import com.example.kinetic.constants.Constants
 import com.example.kinetic.data.remote.dto.GamesDetailsDto
 import com.example.kinetic.data.remote.dto.GamesDto
+import com.example.kinetic.data.remote.dto.GenresResponse
 import com.example.kinetic.domain.repository.GameRepository
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
@@ -35,6 +36,15 @@ class GameRepositoryImpl @Inject constructor(
             parameter("page", page)
             parameter("page_size", pageSize)
             parameter("search", searchQuery)
+            parameter("key", "ddcd58c5aaef4a71981eff6c99e548f4")
+        }
+    }
+
+    override suspend fun getGenres(page: Int, pageSize: Int): GenresResponse {
+        return httpClient.get {
+            url(Constants.GET_GENRES_URL)
+            parameter("page", page)
+            parameter("page_size", pageSize)
             parameter("key", "ddcd58c5aaef4a71981eff6c99e548f4")
         }
     }
