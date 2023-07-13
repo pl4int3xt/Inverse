@@ -30,7 +30,7 @@ fun SingleGenre(
     ElevatedCard(
         modifier = Modifier
             .height(300.dp)
-            .padding(16.dp)
+            .padding(10.dp)
         ,
         elevation = CardDefaults.elevatedCardElevation(
             defaultElevation = 10.dp,
