@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.navigation
+import com.example.kinetic.presentation.genres.components.GenresScreen
 import com.example.kinetic.presentation.home.components.HomeScreen
 import com.example.kinetic.presentation.screen.Screens
 import com.example.kinetic.presentation.search.components.SearchScreen
@@ -24,8 +25,37 @@ fun NavGraphBuilder.homeNavGraph(
 ){
     navigation(
         route = Graph.BOTTOM_BAR,
-        startDestination = Screens.HomeScreen.route
+        startDestination = Screens.GenreScreen.route
     ){
+        composable(
+            route = Screens.GenreScreen.route,
+            enterTransition = {
+                when (targetState.destination.route) {
+                    navHostController.currentDestination?.route ->
+                        slideIntoContainer(
+                            AnimatedContentScope.SlideDirection.Left,
+                            initialOffset = {0},
+                            animationSpec = tween(300)
+                        )
+                    else -> null
+                }
+            },
+            popExitTransition = {
+                when (targetState.destination.route) {
+                    navHostController.currentDestination?.route ->
+                        slideOutOfContainer(
+                            AnimatedContentScope.SlideDirection.Right,
+                            animationSpec = tween(1000)
+                        )
+                    else -> null
+                }
+            }
+        ){
+            GenresScreen(
+                onNavigate = { navHostController.navigate(it.route)}
+            )
+        }
+
         composable(
             route = Screens.HomeScreen.route,
             enterTransition = {
