@@ -7,6 +7,7 @@ import androidx.paging.cachedIn
 import androidx.paging.map
 import com.example.kinetic.data.remote.dto.GenreDto
 import com.example.kinetic.data.remote.dto.toGameModel
+import com.example.kinetic.data.remote.dto.toGenreModel
 import com.example.kinetic.presentation.screen.Screens
 import com.example.kinetic.presentation.uievent.UiEvent
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -22,7 +23,7 @@ class GenresScreenViewModel @Inject constructor(
     val pagingFlow = pager
         .flow
         .map { pagingData ->
-            pagingData.map { it() }
+            pagingData.map { it.toGenreModel() }
         }
         .cachedIn(viewModelScope)
 
