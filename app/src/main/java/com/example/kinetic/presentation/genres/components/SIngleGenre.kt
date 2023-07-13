@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -39,27 +40,27 @@ fun SingleGenre(
         shape = RoundedCornerShape(10.dp),
         onClick = { /*TODO*/ }
     ) {
-        Box(
+        Column(
             modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.TopEnd
         ) {
             AsyncImage(
+                modifier = Modifier.height(250.dp),
                 model = image,
                 contentDescription = "image",
                 contentScale = ContentScale.Crop
             )
-            Column {
-                Text(
-                    text = title,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 30.sp
-                )
-                Text(
-                    text = gameCount.toString(),
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 30.sp
-                )
-            }
+            Text(
+                textAlign = TextAlign.Start,
+                text = title,
+                fontWeight = FontWeight.Bold,
+                fontSize = 30.sp
+            )
+            Text(
+                textAlign = TextAlign.Start,
+                text = gameCount.toString(),
+                fontWeight = FontWeight.Bold,
+                fontSize = 30.sp
+            )
         }
     }
 }
