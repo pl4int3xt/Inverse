@@ -1,4 +1,5 @@
 package com.example.kinetic.presentation.genres
 
-class GenresScreenEvents {
+sealed class GenresScreenEvents {
+    object OnGenreClicked: GenresScreenEvents()
 }
