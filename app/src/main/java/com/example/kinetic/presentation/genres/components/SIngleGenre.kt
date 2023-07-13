@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -28,7 +29,7 @@ fun SingleGenre(
     gameCount: Int
 ) {
     ElevatedCard(
-        modifier = Modifier.height(200.dp)
+        modifier = Modifier.height(300.dp)
             .padding(16.dp)
         ,
         elevation = CardDefaults.elevatedCardElevation(
@@ -42,7 +43,11 @@ fun SingleGenre(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.TopEnd
         ) {
-            AsyncImage(model = image, contentDescription = "image")
+            AsyncImage(
+                model = image,
+                contentDescription = "image",
+                contentScale = ContentScale.Crop
+            )
             Column {
                 Text(
                     text = title,
