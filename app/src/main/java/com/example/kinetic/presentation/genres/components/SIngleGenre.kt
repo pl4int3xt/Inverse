@@ -30,7 +30,8 @@ fun SingleGenre(
     gameCount: Int
 ) {
     ElevatedCard(
-        modifier = Modifier.height(300.dp)
+        modifier = Modifier
+            .height(300.dp)
             .padding(16.dp)
         ,
         elevation = CardDefaults.elevatedCardElevation(
@@ -44,23 +45,27 @@ fun SingleGenre(
             modifier = Modifier.fillMaxSize(),
         ) {
             AsyncImage(
-                modifier = Modifier.height(250.dp),
+                modifier = Modifier.height(200.dp),
                 model = image,
                 contentDescription = "image",
                 contentScale = ContentScale.Crop
             )
-            Text(
-                textAlign = TextAlign.Start,
-                text = title,
-                fontWeight = FontWeight.Bold,
-                fontSize = 30.sp
-            )
-            Text(
-                textAlign = TextAlign.Start,
-                text = gameCount.toString(),
-                fontWeight = FontWeight.Bold,
-                fontSize = 30.sp
-            )
+            Column(
+                modifier = Modifier.padding(16.dp)
+            ){
+                Text(
+                    textAlign = TextAlign.Start,
+                    text = title,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp
+                )
+                Text(
+                    textAlign = TextAlign.Start,
+                    text = gameCount.toString(),
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp
+                )
+            }
         }
     }
 }
