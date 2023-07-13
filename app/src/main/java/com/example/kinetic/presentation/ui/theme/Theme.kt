@@ -72,7 +72,7 @@ fun KineticTheme(
     SideEffect {
         systemUiController.setSystemBarsColor(
             color = Color.Transparent.copy(alpha = 0.05f),
-            darkIcons = !darkTheme
+            darkIcons = !darkTheme,
         )
     }
 
