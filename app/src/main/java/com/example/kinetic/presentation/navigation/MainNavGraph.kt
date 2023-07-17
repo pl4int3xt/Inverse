@@ -29,7 +29,14 @@ fun MainNavGraph(
         route = Graph.ROOT,
         startDestination = Graph.BOTTOM_BAR
     ){
-        detailsNavGraph(navHostController)
-
+        composable(route = Graph.HOME_BOTTOM_BAR){
+            MainScreen(
+                navController = navHostController,
+                onDarkOn = onDarkOn,
+                onLightOn = onLightOn,
+                onFollowSystem = onFollowSystem,
+                onDynamicColorOn = onDynamicColorOn
+            )
+        }
     }
 }

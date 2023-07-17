@@ -15,9 +15,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import com.example.kinetic.presentation.navigation.MainNavGraph
+import com.example.kinetic.presentation.navigation.HomeNavGraph
 import com.example.kinetic.presentation.screen.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -28,53 +29,52 @@ fun MainScreen(
     onDarkOn: () -> Unit,
     onLightOn: () -> Unit,
     onFollowSystem: () -> Unit,
-    onDynamicColorOn: () -> Unit
+    onDynamicColorOn: () -> Unit,
 ) {
     Scaffold(
         bottomBar = {
-            if (){
-                BottomNavigationBar(
-                    modifier = Modifier.navigationBarsPadding()
-                        .padding(horizontal = 16.dp)
-                        .clip(RoundedCornerShape(16.dp))
-                    ,
-                    items = listOf(
-                        BottomNavItem(
-                            name = "Home",
-                            route = Screens.HomeScreen.route,
-                            icon = Icons.Rounded.Home
-                        ),
-                        BottomNavItem(
-                            name = "Genres",
-                            route = Screens.GenreScreen.route,
-                            icon = Icons.Rounded.Category
-                        ),
-                        BottomNavItem(
-                            name = "Search",
-                            route = Screens.SearchScreen.route,
-                            icon = Icons.Rounded.Search
-                        ),
-                        BottomNavItem(
-                            name = "Settings",
-                            route = Screens.SettingsScreen.route,
-                            icon = Icons.Rounded.Settings
-                        )
+            BottomNavigationBar(
+                modifier = Modifier
+                    .navigationBarsPadding()
+                    .padding(horizontal = 16.dp)
+                    .clip(RoundedCornerShape(16.dp))
+                ,
+                items = listOf(
+                    BottomNavItem(
+                        name = "Home",
+                        route = Screens.HomeScreen.route,
+                        icon = Icons.Rounded.Home
                     ),
-                    navController = navController,
-                    onItemClick = { navController.navigate(it.route){
-                        popUpTo(navController.graph.findStartDestination().id)
-                        launchSingleTop = true
-                    } }
-                )
-            }
+                    BottomNavItem(
+                        name = "Genres",
+                        route = Screens.GenreScreen.route,
+                        icon = Icons.Rounded.Category
+                    ),
+                    BottomNavItem(
+                        name = "Search",
+                        route = Screens.SearchScreen.route,
+                        icon = Icons.Rounded.Search
+                    ),
+                    BottomNavItem(
+                        name = "Settings",
+                        route = Screens.SettingsScreen.route,
+                        icon = Icons.Rounded.Settings
+                    )
+                ),
+                navController = navController,
+                onItemClick = { navController.navigate(it.route){
+                    popUpTo(navController.graph.findStartDestination().id)
+                    launchSingleTop = true
+                } }
+            )
         }
     ) {
-        MainNavGraph(
-            navHostController = navController,
+        HomeNavGraph(
             onDarkOn = onDarkOn,
             onLightOn = onLightOn,
             onFollowSystem = onFollowSystem,
-            onDynamicColorOn = onDynamicColorOn
+            onDynamicColorOn = onDynamicColorOn,
+            navHostController = navController
         )
     }
 }

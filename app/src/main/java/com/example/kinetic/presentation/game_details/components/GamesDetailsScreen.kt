@@ -8,7 +8,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -17,13 +16,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.PageSize
-import androidx.compose.foundation.pager.VerticalPager
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
@@ -32,12 +26,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonColors
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -73,7 +63,7 @@ import com.example.kinetic.presentation.uievent.UiEvent
 fun GameDetailsScreen(
     onPopBackStack: () -> Unit,
     onNavigate: (UiEvent.OnNavigate) -> Unit,
-    viewModel: GamesDetailsScreenViewModel = hiltViewModel()
+    viewModel: GamesDetailsScreenViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
     val state = viewModel.state.value
@@ -111,7 +101,8 @@ fun GameDetailsScreen(
         },
     ) {
         Box(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
                 .navigationBarsPadding()
         ){
             if(state.isLoading){
@@ -124,13 +115,15 @@ fun GameDetailsScreen(
                 )
             } else if (state.message.isNotEmpty()){
                 IconButton(
-                    modifier = Modifier.align(Alignment.Center)
+                    modifier = Modifier
+                        .align(Alignment.Center)
                         .clip(CircleShape)
                         .background(
                             color = MaterialTheme.colorScheme.primary.copy(
                                 alpha = 0.05f
                             ),
-                            shape = CircleShape)
+                            shape = CircleShape
+                        )
                     ,
                     onClick = { viewModel.getGameDetails() }
                 ) {
