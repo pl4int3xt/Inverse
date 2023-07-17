@@ -38,56 +38,15 @@ fun MainNavGraph(
     AnimatedNavHost(
         navController = navHostController,
         route = Graph.ROOT,
-        startDestination = Graph.BOTTOM_BAR
+        startDestination = Graph.HOME
     ){
         detailsNavGraph(navHostController)
-        composable(route = Graph.BOTTOM_BAR){
-            Scaffold(
-                bottomBar = {
-                    BottomNavigationBar(
-                        modifier = Modifier
-                            .navigationBarsPadding()
-                            .padding(horizontal = 16.dp)
-                            .clip(RoundedCornerShape(16.dp))
-                        ,
-                        items = listOf(
-                            BottomNavItem(
-                                name = "Home",
-                                route = Screens.HomeScreen.route,
-                                icon = Icons.Rounded.Home
-                            ),
-                            BottomNavItem(
-                                name = "Genres",
-                                route = Screens.GenreScreen.route,
-                                icon = Icons.Rounded.Category
-                            ),
-                            BottomNavItem(
-                                name = "Search",
-                                route = Screens.SearchScreen.route,
-                                icon = Icons.Rounded.Search
-                            ),
-                            BottomNavItem(
-                                name = "Settings",
-                                route = Screens.SettingsScreen.route,
-                                icon = Icons.Rounded.Settings
-                            )
-                        ),
-                        navController = navHostController,
-                        onItemClick = { navHostController.navigate(it.route){
-                            popUpTo(navHostController.graph.findStartDestination().id)
-                            launchSingleTop = true
-                        } }
-                    )
-                }
-            ) {
-                HomeNavGraph(
-                    onDarkOn = onDarkOn,
-                    onLightOn = onLightOn,
-                    onFollowSystem = onFollowSystem,
-                    onDynamicColorOn = onDynamicColorOn,
-                    navHostController = navHostController
-                )
-            }
-        }
+        homeNavGraph(
+            onDarkOn = onDarkOn,
+            onLightOn = onLightOn,
+            onFollowSystem = onFollowSystem,
+            onDynamicColorOn = onDynamicColorOn,
+            navHostController = navHostController
+        )
     }
 }
