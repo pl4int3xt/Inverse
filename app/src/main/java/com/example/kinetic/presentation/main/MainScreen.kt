@@ -17,7 +17,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import com.example.kinetic.presentation.navigation.HomeNavGraph
+import com.example.kinetic.presentation.navigation.MainNavGraph
 import com.example.kinetic.presentation.screen.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -32,47 +32,49 @@ fun MainScreen(
 ) {
     Scaffold(
         bottomBar = {
-            BottomNavigationBar(
-                modifier = Modifier.navigationBarsPadding()
-                    .padding(horizontal = 16.dp)
-                    .clip(RoundedCornerShape(16.dp))
-                ,
-                items = listOf(
-                    BottomNavItem(
-                        name = "Home",
-                        route = Screens.HomeScreen.route,
-                        icon = Icons.Rounded.Home
+            if (){
+                BottomNavigationBar(
+                    modifier = Modifier.navigationBarsPadding()
+                        .padding(horizontal = 16.dp)
+                        .clip(RoundedCornerShape(16.dp))
+                    ,
+                    items = listOf(
+                        BottomNavItem(
+                            name = "Home",
+                            route = Screens.HomeScreen.route,
+                            icon = Icons.Rounded.Home
+                        ),
+                        BottomNavItem(
+                            name = "Genres",
+                            route = Screens.GenreScreen.route,
+                            icon = Icons.Rounded.Category
+                        ),
+                        BottomNavItem(
+                            name = "Search",
+                            route = Screens.SearchScreen.route,
+                            icon = Icons.Rounded.Search
+                        ),
+                        BottomNavItem(
+                            name = "Settings",
+                            route = Screens.SettingsScreen.route,
+                            icon = Icons.Rounded.Settings
+                        )
                     ),
-                    BottomNavItem(
-                        name = "Genres",
-                        route = Screens.GenreScreen.route,
-                        icon = Icons.Rounded.Category
-                    ),
-                    BottomNavItem(
-                        name = "Search",
-                        route = Screens.SearchScreen.route,
-                        icon = Icons.Rounded.Search
-                    ),
-                    BottomNavItem(
-                        name = "Settings",
-                        route = Screens.SettingsScreen.route,
-                        icon = Icons.Rounded.Settings
-                    )
-                ),
-                navController = navController,
-                onItemClick = { navController.navigate(it.route){
-                    popUpTo(navController.graph.findStartDestination().id)
-                    launchSingleTop = true
-                } })
+                    navController = navController,
+                    onItemClick = { navController.navigate(it.route){
+                        popUpTo(navController.graph.findStartDestination().id)
+                        launchSingleTop = true
+                    } }
+                )
+            }
         }
     ) {
-        HomeNavGraph(onDarkOn, onLightOn, onFollowSystem, onDynamicColorOn, navController)
-//        MainNavGraph(
-//            navHostController = navController,
-//            onDarkOn = onDarkOn,
-//            onLightOn = onLightOn,
-//            onFollowSystem = onFollowSystem,
-//            onDynamicColorOn = onDynamicColorOn
-//        )
+        MainNavGraph(
+            navHostController = navController,
+            onDarkOn = onDarkOn,
+            onLightOn = onLightOn,
+            onFollowSystem = onFollowSystem,
+            onDynamicColorOn = onDynamicColorOn
+        )
     }
 }
