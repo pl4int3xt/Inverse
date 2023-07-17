@@ -20,6 +20,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import com.example.kinetic.presentation.main.BottomNavItem
 import com.example.kinetic.presentation.main.BottomNavigationBar
+import com.example.kinetic.presentation.main.MainScreen
 import com.example.kinetic.presentation.screen.Screens
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -41,12 +42,14 @@ fun MainNavGraph(
         startDestination = Graph.HOME
     ){
         detailsNavGraph(navHostController)
-        homeNavGraph(
-            onDarkOn = onDarkOn,
-            onLightOn = onLightOn,
-            onFollowSystem = onFollowSystem,
-            onDynamicColorOn = onDynamicColorOn,
-            navHostController = navHostController
-        )
+        composable(route = Graph.HOME){
+            MainScreen(
+                onDarkOn = onDarkOn,
+                onLightOn = onLightOn,
+                onFollowSystem = onFollowSystem,
+                onDynamicColorOn = onDynamicColorOn,
+                navController = navHostController
+            )
+        }
     }
 }

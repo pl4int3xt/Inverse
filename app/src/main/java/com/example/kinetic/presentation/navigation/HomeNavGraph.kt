@@ -15,15 +15,17 @@ import com.example.kinetic.presentation.settings.components.SettingsScreen
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 
+@Composable
 @OptIn(ExperimentalAnimationApi::class)
-fun NavGraphBuilder.homeNavGraph(
+fun HomeNavGraph(
     onDarkOn: () -> Unit,
     onLightOn: () -> Unit,
     onFollowSystem: () -> Unit,
     onDynamicColorOn: () -> Unit,
     navHostController: NavHostController
 ) {
-    navigation(
+    AnimatedNavHost(
+        navController = navHostController,
         route = Graph.HOME,
         startDestination = Screens.HomeScreen.route
     ){
@@ -140,6 +142,5 @@ fun NavGraphBuilder.homeNavGraph(
                 onPopBackStack = { navHostController.popBackStack() }
             )
         }
-        detailsNavGraph(navHostController)
     }
 }
