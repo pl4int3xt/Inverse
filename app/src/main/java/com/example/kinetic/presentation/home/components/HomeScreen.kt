@@ -8,10 +8,16 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.rounded.Category
+import androidx.compose.material.icons.rounded.Home
+import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -24,12 +30,14 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -38,6 +46,8 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.kinetic.presentation.home.HomeScreenViewModel
+import com.example.kinetic.presentation.main.BottomNavItem
+import com.example.kinetic.presentation.main.BottomNavigationBar
 import com.example.kinetic.presentation.screen.Screens
 import com.example.kinetic.presentation.uievent.UiEvent
 
@@ -78,7 +88,44 @@ fun HomeScreen(
         }
     }
 
-    Scaffold {
+    Scaffold(
+        bottomBar = {
+            BottomNavigationBar(
+                modifier = Modifier
+                    .navigationBarsPadding()
+                    .padding(horizontal = 16.dp)
+                    .clip(RoundedCornerShape(16.dp))
+                ,
+                items = listOf(
+                    BottomNavItem(
+                        name = "Home",
+                        route = Screens.HomeScreen.route,
+                        icon = Icons.Rounded.Home
+                    ),
+                    BottomNavItem(
+                        name = "Genres",
+                        route = Screens.GenreScreen.route,
+                        icon = Icons.Rounded.Category
+                    ),
+                    BottomNavItem(
+                        name = "Search",
+                        route = Screens.SearchScreen.route,
+                        icon = Icons.Rounded.Search
+                    ),
+                    BottomNavItem(
+                        name = "Settings",
+                        route = Screens.SettingsScreen.route,
+                        icon = Icons.Rounded.Settings
+                    )
+                ),
+                navController = navHostController,
+                onItemClick = { navHostController.navigate(it.route){
+                    popUpTo(navHostController.graph.findStartDestination().id)
+                    launchSingleTop = true
+                } }
+            )
+        }
+    ) {
         Box(modifier = Modifier.fillMaxSize()){
             when(games.loadState.refresh){
                 is LoadState.Loading -> {

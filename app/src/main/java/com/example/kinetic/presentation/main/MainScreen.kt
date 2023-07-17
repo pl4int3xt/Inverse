@@ -18,7 +18,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import com.example.kinetic.presentation.navigation.HomeNavGraph
 import com.example.kinetic.presentation.screen.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -69,12 +68,12 @@ fun MainScreen(
             )
         }
     ) {
-        HomeNavGraph(
-            onDarkOn = onDarkOn,
-            onLightOn = onLightOn,
-            onFollowSystem = onFollowSystem,
-            onDynamicColorOn = onDynamicColorOn,
-            navHostController = navController
-        )
+//        HomeNavGraph(
+//            onDarkOn = onDarkOn,
+//            onLightOn = onLightOn,
+//            onFollowSystem = onFollowSystem,
+//            onDynamicColorOn = onDynamicColorOn,
+//            navHostController = navController
+//        )
     }
 }

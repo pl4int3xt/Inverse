@@ -101,9 +101,7 @@ fun GameDetailsScreen(
         },
     ) {
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .navigationBarsPadding()
+            modifier = Modifier.fillMaxSize()
         ){
             if(state.isLoading){
                 val lottieCompositionSpec by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(
