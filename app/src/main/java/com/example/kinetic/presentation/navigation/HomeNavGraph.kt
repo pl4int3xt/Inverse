@@ -17,15 +17,14 @@ import com.google.accompanist.navigation.animation.composable
 
 @Composable
 @OptIn(ExperimentalAnimationApi::class)
-fun HomeNavGraph(
+fun NavGraphBuilder.homeNavGraph(
     onDarkOn: () -> Unit,
     onLightOn: () -> Unit,
     onFollowSystem: () -> Unit,
     onDynamicColorOn: () -> Unit,
     navHostController: NavHostController
 ) {
-    AnimatedNavHost(
-        navController = navHostController,
+    navigation(
         route = Graph.HOME_BOTTOM_BAR,
         startDestination = Screens.HomeScreen.route
     ){
