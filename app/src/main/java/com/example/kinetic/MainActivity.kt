@@ -32,8 +32,8 @@ class MainActivity : ComponentActivity() {
                 darkTheme = if(followSystem) isSystemInDarkTheme() else darkTheme,
                 dynamicColor = dynamicColor
             ) {
-                MainScreen(
-                    navController = rememberAnimatedNavController(),
+                MainNavGraph(
+                    navHostController = rememberAnimatedNavController(),
                     onLightOn = {
                         followSystem = false
                         darkTheme = false
