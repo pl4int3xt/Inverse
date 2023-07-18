@@ -22,9 +22,9 @@ fun NavGraphBuilder.homeNavGraph(
     onFollowSystem: () -> Unit,
     onDynamicColorOn: () -> Unit,
     navHostController: NavHostController
-){
+) {
     navigation(
-        route = Graph.BOTTOM_BAR,
+        route = Graph.HOME,
         startDestination = Screens.HomeScreen.route
     ){
         composable(
@@ -52,6 +52,7 @@ fun NavGraphBuilder.homeNavGraph(
             }
         ){
             GenresScreen(
+                navHostController,
                 onNavigate = { navHostController.navigate(it.route)}
             )
         }
@@ -137,7 +138,8 @@ fun NavGraphBuilder.homeNavGraph(
                 onDarkOn,
                 onDynamicColorOn,
                 onFollowSystem,
-                onPopBackStack = { navHostController.popBackStack() }
+                onPopBackStack = { navHostController.popBackStack() },
+                navHostController = navHostController
             )
         }
     }

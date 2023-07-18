@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,6 +18,10 @@ import androidx.compose.material.icons.filled.Brush
 import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.LightMode
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.rounded.Category
+import androidx.compose.material.icons.rounded.Home
+import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -29,6 +34,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -36,7 +42,12 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavHostController
 import com.example.kinetic.presentation.game_details.GamesDetailsScreenEvents
+import com.example.kinetic.presentation.main.BottomNavItem
+import com.example.kinetic.presentation.main.BottomNavigationBar
+import com.example.kinetic.presentation.screen.Screens
 import com.example.kinetic.presentation.settings.SettingsScreenEvents
 import com.example.kinetic.presentation.settings.SettingsScreenViewModel
 import com.example.kinetic.presentation.shared.MainTopAppBar
@@ -52,7 +63,8 @@ fun SettingsScreen(
     onDynamicColorOn: () -> Unit,
     onFollowSystem: () -> Unit,
     onPopBackStack: () -> Unit,
-    viewModel: SettingsScreenViewModel = hiltViewModel()
+    viewModel: SettingsScreenViewModel = hiltViewModel(),
+    navHostController: NavHostController
 ) {
 
     LaunchedEffect(key1 = true){
@@ -64,7 +76,44 @@ fun SettingsScreen(
         }
     }
 
-    Scaffold {
+    Scaffold(
+        bottomBar = {
+            BottomNavigationBar(
+                modifier = Modifier
+                    .navigationBarsPadding()
+                    .padding(horizontal = 16.dp)
+                    .clip(RoundedCornerShape(16.dp))
+                ,
+                items = listOf(
+                    BottomNavItem(
+                        name = "Home",
+                        route = Screens.HomeScreen.route,
+                        icon = Icons.Rounded.Home
+                    ),
+                    BottomNavItem(
+                        name = "Genres",
+                        route = Screens.GenreScreen.route,
+                        icon = Icons.Rounded.Category
+                    ),
+                    BottomNavItem(
+                        name = "Search",
+                        route = Screens.SearchScreen.route,
+                        icon = Icons.Rounded.Search
+                    ),
+                    BottomNavItem(
+                        name = "Settings",
+                        route = Screens.SettingsScreen.route,
+                        icon = Icons.Rounded.Settings
+                    )
+                ),
+                navController = navHostController,
+                onItemClick = { navHostController.navigate(it.route){
+                    popUpTo(navHostController.graph.findStartDestination().id)
+                    launchSingleTop = true
+                } }
+            )
+        }
+    ) {
         Box(
             modifier = Modifier.padding(top = it.calculateTopPadding())
         ) {

@@ -1,21 +1,33 @@
 package com.example.kinetic.presentation.navigation
 
-import androidx.compose.animation.AnimatedContentScope
+import android.annotation.SuppressLint
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.core.tween
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Category
+import androidx.compose.material.icons.rounded.Home
+import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material.icons.rounded.Settings
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import com.example.kinetic.presentation.game_details.components.GameDetailsScreen
-import com.example.kinetic.presentation.home.components.HomeScreen
+import com.example.kinetic.presentation.main.BottomNavItem
+import com.example.kinetic.presentation.main.BottomNavigationBar
 import com.example.kinetic.presentation.main.MainScreen
 import com.example.kinetic.presentation.screen.Screens
-import com.example.kinetic.presentation.search.components.SearchScreen
-import com.example.kinetic.presentation.settings.components.SettingsScreen
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 
 
-@OptIn(ExperimentalAnimationApi::class)
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalAnimationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun MainNavGraph(
     navHostController: NavHostController,
@@ -27,9 +39,11 @@ fun MainNavGraph(
     AnimatedNavHost(
         navController = navHostController,
         route = Graph.ROOT,
-        startDestination = Graph.BOTTOM_BAR
+        startDestination = Graph.HOME
     ){
         detailsNavGraph(navHostController)
-        homeNavGraph(onDarkOn, onLightOn, onFollowSystem, onDynamicColorOn, navHostController)
+        homeNavGraph(
+            onDarkOn, onLightOn, onFollowSystem, onDynamicColorOn, navHostController
+        )
     }
 }

@@ -19,14 +19,14 @@ class GameRepositoryImpl @Inject constructor(
             url(Constants.GET_GAMES_URL)
             parameter("page", page)
             parameter("page_size", pageSize)
-            parameter("key", "ddcd58c5aaef4a71981eff6c99e548f4")
+            parameter("key", Constants.API_KEY)
         }
     }
 
     override suspend fun getGamesDetails(gameId: String): GamesDetailsDto {
         return httpClient.get(path = gameId) {
             url("https://api.rawg.io/api/games/$gameId")
-            parameter("key", "ddcd58c5aaef4a71981eff6c99e548f4")
+            parameter("key", Constants.API_KEY)
         }
     }
 
@@ -36,7 +36,7 @@ class GameRepositoryImpl @Inject constructor(
             parameter("page", page)
             parameter("page_size", pageSize)
             parameter("search", searchQuery)
-            parameter("key", "ddcd58c5aaef4a71981eff6c99e548f4")
+            parameter("key", Constants.API_KEY)
         }
     }
 
@@ -45,7 +45,17 @@ class GameRepositoryImpl @Inject constructor(
             url(Constants.GET_GENRES_URL)
             parameter("page", page)
             parameter("page_size", pageSize)
-            parameter("key", "ddcd58c5aaef4a71981eff6c99e548f4")
+            parameter("key", Constants.API_KEY)
+        }
+    }
+
+    override suspend fun getGamesByCategory(page: Int, pageSize: Int, genre: String): GamesDto {
+        return httpClient.get {
+            url(Constants.GET_GAMES_URL)
+            parameter("page", page)
+            parameter("genres", genre)
+            parameter("page_size", pageSize)
+            parameter("key", Constants.API_KEY)
         }
     }
 }

@@ -9,4 +9,5 @@ interface GameRepository {
     suspend fun getGamesDetails(gameId: String): GamesDetailsDto
     suspend fun searchGame(searchQuery: String, page: Int, pageSize: Int): GamesDto
     suspend fun getGenres(page:Int, pageSize: Int): GenresResponse
+    suspend fun getGamesByCategory(page: Int, pageSize: Int, genre: String): GamesDto
 }

@@ -13,7 +13,7 @@ import com.google.accompanist.navigation.animation.composable
 @OptIn(ExperimentalAnimationApi::class)
 fun NavGraphBuilder.detailsNavGraph(navHostController: NavHostController){
     navigation(
-        route = Graph.DETAILS,
+        route = Graph.DETAILS + "/{gameId}",
         startDestination = Screens.GameDetailsScreen.route
     ){
         composable(
