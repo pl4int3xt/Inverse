@@ -14,6 +14,8 @@ import com.example.kinetic.presentation.search.SearchScreenEvents
 import com.example.kinetic.presentation.search.SearchScreenState
 import com.example.kinetic.presentation.uievent.UiEvent
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -28,10 +30,8 @@ class GamesListViewModel @Inject constructor(
     val page = mutableStateOf(1)
     private var gamesScrollPosition = 0
 
-    var searchQuery by mutableStateOf("")
-
-    private val _uiEvent = Channel<UiEvent>()
-    val uiEvent = _uiEvent.receiveAsFlow()
+    private val _uiEvent = MutableSharedFlow<UiEvent>()
+    val uiEvent = _uiEvent.asSharedFlow()
 
     private val _state = mutableStateOf(SearchScreenState())
     val state: State<SearchScreenState> = _state
@@ -97,10 +97,14 @@ class GamesListViewModel @Inject constructor(
     fun onEvent(gamesListEvents: GamesListEvents){
         when(gamesListEvents){
             is GamesListEvents.OnGameClicked -> {
+                viewModelScope.launch {
 
+                }
             }
             is GamesListEvents.OnPopBackStack -> {
-
+                viewModelScope.launch {
+                    _uiEvent.emit(UiEvent.PopBackStack)
+                }
             }
         }
     }
