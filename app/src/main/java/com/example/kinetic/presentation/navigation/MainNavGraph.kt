@@ -41,6 +41,7 @@ fun MainNavGraph(
         route = Graph.ROOT,
         startDestination = Graph.HOME
     ){
+        genresNavGraph(navHostController)
         detailsNavGraph(navHostController)
         homeNavGraph(
             onDarkOn, onLightOn, onFollowSystem, onDynamicColorOn, navHostController
