@@ -31,23 +31,23 @@ class GamesListViewModel @Inject constructor(
     private val _uiEvent = MutableSharedFlow<UiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
 
-    private val _state = mutableStateOf(SearchScreenState())
-    val state: State<SearchScreenState> = _state
+    private val _state = mutableStateOf(GamesListScreenState())
+    val state: State<GamesListScreenState> = _state
 
     fun searchGame(){
         resetSearchState()
         getGamesByCategoryUseCase(genre, page.value, PAGE_SIZE).onEach { result ->
             when(result){
                 is Resource.Loading -> {
-                    _state.value = SearchScreenState(isLoading = true)
+                    _state.value = GamesListScreenState(isLoading = true)
                 }
                 is Resource.Error -> {
-                    _state.value = SearchScreenState(message = result.message?: "Unexpected error occurred")
+                    _state.value = GamesListScreenState(message = result.message?: "Unexpected error occurred")
                     _uiEvent.emit(UiEvent.ShowToast(message = result.message?:"unexpected error occurred"))
                 }
                 is Resource.Success -> {
                     this.currentGames.value = result.data?: emptyList()
-                    _state.value = SearchScreenState(isLoading = false)
+                    _state.value = GamesListScreenState(isLoading = false)
                 }
             }
         }.launchIn(viewModelScope)
@@ -55,13 +55,13 @@ class GamesListViewModel @Inject constructor(
 
     fun nextPage(){
         if((gamesScrollPosition + 1) >= (page.value * PAGE_SIZE)){
-            _state.value = SearchScreenState(isNextLoading = true)
+            _state.value = GamesListScreenState(isNextLoading = true)
             incrementPage()
             if (page.value > 1){
                 getGamesByCategoryUseCase(genre,page.value, PAGE_SIZE).onEach { result ->
                     when(result){
                         is Resource.Error -> {
-                            _state.value = SearchScreenState(message = result.message?: "Unexpected error occurred")
+                            _state.value = GamesListScreenState(message = result.message?: "Unexpected error occurred")
                             _uiEvent.emit(UiEvent.ShowToast(message = result.message?:"unexpected error occurred"))
                         }
                         is Resource.Success -> {
@@ -70,7 +70,7 @@ class GamesListViewModel @Inject constructor(
                     }
                 }.launchIn(viewModelScope)
             }
-            _state.value = SearchScreenState(isNextLoading = false)
+            _state.value = GamesListScreenState(isNextLoading = false)
         }
     }
     private fun appendGames(games: List<GameModel>){
