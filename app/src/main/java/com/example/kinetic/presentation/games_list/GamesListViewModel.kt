@@ -94,23 +94,14 @@ class GamesListViewModel @Inject constructor(
         gamesScrollPosition = position
     }
 
-    fun onEvent(searchScreenEvents: SearchScreenEvents){
-        when(searchScreenEvents){
-            is SearchScreenEvents.OnSearchClicked -> {
-                searchGame()
-            }
-            is SearchScreenEvents.OnBackClicked -> {
-                sendUiEvent(UiEvent.PopBackStack)
-            }
-            is SearchScreenEvents.OnSearchQueryChanged ->{
-                searchQuery = searchScreenEvents.search
-            }
-        }
-    }
+    fun onEvent(gamesListEvents: GamesListEvents){
+        when(gamesListEvents){
+            is GamesListEvents.OnGameClicked -> {
 
-    private fun sendUiEvent(uiEvent: UiEvent){
-        viewModelScope.launch {
-            _uiEvent.send(uiEvent)
+            }
+            is GamesListEvents.OnPopBackStack -> {
+
+            }
         }
     }
 }
