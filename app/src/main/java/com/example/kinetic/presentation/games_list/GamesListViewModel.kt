@@ -4,23 +4,18 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kinetic.constants.Resource
 import com.example.kinetic.domain.model.GameModel
 import com.example.kinetic.domain.use_case.GetGamesByCategoryUseCase
-import com.example.kinetic.domain.use_case.GetGenresUseCase
 import com.example.kinetic.presentation.search.PAGE_SIZE
-import com.example.kinetic.presentation.search.SearchScreenEvents
 import com.example.kinetic.presentation.search.SearchScreenState
 import com.example.kinetic.presentation.uievent.UiEvent
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -58,26 +53,26 @@ class GamesListViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-//    fun nextPage(){
-//        if((gamesScrollPosition + 1) >= (page.value * PAGE_SIZE)){
-//            _state.value = SearchScreenState(isNextLoading = true)
-//            incrementPage()
-//            if (page.value > 1){
-//                searchGameUseCase(searchQuery,page.value, PAGE_SIZE).onEach { result ->
-//                    when(result){
-//                        is Resource.Error -> {
-//                            _state.value = SearchScreenState(message = result.message?: "Unexpected error occurred")
-//                            sendUiEvent(UiEvent.ShowToast(message = result.message?:"unexpected error occurred"))
-//                        }
-//                        is Resource.Success -> {
-//                            appendGames(result.data?: emptyList())
-//                        } else -> Unit
-//                    }
-//                }.launchIn(viewModelScope)
-//            }
-//            _state.value = SearchScreenState(isNextLoading = false)
-//        }
-//    }
+    fun nextPage(){
+        if((gamesScrollPosition + 1) >= (page.value * PAGE_SIZE)){
+            _state.value = SearchScreenState(isNextLoading = true)
+            incrementPage()
+            if (page.value > 1){
+                getGamesByCategoryUseCase(genre,page.value, PAGE_SIZE).onEach { result ->
+                    when(result){
+                        is Resource.Error -> {
+                            _state.value = SearchScreenState(message = result.message?: "Unexpected error occurred")
+                            _uiEvent.emit(UiEvent.ShowToast(message = result.message?:"unexpected error occurred"))
+                        }
+                        is Resource.Success -> {
+                            appendGames(result.data?: emptyList())
+                        } else -> Unit
+                    }
+                }.launchIn(viewModelScope)
+            }
+            _state.value = SearchScreenState(isNextLoading = false)
+        }
+    }
     private fun appendGames(games: List<GameModel>){
         val current = ArrayList(this.currentGames.value)
         current.addAll(games)
