@@ -52,8 +52,6 @@ import com.example.kinetic.presentation.home.components.GameCard
 import com.example.kinetic.presentation.main.BottomNavItem
 import com.example.kinetic.presentation.main.BottomNavigationBar
 import com.example.kinetic.presentation.screen.Screens
-import com.example.kinetic.presentation.search.SearchScreenEvents
-import com.example.kinetic.presentation.shared.SearchBar
 import com.example.kinetic.presentation.uievent.UiEvent
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
