@@ -35,7 +35,7 @@ class GenresScreenViewModel @Inject constructor(
         when(genresScreenEvents){
             is GenresScreenEvents.OnGenreClicked -> {
                 viewModelScope.launch {
-                    _uiEvents.emit(UiEvent.OnNavigate(Screens.HomeScreen.route))
+                    _uiEvents.emit(UiEvent.OnNavigate(Screens.GenreScreen.route + "/${genresScreenEvents.genre}"))
                 }
             }
         }
