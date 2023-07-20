@@ -4,6 +4,8 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kinetic.constants.Resource
@@ -20,10 +22,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class GamesListViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle,
     private val getGamesByCategoryUseCase: GetGamesByCategoryUseCase
 ): ViewModel() {
     val currentGames: MutableState<List<GameModel>> = mutableStateOf(ArrayList())
-    val genre by mutableStateOf("")
+    var genre by mutableStateOf("")
 
     val page = mutableStateOf(1)
     private var gamesScrollPosition = 0
@@ -34,6 +37,9 @@ class GamesListViewModel @Inject constructor(
     private val _state = mutableStateOf(GamesListScreenState())
     val state: State<GamesListScreenState> = _state
 
+    init {
+        genre = savedStateHandle.get<String>("genre").toString()
+    }
     fun searchGame(){
         resetSearchState()
         getGamesByCategoryUseCase(genre, page.value, PAGE_SIZE).onEach { result ->

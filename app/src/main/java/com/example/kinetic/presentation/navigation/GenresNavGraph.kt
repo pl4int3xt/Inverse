@@ -19,7 +19,7 @@ fun NavGraphBuilder.genresNavGraph(navHostController: NavHostController) {
         startDestination = Screens.GenreScreen.route
     ){
         composable(
-            route = Screens.GenreScreen.route,
+            route = Screens.GenreScreen.route + "/{genre}",
             enterTransition = {
                 when (targetState.destination.route) {
                     navHostController.currentDestination?.route ->
