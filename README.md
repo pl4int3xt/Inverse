@@ -3,18 +3,29 @@
 Kinetic is A games details App Built with Jetpack Compose using the Rawg API. The app follows mvvm clean architecture design pattern
 
 ## **Screenshots**
+- #### Material 3 Mode
+<img src="./screenshots/material_home.jpg" width="320">&emsp;
+<img src="./screenshots/material_genre.jpg" width="320">&emsp;
+<img src="./screenshots/material_search.jpg" width="320">&emsp;
+<img src="./screenshots/material_details.jpg" width="320">&emsp;
+<img src="./screenshots/material_settings.jpg" width="320">&emsp;
+<img src="./screenshots/material_theme.jpg" width="320">
 
 - #### Light Mode
-<img src="./screenshots/Screenshot_1674997485.png" width="320">&emsp;
-<img src="./screenshots/Screenshot_1674904799.png" width="320">&emsp;
-<img src="./screenshots/Screenshot_1674998781.png" width="320">&emsp;
-<img src="./screenshots/Screenshot_1674915030.png" width="320">
+<img src="./screenshots/light_home.jpg" width="320">&emsp;
+<img src="./screenshots/light_genre.jpg" width="320">&emsp;
+<img src="./screenshots/light_search.jpg" width="320">&emsp;
+<img src="./screenshots/light_details.jpg" width="320">&emsp;
+<img src="./screenshots/light_settings.jpg" width="320">&emsp;
+<img src="./screenshots/light_theme.jpg" width="320">
 
 - #### Dark Mode
-<img src="./screenshots/Screenshot_1674997493.png" width="320">&emsp;
-<img src="./screenshots/Screenshot_1674904724.png" width="320">&emsp;
-<img src="./screenshots/Screenshot_1674915023.png" width="320">&emsp;
-<img src="./screenshots/Screenshot_1674998940.png" width="320">
+<img src="./screenshots/dark_home.jpg" width="320">&emsp;
+<img src="./screenshots/dark_genre.jpg" width="320">&emsp;
+<img src="./screenshots/dark_search.jpg" width="320">&emsp;
+<img src="./screenshots/dark_details.jpg" width="320">&emsp;
+<img src="./screenshots/dark_settings.jpg" width="320">&emsp;
+<img src="./screenshots/dark_theme.jpg" width="320">
 
 ## API_KEY
 Replace the api key in the constants object with your own key from [Rawg](https://rawg.io)
