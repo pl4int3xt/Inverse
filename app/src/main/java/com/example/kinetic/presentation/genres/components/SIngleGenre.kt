@@ -5,9 +5,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,11 +25,12 @@ import com.example.kinetic.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SingleGenre(
+    onClick:() -> Unit,
     image: String,
     title: String,
     gameCount: Int
 ) {
-    ElevatedCard(
+    Card(
         modifier = Modifier
             .height(300.dp)
             .padding(10.dp)
@@ -36,8 +39,11 @@ fun SingleGenre(
             defaultElevation = 10.dp,
             pressedElevation = 0.dp
         ),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.onPrimary
+        ),
         shape = RoundedCornerShape(10.dp),
-        onClick = { /*TODO*/ }
+        onClick = { onClick() }
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -53,12 +59,14 @@ fun SingleGenre(
                 modifier = Modifier.padding(start = 16.dp, top = 5.dp)
             ){
                 Text(
+                    color = MaterialTheme.colorScheme.tertiary,
                     textAlign = TextAlign.Start,
                     text = title,
                     fontWeight = FontWeight.Bold,
                     fontSize = 20.sp
                 )
                 Text(
+                    color = MaterialTheme.colorScheme.tertiary,
                     textAlign = TextAlign.Start,
                     text = gameCount.toString(),
                     fontWeight = FontWeight.Bold,

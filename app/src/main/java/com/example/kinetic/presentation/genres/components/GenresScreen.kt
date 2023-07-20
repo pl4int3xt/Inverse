@@ -44,6 +44,7 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.kinetic.R
+import com.example.kinetic.presentation.genres.GenresScreenEvents
 import com.example.kinetic.presentation.genres.GenresScreenViewModel
 import com.example.kinetic.presentation.main.BottomNavItem
 import com.example.kinetic.presentation.main.BottomNavigationBar
@@ -168,7 +169,10 @@ fun GenresScreen(
                                         SingleGenre(
                                             image = genre.imageBackground,
                                             title = genre.slug,
-                                            gameCount = genre.gamesCount
+                                            gameCount = genre.gamesCount,
+                                            onClick = {
+                                                viewModel.onEvent(GenresScreenEvents.OnGenreClicked(genre.slug))
+                                            }
                                         )
                                     }
                                 }
