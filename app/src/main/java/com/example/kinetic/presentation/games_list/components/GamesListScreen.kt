@@ -66,7 +66,6 @@ fun GamesListScreen(
     val page = viewModel.page.value
     val context = LocalContext.current
     val state = viewModel.state.value
-    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
     val games = viewModel.currentGames.value
 
     LaunchedEffect(key1 = true, context){
@@ -85,7 +84,6 @@ fun GamesListScreen(
         }
     }
     Scaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         bottomBar = {
             BottomNavigationBar(
                 modifier = Modifier
@@ -123,7 +121,10 @@ fun GamesListScreen(
             )
         }
     ) {
-        Box(modifier = Modifier.fillMaxSize()){
+        Box(
+            modifier = Modifier.fillMaxSize()
+                .padding(top = it.calculateTopPadding())
+        ){
             if(state.isLoading){
                 val lottieCompositionSpec by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(
                     R.raw.gaming))
