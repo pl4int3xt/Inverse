@@ -86,9 +86,6 @@ fun GamesListScreen(
     }
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = {
-
-        },
         bottomBar = {
             BottomNavigationBar(
                 modifier = Modifier
@@ -153,50 +150,39 @@ fun GamesListScreen(
                     ),
                     shape = CircleShape
                     ,
-                    onClick = { viewModel.searchGame() }) {
+                    onClick = {  }) {
                     Icon(
                         tint = MaterialTheme.colorScheme.tertiary,
                         imageVector = Icons.Default.Refresh, contentDescription = "refresh icon")
                 }
             } else {
-                Box {
-                    LazyColumn() {
-                        item {
-                            Column(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(100.dp)
-                            ) {
-
-                            }
+                LazyColumn() {
+                    itemsIndexed(games) { i, game ->
+                        viewModel.onChangeGamesScrollPosition(i)
+                        if ((i + 1) >= (page * PAGE_SIZE) && !state.isNextLoading) {
+                            viewModel.nextPage()
                         }
-                        itemsIndexed(games) { i, game ->
-                            viewModel.onChangeGamesScrollPosition(i)
-                            if ((i + 1) >= (page * PAGE_SIZE) && !state.isNextLoading) {
-                                viewModel.nextPage()
-                            }
-                            GameCard(
-                                name = game.name ?: "",
-                                image = game.image ?: "",
-                                rating = game.rating ?: 0.0,
-                                metacritic = game.metacritic ?: 0,
-                                onclick = {
-                                    navHostController.navigate(
-                                        Screens.GameDetailsScreen.route + "/${game.id}"
-                                    )
-                                }
-                            )
-                        }
-                        if (state.isNextLoading) {
-                            item {
-                                CircularProgressIndicator(
-                                    modifier = Modifier.align(Alignment.BottomCenter)
+                        GameCard(
+                            name = game.name ?: "",
+                            image = game.image ?: "",
+                            rating = game.rating ?: 0.0,
+                            metacritic = game.metacritic ?: 0,
+                            onclick = {
+                                navHostController.navigate(
+                                    Screens.GameDetailsScreen.route + "/${game.id}"
                                 )
                             }
-                        }
+                        )
+                    }
+                    if (state.isNextLoading) {
                         item {
-                            Spacer(modifier = Modifier.height(100.dp))
+                            CircularProgressIndicator(
+                                modifier = Modifier.align(Alignment.BottomCenter)
+                            )
                         }
+                    }
+                    item {
+                        Spacer(modifier = Modifier.height(100.dp))
                     }
                 }
             }

@@ -23,6 +23,7 @@ import com.example.kinetic.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SingleGenre(
+    onClick:() -> Unit,
     image: String,
     title: String,
     gameCount: Int
@@ -37,7 +38,7 @@ fun SingleGenre(
             pressedElevation = 0.dp
         ),
         shape = RoundedCornerShape(10.dp),
-        onClick = { /*TODO*/ }
+        onClick = { onClick() }
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),

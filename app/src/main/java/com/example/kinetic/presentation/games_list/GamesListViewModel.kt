@@ -14,6 +14,7 @@ import com.example.kinetic.domain.use_case.GetGamesByCategoryUseCase
 import com.example.kinetic.presentation.search.PAGE_SIZE
 import com.example.kinetic.presentation.search.SearchScreenState
 import com.example.kinetic.presentation.uievent.UiEvent
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.launchIn
@@ -21,6 +22,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class GamesListViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getGamesByCategoryUseCase: GetGamesByCategoryUseCase
@@ -39,8 +41,9 @@ class GamesListViewModel @Inject constructor(
 
     init {
         genre = savedStateHandle.get<String>("genre").toString()
+        getGamesByGenre(genre)
     }
-    fun searchGame(){
+    private fun getGamesByGenre(genre: String){
         resetSearchState()
         getGamesByCategoryUseCase(genre, page.value, PAGE_SIZE).onEach { result ->
             when(result){
